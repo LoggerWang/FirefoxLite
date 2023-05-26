@@ -34,7 +34,7 @@ class EditBookmarkActivity : BaseActivity() {
 
     private lateinit var viewModel: BookmarkViewModel
 
-    private val itemId: String by lazy { intent.getStringExtra(ITEM_UUID_KEY) }
+    private val itemId: String by lazy { intent.getStringExtra(ITEM_UUID_KEY).toString() }
     private lateinit var bookmark: BookmarkModel
     private val editTextName: EditText by lazy { findViewById<EditText>(R.id.bookmark_name) }
     private val editTextLocation: EditText by lazy { findViewById<EditText>(R.id.bookmark_location) }
@@ -146,7 +146,7 @@ class EditBookmarkActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
             SAVE_ACTION_ID -> {
                 viewModel.updateBookmark(BookmarkModel(bookmark.id, editTextName.text.toString(), editTextLocation.text.toString()))

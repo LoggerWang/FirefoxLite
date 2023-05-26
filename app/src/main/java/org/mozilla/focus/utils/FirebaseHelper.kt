@@ -103,13 +103,13 @@ object FirebaseHelper {
     @JvmStatic
     fun init(context: Context, enabled: Boolean) {
 
-        if (AppConstants.isBuiltWithFirebase()) {
-            firebaseContract = provideFirebaseImpl(context)
-            Log.d(TAG, "We are using FirebaseImp")
-        } else {
+//        if (AppConstants.isBuiltWithFirebase()) {
+//            firebaseContract = provideFirebaseImpl(context)
+//            Log.d(TAG, "We are using FirebaseImp")
+//        } else {
             firebaseContract = provideFirebaseNoOpImpl(context)
             Log.d(TAG, "We are using FirebaseNoOpImp")
-        }
+//        }
 
         // if firebaseContract is only used to initialized Firebase Helper once. It
         // doesn't make sense to use the new contract to initialize again.

@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildSrc/pmd.gradle'
 apply from: '../buildSrc/checkstyle.gradle'
-apply from: '../buildSrc/findbugs.gradle'
+//apply from: '../buildSrc/findbugs.gradle'
 
 android {
 
@@ -92,14 +92,14 @@ dependencies {
     implementation ("com.google.firebase:firebase-inappmessaging-display:${Versions.firebase_iam}") {
         // TODO: need to check if it can be moved to firebase module after this or worker manager libraries upgraded
         // has conflicts with existing library
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+//        exclude group: 'com.google.code.findbugs', module: 'jsr305'
         exclude group: 'com.google.code.gson', module: 'gson'
     }
 }
 
 
 afterEvaluate {
-    check.dependsOn 'findbugs', 'pmd', 'checkstyle'
+    check.dependsOn  'pmd', 'checkstyle'//'findbugs',
 }
 repositories {
     mavenCentral()

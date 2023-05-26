@@ -403,8 +403,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         home_fragment_fake_input_text.text = getString(R.string.home_search_bar_text)
     }
 
-    fun notifyAddNewTopSiteResult(pinTopSiteResult: PinTopSiteUseCase.PinTopSiteResult) {
-        homeViewModel.onAddNewTopSiteResult(pinTopSiteResult)
+    fun notifyAddNewTopSiteResult(pinTopSiteResult: PinTopSiteUseCase.PinTopSiteResult?) {
+        if (pinTopSiteResult != null) {
+            homeViewModel.onAddNewTopSiteResult(pinTopSiteResult)
+        }
     }
 
     private fun showTopSiteMenu(anchorView: View, pinEnabled: Boolean, site: Site, position: Int) {

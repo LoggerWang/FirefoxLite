@@ -17,7 +17,7 @@ object FxToast {
     fun show(appContext: Context, msg: String, duration: Int = Toast.LENGTH_LONG) {
         val lastToast = toastWeak.get()
         val newToast = if (lastToast != null) {
-            createToast(appContext, duration, customView = lastToast.view.apply { text.text = msg })
+            createToast(appContext, duration, customView = lastToast.view?.apply { text.text = msg }!!)
         } else {
             createToast(appContext, duration, customView = inflateCustomView(appContext, msg))
         }

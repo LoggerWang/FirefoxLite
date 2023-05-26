@@ -120,7 +120,7 @@ public class ScreenshotManager {
         initWithJson(IOUtils.readAsset(context, "screenshots-mapping.json"));
     }
 
-    @SuppressFBWarnings(value = "RV_RETURN_VALUE_IGNORED", justification = "We don't care about the results here")
+//    @SuppressFBWarnings(value = "RV_RETURN_VALUE_IGNORED", justification = "We don't care about the results here")
     private boolean initFromRemote(Context context) throws InterruptedException {
         // Blocking until either cache or network;
         CountDownLatch countDownLatch = new CountDownLatch(1);

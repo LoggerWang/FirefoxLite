@@ -146,7 +146,7 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
         SearchEngineManager.getInstance().init(this)
 
         LocalAbTesting.init(this)
-        AdjustHelper.setupAdjustIfNeeded(this)
+//        AdjustHelper.setupAdjustIfNeeded(this)
 
         BrowsingHistoryManager.getInstance().init(this)
         ScreenshotManager.getInstance().init(this)
@@ -173,29 +173,60 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
      */
     private fun monitorPrivateProcess() {
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityPaused(activity: Activity?) {
-            }
+//            override fun onActivityPaused(activity: Activity?) {
+//            }
+//
+//            override fun onActivityResumed(activity: Activity?) {
+//            }
+//
+//            override fun onActivityStarted(activity: Activity?) {
+//            }
+//
+//            override fun onActivityDestroyed(activity: Activity?) {
+//            }
+//
+//            override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+//            }
+//
+//            override fun onActivityStopped(activity: Activity?) {
+//            }
+//
+//            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+//                // once PrivateModeActivity exist, this process is for private mode
+//                if (activity is PrivateModeActivity) {
+//                    isInPrivateProcess = true
+//                }
+//            }
 
-            override fun onActivityResumed(activity: Activity?) {
-            }
-
-            override fun onActivityStarted(activity: Activity?) {
-            }
-
-            override fun onActivityDestroyed(activity: Activity?) {
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-            }
-
-            override fun onActivityStopped(activity: Activity?) {
-            }
-
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 // once PrivateModeActivity exist, this process is for private mode
                 if (activity is PrivateModeActivity) {
                     isInPrivateProcess = true
                 }
+            }
+
+            override fun onActivityStarted(activity: Activity) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onActivityResumed(activity: Activity) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onActivityPaused(activity: Activity) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onActivityStopped(activity: Activity) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
+                TODO("Not yet implemented")
             }
         })
     }

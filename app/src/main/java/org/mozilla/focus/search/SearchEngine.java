@@ -41,7 +41,7 @@ public class SearchEngine {
     // We don't currently support search suggestions, however that's something that we might
     // need to support in future, moreover this is already stored in the input files that we're merely
     // moving into memory - hence we probably want to keep this field for now:
-    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "Needed for future versions, reflects on-disk format")
+//    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "Needed for future versions, reflects on-disk format")
     /* package */ Uri suggestUri;
     /* package */ String searchForm;
 

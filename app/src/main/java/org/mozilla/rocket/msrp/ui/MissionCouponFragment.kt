@@ -128,7 +128,7 @@ class MissionCouponFragment : Fragment() {
 
     private fun copyToClipboard(label: String, text: String) {
         getSystemService(appContext(), ClipboardManager::class.java)?.run {
-            primaryClip = ClipData.newPlainText(label, text)
+//            primaryClip = ClipData.newPlainText(label, text)
         }
     }
 

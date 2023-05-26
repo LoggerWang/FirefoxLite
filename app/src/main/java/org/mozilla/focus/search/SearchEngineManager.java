@@ -179,7 +179,7 @@ public class SearchEngineManager extends BroadcastReceiver {
 
     // Our (searchEngines == null) check is deemed to be an unsynchronised access. Similarly loadHasBeenTriggered
     // also doesn't need synchronisation:
-    @SuppressFBWarnings(value = "IS2_INCONSISTENT_SYNC", justification = "Variable is not being accessed, it is merely being tested for existence")
+//    @SuppressFBWarnings(value = "IS2_INCONSISTENT_SYNC", justification = "Variable is not being accessed, it is merely being tested for existence")
     public void awaitLoadingSearchEnginesLocked() {
         if (!loadHasBeenTriggered) {
             throw new IllegalStateException("Attempting to retrieve search engines without a corresponding init()");

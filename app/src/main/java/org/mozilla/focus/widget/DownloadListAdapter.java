@@ -249,7 +249,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static class DownloadViewHolder extends RecyclerView.ViewHolder {
 
-        @SuppressFBWarnings("URF_UNREAD_FIELD")
+//        @SuppressFBWarnings("URF_UNREAD_FIELD")
         ImageView icon;
         TextView title;
         TextView subtitle;
@@ -269,7 +269,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static class DownloadEmptyViewHolder extends RecyclerView.ViewHolder {
 
-        @SuppressFBWarnings("URF_UNREAD_FIELD")
+//        @SuppressFBWarnings("URF_UNREAD_FIELD")
         ImageView imag;
 
         DownloadEmptyViewHolder(View itemView) {

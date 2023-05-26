@@ -506,7 +506,8 @@ class MainActivity : BaseActivity(),
                 if (data != null) {
                     val url = data.getStringExtra(ScreenshotViewerActivity.EXTRA_URL)
                     mDialogFragment?.dismissAllowingStateLoss()
-                    chromeViewModel.openUrl.value = OpenUrlAction(url, withNewTab = true, isFromExternal = false)
+                    chromeViewModel.openUrl.value =
+                        url?.let { OpenUrlAction(it, withNewTab = true, isFromExternal = false) }
                 }
             }
         } else if (requestCode == AddNewTopSitesActivity.REQUEST_CODE_ADD_NEW_TOP_SITES) {

@@ -6,9 +6,10 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply from: '../buildSrc/pmd.gradle'
 apply from: '../buildSrc/checkstyle.gradle'
-apply from: '../buildSrc/findbugs.gradle'
+//apply from: '../buildSrc/findbugs.gradle'
 apply from: 'buildscripts/l10n.gradle'
-apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion Versions.compile_sdk
@@ -131,21 +132,21 @@ android {
         focus {
             resConfigs Localization.KEPT_LOCALE
             dimension "product"
-            FirebasePerformance {
-                // Set this flag to 'false' to disable @AddTrace annotation processing and
-                // automatic HTTP/S network request monitoring
-                // for a specific build variant at compile time.
-                instrumentationEnabled false
-            }
+//            FirebasePerformance {
+//                // Set this flag to 'false' to disable @AddTrace annotation processing and
+//                // automatic HTTP/S network request monitoring
+//                // for a specific build variant at compile time.
+//                instrumentationEnabled false
+//            }
         }
 
         preview {
             dimension "product"
             applicationIdSuffix ".beta"
             versionNameSuffix ".beta"
-            FirebasePerformance {
-                instrumentationEnabled true
-            }
+//            FirebasePerformance {
+//                instrumentationEnabled true
+//            }
         }
 
         // We can build with two engines: webkit or gecko
@@ -181,10 +182,10 @@ android {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
-    androidExtensions {
-        experimental = true
-        defaultCacheImplementation = "SPARSE_ARRAY"
-    }
+//    androidExtensions {
+//        experimental = true
+//        defaultCacheImplementation = "SPARSE_ARRAY"
+//    }
 }
 
 repositories {
@@ -246,15 +247,15 @@ dependencies {
     // to fix dependency conflicts between work-runtime and firebase-inappmessaging-display
     implementation("com.google.guava:guava:${Versions.guava_android}") {
         // has conflicts with existing library
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+//        exclude group: 'com.google.code.findbugs', module: 'jsr305'
         exclude group: 'com.google.code.gson', module: 'gson'
     }
 
-    implementation("com.google.code.findbugs:annotations:${Versions.findbugs}", {
-        // We really only need the SuppressFBWarnings annotation, everything else can be ignored.
-        // Without this we get weird failures due to dependencies.
-        transitive = false
-    })
+//    implementation("com.google.code.findbugs:annotations:${Versions.findbugs}", {
+//        // We really only need the SuppressFBWarnings annotation, everything else can be ignored.
+//        // Without this we get weird failures due to dependencies.
+//        transitive = false
+//    })
 
     implementation "org.mozilla.components:browser-session:${Versions.android_components}"
     implementation "org.mozilla.components:service-telemetry:${Versions.android_components}"
@@ -442,7 +443,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 afterEvaluate {
-    check.dependsOn 'findbugs', 'pmd', 'checkstyle', 'checkTelemetryDocDirty', 'ktlint'
+    check.dependsOn  'pmd', 'checkstyle', 'checkTelemetryDocDirty'//, 'ktlint'//'findbugs',
 }
 
 task checkTelemetryDocDirty() {

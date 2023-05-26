@@ -321,7 +321,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     override fun applyLocale() {
         // We create and destroy a new WebView here to force the internal state of WebView to know
         // about the new language. See issue #666.
-        val unneeded = WebView(context)
+        val unneeded = WebView(requireContext())
         unneeded.destroy()
     }
 

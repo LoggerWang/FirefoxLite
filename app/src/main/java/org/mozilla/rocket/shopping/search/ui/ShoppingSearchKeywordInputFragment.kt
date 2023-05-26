@@ -9,21 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_shopping_search_keyword_input.*
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.ViewUtils
+import org.mozilla.focus.widget.FlowLayout
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.getViewModel
 import org.mozilla.rocket.shopping.search.data.ShoppingSearchMode
 import javax.inject.Inject
+import org.mozilla.focus.widget.ResizableKeyboardLayout
 
 class ShoppingSearchKeywordInputFragment : Fragment(), View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -31,6 +33,15 @@ class ShoppingSearchKeywordInputFragment : Fragment(), View.OnClickListener, Vie
     lateinit var viewModelCreator: Lazy<ShoppingSearchKeywordInputViewModel>
 
     private lateinit var viewModel: ShoppingSearchKeywordInputViewModel
+    private lateinit var search_keyword_edit : EditText
+    private lateinit var clear : ImageButton
+    private lateinit var root_view : ResizableKeyboardLayout
+    private lateinit var search_suggestion_layout : FrameLayout
+    private lateinit var content_layout : ConstraintLayout
+    private lateinit var description : TextView
+    private lateinit var logo_man : ImageView
+    private lateinit var input_container: LinearLayout
+    private lateinit var search_suggestion_view : FlowLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -44,7 +55,15 @@ class ShoppingSearchKeywordInputFragment : Fragment(), View.OnClickListener, Vie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        search_keyword_edit = view.findViewById(R.id.search_keyword_edit)
+        clear = view.findViewById(R.id.clear)
+        root_view = view.findViewById(R.id.root_view)
+        search_suggestion_layout = view.findViewById(R.id.search_suggestion_layout)
+        content_layout = view.findViewById(R.id.content_layout)
+        description = view.findViewById(R.id.description)
+        logo_man = view.findViewById(R.id.logo_man)
+        input_container = view.findViewById(R.id.input_container)
+        search_suggestion_view = view.findViewById(R.id.search_suggestion_view)
         ShoppingSearchMode.getInstance(view.context).deleteKeyword()
 
         viewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->

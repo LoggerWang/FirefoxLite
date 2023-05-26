@@ -5,8 +5,8 @@ import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fx_toast.view.text
 import org.mozilla.focus.R
 import java.lang.ref.WeakReference
 
@@ -17,7 +17,9 @@ object FxToast {
     fun show(appContext: Context, msg: String, duration: Int = Toast.LENGTH_LONG) {
         val lastToast = toastWeak.get()
         val newToast = if (lastToast != null) {
-            createToast(appContext, duration, customView = lastToast.view?.apply { text.text = msg }!!)
+            createToast(appContext, duration, customView = lastToast.view?.apply {
+                var view : View = getLayoutInflater(appContext).inflate(R.layout.fx_toast, null);
+                view.findViewById<TextView>(R.id.text).setText(msg) }!!)
         } else {
             createToast(appContext, duration, customView = inflateCustomView(appContext, msg))
         }
@@ -26,10 +28,11 @@ object FxToast {
         newToast.show()
     }
 
-    private fun inflateCustomView(appContext: Context, msg: String): View =
-            getLayoutInflater(appContext).inflate(R.layout.fx_toast, null).apply {
-                text.text = msg
-            }
+    private fun inflateCustomView(appContext: Context, msg: String): View {
+        var view : View = getLayoutInflater(appContext).inflate(R.layout.fx_toast, null);
+        view.findViewById<TextView>(R.id.text).setText(msg)
+        return view
+    }
 
     private fun createToast(appContext: Context, duration: Int, customView: View) = Toast(appContext)
             .apply {

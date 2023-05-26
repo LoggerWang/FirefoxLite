@@ -2,9 +2,10 @@
 package org.mozilla.rocket.widget
 
 import android.content.Context
+import android.media.Image
 import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.layout_promotion_dialog.view.*
 import org.mozilla.focus.R
 import org.mozilla.rocket.landing.DialogQueue
 
@@ -22,6 +23,13 @@ class PromotionDialog(
 
     private val onShowListeners = mutableListOf<() -> Unit>()
     private val onDismissListeners = mutableListOf<() -> Unit>()
+    private lateinit var image : ImageView
+    private lateinit var title : TextView
+    private lateinit var description : TextView
+    private lateinit var positive_button : Button
+    private lateinit var negative_button : Button
+    private lateinit var close_button : ImageButton
+    private lateinit var do_not_ask_again_checkbox : CheckBox
 
     private var cancellable = false
 
@@ -74,47 +82,47 @@ class PromotionDialog(
     }
 
     private fun initView() {
-        with(view.image) {
+        image = view.findViewById<ImageView>(R.id.image)
+        with(image) {
             val width = data.imgWidth
             val height = data.imgHeight
-            if (width != null && height != null) {
-                layoutParams.apply {
-                    this.width = width
-                    this.height = height
-                }
-            }
-            data.drawable?.let { setImageDrawable(it) } ?: run { visibility = View.GONE }
+            data.drawable?.let { image.setImageDrawable(it) } ?: run { image.visibility = View.GONE }
         }
 
-        with(view.title) {
+        title = view.findViewById(R.id.title)
+        with(title) {
             data.title?.let { text = it } ?: run { visibility = View.GONE }
         }
-
-        with(view.description) {
+        description = view.findViewById(R.id.description)
+        with(description) {
             data.description?.let { text = it } ?: run { visibility = View.GONE }
         }
 
-        with(view.positive_button) {
+        positive_button = view.findViewById<Button>(R.id.positive_button)
+        with(positive_button) {
             data.positiveText?.let { text = it } ?: run {
                 visibility = View.GONE
-                view.button_divider1.visibility = View.GONE
+                (view.findViewById(R.id.button_divider1) as View).visibility = View.GONE
             }
         }
 
-        with(view.negative_button) {
+        negative_button = view.findViewById(R.id.negative_button)
+        with(negative_button) {
             data.negativeText?.let { text = it } ?: run {
                 visibility = View.GONE
-                view.button_divider2.visibility = View.GONE
+                (view.findViewById(R.id.button_divider2) as View).visibility = View.GONE
             }
         }
 
-        view.close_button.visibility = if (data.showCloseButton) {
+        close_button = view.findViewById(R.id.close_button)
+        close_button.visibility = if (data.showCloseButton) {
             View.VISIBLE
         } else {
             View.GONE
         }
 
-        view.do_not_ask_again_checkbox.visibility = if (data.showDoNotAskMeAgainButton) {
+        do_not_ask_again_checkbox = view.findViewById(R.id.do_not_ask_again_checkbox)
+        do_not_ask_again_checkbox.visibility = if (data.showDoNotAskMeAgainButton) {
             View.VISIBLE
         } else {
             View.GONE
@@ -130,23 +138,23 @@ class PromotionDialog(
                 .setCancelable(cancellable)
                 .create()
 
-        view.positive_button.setOnClickListener {
+        positive_button.setOnClickListener {
             dialog.dismiss()
             onPositiveListener?.invoke()
         }
 
-        view.negative_button.setOnClickListener {
+        negative_button.setOnClickListener {
             dialog.dismiss()
             onNegativeListener?.invoke()
         }
 
-        view.close_button.setOnClickListener {
+        close_button.setOnClickListener {
             dialog.dismiss()
             onCloseListener?.invoke()
         }
 
-        view.do_not_ask_again_checkbox.setOnClickListener {
-            onDoNotAskMeAgainListener?.invoke(view.do_not_ask_again_checkbox.isChecked)
+        do_not_ask_again_checkbox.setOnClickListener {
+            onDoNotAskMeAgainListener?.invoke(do_not_ask_again_checkbox.isChecked)
         }
 
         dialog.setOnShowListener {

@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_shopping_search_preferences.*
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -27,11 +28,14 @@ class ShoppingSearchPreferencesActivity : AppCompatActivity() {
     private lateinit var viewModel: ShoppingSearchPreferencesViewModel
 
     private lateinit var adapter: DelegateAdapter
+    private lateinit var toolbar : Toolbar
+    private lateinit var recyclerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_search_preferences)
+        recyclerView = findViewById(R.id.recyclerView)
         viewModel = getViewModel(viewModelCreator)
         initToolBar()
         initPreferenceList()
@@ -43,6 +47,7 @@ class ShoppingSearchPreferencesActivity : AppCompatActivity() {
     }
 
     private fun initToolBar() {
+        toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }

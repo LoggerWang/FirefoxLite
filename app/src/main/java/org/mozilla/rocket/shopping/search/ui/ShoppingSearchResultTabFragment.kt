@@ -8,9 +8,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -21,19 +19,9 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.animation.AnimationUtils
 import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.appbar
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.bottom_bar
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.preferenceButton
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.tab_layout
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.tab_layout_scroll_view
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.url_bar
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.video_container
-import kotlinx.android.synthetic.main.fragment_shopping_search_result_tab.view_pager
-import kotlinx.android.synthetic.main.layout_collapsing_url_bar.progress
-import kotlinx.android.synthetic.main.toolbar.display_url
-import kotlinx.android.synthetic.main.toolbar.site_identity
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.AppConstants
+import org.mozilla.focus.widget.AnimatedProgressBar
 import org.mozilla.focus.widget.BackKeyHandleable
 import org.mozilla.focus.widget.ResizableKeyboardLayout.OnKeyboardVisibilityChangedListener
 import org.mozilla.rocket.chrome.BottomBarItemAdapter
@@ -49,13 +37,17 @@ import org.mozilla.rocket.content.view.BottomBar
 import org.mozilla.rocket.content.view.BottomBar.BottomBarBehavior.Companion.slideUp
 import org.mozilla.rocket.extension.nonNullObserve
 import org.mozilla.rocket.extension.switchFrom
+import org.mozilla.rocket.nightmode.themed.ThemedImageView
+import org.mozilla.rocket.nightmode.themed.ThemedTextView
 import org.mozilla.rocket.shopping.search.data.ShoppingSearchMode
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchTabsAdapter.TabItem
 import org.mozilla.rocket.tabs.Session
 import org.mozilla.rocket.tabs.SessionManager
 import org.mozilla.rocket.tabs.TabsSessionProvider
 import org.mozilla.rocket.tabs.utils.TabUtil
+import org.mozilla.rocket.widget.LockableViewPager
 import javax.inject.Inject
+import com.google.android.material.appbar.AppBarLayout
 
 class ShoppingSearchResultTabFragment : Fragment(), ContentTabViewContract, BackKeyHandleable {
 
@@ -78,6 +70,17 @@ class ShoppingSearchResultTabFragment : Fragment(), ContentTabViewContract, Back
     private lateinit var contentTabHelper: ContentTabHelper
     private lateinit var contentTabObserver: ContentTabHelper.Observer
     private lateinit var bottomBarItemAdapter: BottomBarItemAdapter
+    private lateinit var appbar : AppBarLayout
+    private lateinit var bottom_bar : BottomBar
+    private lateinit var preferenceButton : ImageButton
+    private lateinit var tab_layout : TableLayout
+    private lateinit var tab_layout_scroll_view : HorizontalScrollView
+    private lateinit var url_bar : CollapsingUrlBar
+    private lateinit var video_container : FrameLayout
+    private lateinit var view_pager : LockableViewPager
+    private lateinit var progress : AnimatedProgressBar
+    private lateinit var display_url : ThemedTextView
+    private lateinit var site_identity : ThemedImageView
 
     private val scrollAnimator: ValueAnimator by lazy {
         ValueAnimator().apply {
@@ -106,6 +109,17 @@ class ShoppingSearchResultTabFragment : Fragment(), ContentTabViewContract, Back
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBottomBar(view)
+        appbar = view.findViewById(R.id.appbar)
+        bottom_bar = view.findViewById<BottomBar>(R.id.bottom_bar)
+        preferenceButton = view.findViewById(R.id.preferenceButton)
+        tab_layout = view.findViewById(R.id.tab_layout)
+        tab_layout_scroll_view = view.findViewById(R.id.tab_layout_scroll_view)
+        url_bar = view.findViewById(R.id.url_bar)
+        video_container = view.findViewById(R.id.video_container)
+        view_pager = view.findViewById(R.id.view_pager)
+        progress = view.findViewById(R.id.progress)
+        display_url = view.findViewById<ThemedTextView>(R.id.display_url)
+        site_identity = view.findViewById(R.id.site_identity)
 
         appbar.setOnApplyWindowInsetsListener { v, insets ->
             (v.layoutParams as ViewGroup.MarginLayoutParams).topMargin = insets.systemWindowInsetTop
@@ -344,7 +358,7 @@ class ShoppingSearchResultTabFragment : Fragment(), ContentTabViewContract, Back
     }
 
     private fun initTabLayout() {
-        tab_layout.setupWithViewPager(view_pager)
+        //tab_layout.setupWithViewPager(view_pager)
 
         preferenceButton.setOnClickListener {
             shoppingSearchResultViewModel.goPreferences.call()

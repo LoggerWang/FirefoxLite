@@ -7,7 +7,7 @@
     android:background="@drawable/background_shopping_search_keyword_input"
     android:clipChildren="false"
     android:clipToPadding="false"
-    tools:context="org.mozilla.rocket.shopping.search.ui.ShoppingSearchKeywordInputFragment">
+    tools:context="org.mozilla.rocket.shopping.search.ui.Shopsearch_keyword_editpingSearchKeywordInputFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content_layout"

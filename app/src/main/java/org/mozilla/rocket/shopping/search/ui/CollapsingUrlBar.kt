@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewParent
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.layout_collapsing_url_bar.view.*
 import org.mozilla.focus.R
 import org.mozilla.rocket.extension.dpToPx
+import org.mozilla.rocket.nightmode.themed.ThemedTextView
 import kotlin.math.abs
 
 class CollapsingUrlBar : ConstraintLayout, AppBarLayout.OnOffsetChangedListener {
@@ -21,6 +23,9 @@ class CollapsingUrlBar : ConstraintLayout, AppBarLayout.OnOffsetChangedListener 
 
     private var titleText: String? = null
     private var iconRedId: Int? = null
+    private lateinit var title : ThemedTextView
+    private lateinit var toolbar : View
+    private lateinit var icon : ImageView
 
     constructor(context: Context) : super(context)
 
@@ -38,6 +43,9 @@ class CollapsingUrlBar : ConstraintLayout, AppBarLayout.OnOffsetChangedListener 
                 recycle()
             }
         }
+        title = findViewById(R.id.title)
+        toolbar = findViewById(R.id.toolbar)
+        icon = findViewById(R.id.icon)
         titleText?.let { setTitle(it) }
         iconRedId?.let { setIcon(it) }
     }

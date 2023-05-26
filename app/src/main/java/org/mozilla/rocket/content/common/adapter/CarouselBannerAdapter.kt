@@ -21,7 +21,7 @@ class CarouselBannerAdapter(
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(container.context).inflate(R.layout.item_banner, container, false)
+        val view = LayoutInflater.from(container.context).inflate(org.mozilla.focus.R.layout.item_banner, container, false)
         val viewHolder = BannerViewHolder(view).apply {
             setOnItemClickListener { eventListener.onBannerItemClicked(it) }
             bind(data[position])

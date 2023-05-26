@@ -4,19 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.content_error_view.error_text
-import kotlinx.android.synthetic.main.content_error_view.retry_button
-import kotlinx.android.synthetic.main.fragment_challenge_list.content_layout
-import kotlinx.android.synthetic.main.fragment_challenge_list.empty_view
-import kotlinx.android.synthetic.main.fragment_challenge_list.error_view
-import kotlinx.android.synthetic.main.fragment_challenge_list.loading_view
-import kotlinx.android.synthetic.main.fragment_challenge_list.recycler_view
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -34,6 +28,13 @@ class ChallengeListFragment : Fragment() {
 
     private lateinit var missionViewModel: MissionViewModel
     private lateinit var adapter: DelegateAdapter
+    private lateinit var recycler_view: RecyclerView
+    private lateinit var retry_button: Button
+    private lateinit var empty_view: LinearLayout
+    private lateinit var error_view: LinearLayout
+    private lateinit var content_layout: FrameLayout
+    private lateinit var loading_view: ProgressBar
+    private lateinit var error_text: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -42,7 +43,15 @@ class ChallengeListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_challenge_list, container, false)
+        var view = inflater.inflate(R.layout.fragment_challenge_list, container, false)
+        recycler_view = view.findViewById(R.id.recycler_view)
+        retry_button = view.findViewById(R.id.retry_button)
+        content_layout = view.findViewById(R.id.content_layout)
+        error_view = view.findViewById(R.id.error_view)
+        empty_view = view.findViewById(R.id.empty_view)
+        loading_view = view.findViewById(R.id.loading_view)
+        error_text = view.findViewById(R.id.error_text)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

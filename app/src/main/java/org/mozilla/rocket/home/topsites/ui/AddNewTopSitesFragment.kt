@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_add_new_top_sites.recycler_view
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -28,6 +27,7 @@ class AddNewTopSitesFragment : Fragment() {
 
     private lateinit var addNewTopSitesViewModel: AddNewTopSitesViewModel
     private lateinit var adapter: DelegateAdapter
+    private lateinit var recycler_view: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -36,7 +36,9 @@ class AddNewTopSitesFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_add_new_top_sites, container, false)
+        var view = inflater.inflate(R.layout.fragment_add_new_top_sites, container, false)
+        recycler_view = view.findViewById(R.id.recycler_view)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

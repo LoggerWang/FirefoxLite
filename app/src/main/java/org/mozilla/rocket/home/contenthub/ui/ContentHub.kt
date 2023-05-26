@@ -3,12 +3,11 @@ package org.mozilla.rocket.home.contenthub.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.item_content_hub.view.icon
-import kotlinx.android.synthetic.main.item_content_hub.view.red_dot
-import kotlinx.android.synthetic.main.item_content_hub.view.text
 import org.mozilla.focus.R
 import org.mozilla.rocket.extension.dpToPx
 
@@ -24,6 +23,9 @@ class ContentHub : LinearLayout {
 
     private var showText = false
 
+    lateinit var icon:ImageView
+    lateinit  var red_dot:View
+    lateinit  var text: TextView
     init {
         orientation = HORIZONTAL
         clipToPadding = false
@@ -41,19 +43,27 @@ class ContentHub : LinearLayout {
             val isLast = i == items.size - 1
             val isUnread = item.isUnread
             val itemView = View.inflate(context, R.layout.item_content_hub, null)
-            itemView.icon.apply {
-                setImageResource(item.iconResId)
-                setOnClickListener { clickListener?.invoke(item) }
-            }
-            itemView.text.apply {
-                if (showText) {
-                    setText(item.textResId)
-                    isVisible = true
-                }
-            }
-            itemView.red_dot.apply {
-                isVisible = isUnread
-            }
+            icon = itemView.findViewById(R.id.icon)
+            icon.setImageResource(item.iconResId)
+            icon. setOnClickListener { clickListener?.invoke(item)}
+//                itemView.icon.apply {
+//                setImageResource(item.iconResId)
+//                setOnClickListener { clickListener?.invoke(item) }
+//            }
+            text = itemView.findViewById(R.id.text)
+            text. setText(item.textResId)
+            text.isVisible = true
+//            itemView.text.apply {
+//                if (showText) {
+//                    setText(item.textResId)
+//                    isVisible = true
+//                }
+//            }
+            red_dot = itemView.findViewById(R.id.red_dot)
+            red_dot.isVisible = isUnread
+//            itemView.red_dot.apply {
+//                isVisible = isUnread
+//            }
             addView(itemView, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                 if (!isLast) {
                     MarginLayoutParamsCompat.setMarginEnd(this, dpToPx(ITEM_MARGIN_IN_DP))

@@ -7,34 +7,13 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewOutlineProvider
-import android.widget.ScrollView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import dagger.Lazy
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.add_top_sites_red_dot
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.btn_private_browsing
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.content_services_red_dot
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.content_services_switch
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.img_private_mode
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.img_screenshots
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_add_top_sites
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_bookmark
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_content_services
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_delete
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_download
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_exit
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_history
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_night_mode
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_preferences
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_screenshots
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_smart_shopping_search
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.menu_themes
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.night_mode_switch
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.scroll_view
-import kotlinx.android.synthetic.main.bottom_sheet_home_menu.view.themes_red_dot
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
@@ -60,6 +39,27 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
     private lateinit var menuViewModel: MenuViewModel
 
     private lateinit var rootView: View
+    private lateinit var scroll_view: NestedScrollView
+    private lateinit var img_screenshots: ImageView
+    private lateinit var menu_screenshots: LinearLayout
+    private lateinit var menu_bookmark: LinearLayout
+    private lateinit var menu_history: LinearLayout
+    private lateinit var menu_download: LinearLayout
+    private lateinit var night_mode_switch: Switch
+    private lateinit var content_services_switch: Switch
+    private lateinit var btn_private_browsing: LinearLayout
+    private lateinit var menu_smart_shopping_search: LinearLayout
+    private lateinit var menu_night_mode: LinearLayout
+    private lateinit var menu_content_services: LinearLayout
+    private lateinit var menu_add_top_sites: LinearLayout
+    private lateinit var menu_themes: LinearLayout
+    private lateinit var img_private_mode: ImageView
+    private lateinit var menu_preferences: LinearLayout
+    private lateinit var menu_delete: LinearLayout
+    private lateinit var content_services_red_dot: View
+    private lateinit var add_top_sites_red_dot: View
+    private lateinit var themes_red_dot: View
+    private lateinit var menu_exit: LinearLayout
 
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -92,13 +92,33 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
     }
 
     private fun resetStates() {
-        rootView.scroll_view.fullScroll(ScrollView.FOCUS_UP)
+        scroll_view.fullScroll(ScrollView.FOCUS_UP)
         hideNewItemHint()
     }
 
     private fun initLayout() {
         rootView = layoutInflater.inflate(R.layout.bottom_sheet_home_menu, null)
-        rootView.scroll_view.apply {
+        scroll_view = rootView.findViewById(R.id.scroll_view)
+        img_screenshots = rootView.findViewById(R.id.img_screenshots)
+        menu_screenshots = rootView.findViewById(R.id.menu_screenshots)
+        menu_bookmark = rootView.findViewById(R.id.menu_bookmark)
+        menu_download = rootView.findViewById(R.id.menu_download)
+        night_mode_switch = rootView.findViewById(R.id.night_mode_switch)
+        content_services_switch = rootView.findViewById(R.id.content_services_switch)
+        btn_private_browsing = rootView.findViewById(R.id.btn_private_browsing)
+        menu_smart_shopping_search = rootView.findViewById(R.id.menu_smart_shopping_search)
+        menu_night_mode = rootView.findViewById(R.id.menu_night_mode)
+        menu_content_services = rootView.findViewById(R.id.menu_content_services)
+        menu_add_top_sites = rootView.findViewById(R.id.menu_add_top_sites)
+        menu_themes = rootView.findViewById(R.id.menu_themes)
+        img_private_mode = rootView.findViewById(R.id.img_private_mode)
+        menu_preferences = rootView.findViewById(R.id.menu_preferences)
+        menu_delete = rootView.findViewById(R.id.menu_delete)
+        menu_exit = rootView.findViewById(R.id.menu_exit)
+        content_services_red_dot = rootView.findViewById(R.id.content_services_red_dot)
+        add_top_sites_red_dot = rootView.findViewById(R.id.add_top_sites_red_dot)
+        themes_red_dot = rootView.findViewById(R.id.themes_red_dot)
+        scroll_view.apply {
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
                     outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
@@ -240,15 +260,15 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
     }
 
     private fun showNewItemHint() {
-        rootView.content_services_red_dot.visibility = View.VISIBLE
-        rootView.add_top_sites_red_dot.visibility = View.VISIBLE
-        rootView.themes_red_dot.visibility = View.VISIBLE
+        content_services_red_dot.visibility = View.VISIBLE
+       add_top_sites_red_dot.visibility = View.VISIBLE
+        themes_red_dot.visibility = View.VISIBLE
     }
 
     private fun hideNewItemHint() {
-        rootView.content_services_red_dot.visibility = View.INVISIBLE
-        rootView.add_top_sites_red_dot.visibility = View.INVISIBLE
-        rootView.themes_red_dot.visibility = View.INVISIBLE
+        content_services_red_dot.visibility = View.INVISIBLE
+        add_top_sites_red_dot.visibility = View.INVISIBLE
+        themes_red_dot.visibility = View.INVISIBLE
     }
 
     private fun onDeleteClicked() {

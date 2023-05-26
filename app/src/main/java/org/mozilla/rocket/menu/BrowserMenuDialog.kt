@@ -7,31 +7,13 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewOutlineProvider
-import android.widget.ScrollView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import dagger.Lazy
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.block_images_switch
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.content_layout
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.img_screenshots
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_blockimg
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_bookmark
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_delete
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_download
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_exit
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_find_in_page
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_history
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_night_mode
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_pin_shortcut
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_preferences
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_screenshots
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.menu_turbomode
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.night_mode_switch
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.scroll_view
-import kotlinx.android.synthetic.main.bottom_sheet_browser_menu.view.turbomode_switch
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
@@ -60,6 +42,23 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
     private lateinit var bottomBarItemAdapter: BottomBarItemAdapter
 
     private lateinit var rootView: View
+    private lateinit var img_screenshots: ImageView
+    private lateinit var scroll_view: NestedScrollView
+    private lateinit var menu_screenshots: LinearLayout
+    private lateinit var menu_bookmark: LinearLayout
+    private lateinit var menu_history: LinearLayout
+    private lateinit var menu_download: LinearLayout
+    private lateinit var turbomode_switch: Switch
+    private lateinit var block_images_switch: Switch
+    private lateinit var night_mode_switch: Switch
+    private lateinit var menu_find_in_page: LinearLayout
+    private lateinit var menu_pin_shortcut: LinearLayout
+    private lateinit var menu_night_mode: LinearLayout
+    private lateinit var menu_turbomode: LinearLayout
+    private lateinit var menu_blockimg: LinearLayout
+    private lateinit var menu_preferences: LinearLayout
+    private lateinit var menu_delete: LinearLayout
+    private lateinit var menu_exit: LinearLayout
 
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -80,7 +79,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
 
     override fun dismiss() {
         if (::rootView.isInitialized) {
-            rootView.scroll_view.fullScroll(ScrollView.FOCUS_UP)
+            scroll_view.fullScroll(ScrollView.FOCUS_UP)
         }
         super.dismiss()
     }
@@ -92,7 +91,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
 
     private fun initLayout() {
         rootView = layoutInflater.inflate(R.layout.bottom_sheet_browser_menu, null)
-        rootView.content_layout.apply {
+        rootView.findViewById<LinearLayout>(R.id.content_layout).apply {
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
                     outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
@@ -100,6 +99,22 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
             }
             clipToOutline = true
         }
+        img_screenshots = rootView.findViewById(R.id.img_screenshots)
+        scroll_view = rootView.findViewById(R.id.scroll_view)
+        menu_screenshots = rootView.findViewById(R.id.menu_screenshots)
+        menu_bookmark = rootView.findViewById(R.id.menu_bookmark)
+        menu_download = rootView.findViewById(R.id.menu_download)
+        turbomode_switch = rootView.findViewById(R.id.turbomode_switch)
+        block_images_switch = rootView.findViewById(R.id.block_images_switch)
+        night_mode_switch = rootView.findViewById(R.id.night_mode_switch)
+        menu_find_in_page = rootView.findViewById(R.id.menu_find_in_page)
+        menu_pin_shortcut = rootView.findViewById(R.id.menu_pin_shortcut)
+        menu_night_mode = rootView.findViewById(R.id.menu_night_mode)
+        menu_turbomode = rootView.findViewById(R.id.menu_turbomode)
+        menu_blockimg = rootView.findViewById(R.id.menu_blockimg)
+        menu_preferences = rootView.findViewById(R.id.menu_preferences)
+        menu_delete = rootView.findViewById(R.id.menu_delete)
+        menu_exit = rootView.findViewById(R.id.menu_exit)
         initMenuTabs(rootView)
         initMenuItems(rootView)
         initBottomBar()

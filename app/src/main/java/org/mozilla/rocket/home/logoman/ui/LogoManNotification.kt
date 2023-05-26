@@ -32,11 +32,14 @@ import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.extension.dpToPx
 import org.mozilla.rocket.home.logoman.ui.LogoManNotification.Notification.MissionNotification
 import org.mozilla.rocket.home.logoman.ui.LogoManNotification.Notification.RemoteNotification
+import org.mozilla.rocket.nightmode.themed.ThemedRecyclerView
 import kotlin.math.abs
 
 class LogoManNotification : FrameLayout {
 
     private lateinit var adapter: DelegateAdapter
+    private lateinit var notification_board: ThemedRecyclerView
+    private lateinit var logo_man: ImageView
     private var actionListener: NotificationActionListener? = null
 
     constructor(context: Context) : super(context)
@@ -51,6 +54,8 @@ class LogoManNotification : FrameLayout {
 
     private fun initViews() {
         inflate(context, R.layout.logo_man_notification, this)
+        notification_board = findViewById(R.id.notification_board)
+        logo_man = findViewById(R.id.logo_man)
         minimumHeight = dpToPx(MIN_HEIGHT_IN_DP)
         initNotificationBoard()
     }

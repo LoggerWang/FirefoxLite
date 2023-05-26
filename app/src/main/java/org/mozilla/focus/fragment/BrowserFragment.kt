@@ -34,10 +34,7 @@ import android.webkit.GeolocationPermissions
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient.FileChooserParams
 import android.webkit.WebView
-import android.widget.Button
-import android.widget.CheckedTextView
-import android.widget.FrameLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -46,24 +43,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_content_tab.appbar
-import kotlinx.android.synthetic.main.fragment_browser.browser_bottom_bar
-import kotlinx.android.synthetic.main.fragment_browser.inset_cover
-import kotlinx.android.synthetic.main.fragment_browser.main_content
-import kotlinx.android.synthetic.main.fragment_browser.progress_bar
-import kotlinx.android.synthetic.main.fragment_browser.url_bar_divider
-import kotlinx.android.synthetic.main.fragment_browser.urlbar
-import kotlinx.android.synthetic.main.fragment_browser.video_container
-import kotlinx.android.synthetic.main.fragment_browser.view.shopping_search_stub
-import kotlinx.android.synthetic.main.fragment_browser.webview_container
-import kotlinx.android.synthetic.main.fragment_browser.webview_slot
-import kotlinx.android.synthetic.main.toolbar.display_url
-import kotlinx.android.synthetic.main.toolbar.site_identity
-import kotlinx.android.synthetic.main.toolbar.toolbar_root
 import mozilla.components.browser.session.Session.FindResult
 import org.mozilla.focus.BuildConfig
 import org.mozilla.focus.R
@@ -89,8 +73,10 @@ import org.mozilla.focus.viewmodel.ShoppingSearchPromptViewModel.VisibilityState
 import org.mozilla.focus.viewmodel.ShoppingSearchPromptViewModel.VisibilityState.Expanded
 import org.mozilla.focus.web.GeoPermissionCache
 import org.mozilla.focus.web.HttpAuthenticationDialogBuilder
+import org.mozilla.focus.widget.AnimatedProgressBar
 import org.mozilla.focus.widget.BackKeyHandleable
 import org.mozilla.focus.widget.FindInPage
+import org.mozilla.focus.widget.ResizableKeyboardLayout
 import org.mozilla.permissionhandler.PermissionHandle
 import org.mozilla.permissionhandler.PermissionHandler
 import org.mozilla.rocket.chrome.BottomBarItemAdapter
@@ -107,7 +93,7 @@ import org.mozilla.rocket.download.DownloadIndicatorViewModel
 import org.mozilla.rocket.extension.switchFrom
 import org.mozilla.rocket.landing.PortraitComponent
 import org.mozilla.rocket.landing.PortraitStateModel
-import org.mozilla.rocket.nightmode.themed.ThemedCoordinatorLayout
+import org.mozilla.rocket.nightmode.themed.*
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchActivity.Companion.getStartIntent
 import org.mozilla.rocket.shopping.search.ui.adapter.ShoppingSiteItem
 import org.mozilla.rocket.tabs.Session
@@ -182,6 +168,20 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     private val managerObserver: SessionManager.Observer = SessionManagerObserver(sessionObserver)
     private var downloadIndicatorIntro: View? = null
     private var landscapeStartTime = 0L
+    var appbar : AppBarLayout?=null
+    var browser_bottom_bar : ThemedBottomBar?=null
+    var inset_cover: ThemedView?=null
+    var main_content: LinearLayout?=null
+    var progress_bar: AnimatedProgressBar?=null
+    var url_bar_divider:ThemedView?=null
+    var urlbar: ThemedFrameLayout?=null
+    var video_container:FrameLayout?=null
+    var shopping_search_stub:ViewStub?=null
+    var webview_container: ResizableKeyboardLayout?=null
+    var webview_slot:FrameLayout?=null
+    var display_url: ThemedTextView?=null
+    var site_identity:ThemedImageView ?=null
+    var toolbar_root:ThemedLinearLayout ?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.appComponent().inject(this)
@@ -338,12 +338,12 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         if (UrlUtils.isInternalErrorURL(url)) {
             return
         }
-        display_url.text = UrlUtils.stripUserInfo(url)
+        display_url?.text = UrlUtils.stripUserInfo(url)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_browser, container, false) as ThemedCoordinatorLayout
-        shoppingSearchViewStub = rootView.shopping_search_stub
+        shoppingSearchViewStub = rootView.rootView.findViewById<ViewStub>(R.id.shopping_search_stub)
         return rootView
     }
 
@@ -428,8 +428,8 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
             }
         })
         chromeViewModel.currentUrl.observe(viewLifecycleOwner, Observer {
-            appbar.setExpanded(true)
-            browser_bottom_bar.slideUp()
+            appbar?.setExpanded(true)
+            browser_bottom_bar?.slideUp()
         })
     }
 
@@ -438,7 +438,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     }
 
     private fun setupBottomBar() {
-        browser_bottom_bar.setOnItemClickListener(object : BottomBar.OnItemClickListener {
+        browser_bottom_bar?.setOnItemClickListener(object : BottomBar.OnItemClickListener {
             override fun onItemClick(type: Int, position: Int) {
                 when (type) {
                     BottomBarItemAdapter.TYPE_TAB_COUNTER -> {
@@ -483,7 +483,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 }
             }
         })
-        browser_bottom_bar.setOnItemLongClickListener(object : BottomBar.OnItemLongClickListener {
+        browser_bottom_bar?.setOnItemLongClickListener(object : BottomBar.OnItemLongClickListener {
             override fun onItemLongClick(type: Int, position: Int): Boolean {
                 if (type == BottomBarItemAdapter.TYPE_MENU) {
                     // Long press menu always show download panel
@@ -494,7 +494,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 return false
             }
         })
-        bottomBarItemAdapter = BottomBarItemAdapter(browser_bottom_bar, BottomBarItemAdapter.Theme.Light)
+        bottomBarItemAdapter = BottomBarItemAdapter(browser_bottom_bar!!, BottomBarItemAdapter.Theme.Light)
         bottomBarViewModel.items.observe(viewLifecycleOwner, Observer { types: List<BottomBarItemAdapter.ItemData> ->
             bottomBarItemAdapter.setItems(types)
         })
@@ -552,18 +552,33 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
 
     override fun onViewCreated(container: View, savedInstanceState: Bundle?) {
         super.onViewCreated(container, savedInstanceState)
+        appbar = container.findViewById(R.id.appbar)
+        browser_bottom_bar = container.findViewById(R.id.browser_bottom_bar)
+        inset_cover = container.findViewById(R.id.inset_cover)
+        main_content = container.findViewById(R.id.main_content)
+        progress_bar = container.findViewById(R.id.progress_bar)
+        url_bar_divider = container.findViewById(R.id.url_bar_divider)
+        urlbar = container.findViewById(R.id.urlbar)
+        video_container = container.findViewById(R.id.video_container)
+        shopping_search_stub = container.findViewById(R.id.shopping_search_stub)
+        webview_container = container.findViewById(R.id.webview_container)
+        webview_slot = container.findViewById(R.id.webview_slot)
+        display_url = container.findViewById(R.id.display_url)
+        site_identity = container.findViewById(R.id.site_identity)
+        toolbar_root = container.findViewById(R.id.toolbar_root)
 
-        appbar.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
+
+        appbar?.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
             (v.layoutParams as MarginLayoutParams).topMargin = insets.systemWindowInsetTop
-            inset_cover.layoutParams.height = insets.systemWindowInsetTop
+            inset_cover?.layoutParams?.height = insets.systemWindowInsetTop
             insets
         }
-        main_content.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
+        main_content?.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
             v.setPadding(0, 0, 0, insets.systemWindowInsetTop)
             insets
         }
-        appBarBgTransition = urlbar.background as TransitionDrawable
-        statusBarBgTransition = inset_cover.background as TransitionDrawable
+        appBarBgTransition = urlbar?.background as TransitionDrawable
+        statusBarBgTransition = inset_cover?.background as TransitionDrawable
         observeChromeAction()
         setupBottomBar()
         findInPage = FindInPage(container)
@@ -614,11 +629,11 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     }
 
     private fun updateBottomBarLayout() {
-        val bottomBarHeight: Int = browser_bottom_bar.resources.getDimensionPixelOffset(R.dimen.fixed_menu_height)
-        browser_bottom_bar.layoutParams = browser_bottom_bar.layoutParams.apply {
+        val bottomBarHeight: Int = browser_bottom_bar?.resources?.getDimensionPixelOffset(R.dimen.fixed_menu_height)!!
+        browser_bottom_bar?.layoutParams = browser_bottom_bar?.layoutParams?.apply {
             height = bottomBarHeight
         }
-        browser_bottom_bar.onScreenRotated()
+        browser_bottom_bar?.onScreenRotated()
     }
 
     // Workaround for full-screen WebView issue that the video doesn't fit the viewport
@@ -626,13 +641,13 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     // the issue happened rate by changing the video view layout size to a slight smaller size
     // then add to the full screen size again when the device is rotated.
     private fun refreshVideoContainer() {
-        if (video_container.visibility == View.VISIBLE) {
+        if (video_container?.visibility == View.VISIBLE) {
             updateVideoContainerWithLayoutParams(FrameLayout.LayoutParams(
-                (video_container.height * 0.99).toInt(),
-                (video_container.width * 0.99).toInt()
+                (video_container?.height!! * 0.99).toInt(),
+                (video_container?.width!! * 0.99).toInt()
             ))
-            video_container.post {
-                if (video_container.visibility == View.VISIBLE) {
+            video_container?.post {
+                if (video_container?.visibility == View.VISIBLE) {
                     updateVideoContainerWithLayoutParams(FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
@@ -643,10 +658,10 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     }
 
     private fun updateVideoContainerWithLayoutParams(params: FrameLayout.LayoutParams) {
-        val fullscreenContentView = video_container.getChildAt(0)
+        val fullscreenContentView = video_container?.getChildAt(0)
         if (fullscreenContentView != null) {
-            video_container.removeAllViews()
-            video_container.addView(fullscreenContentView, params)
+            video_container?.removeAllViews()
+            video_container?.addView(fullscreenContentView, params)
         }
     }
 
@@ -672,7 +687,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 es.detach()
                 val tabView = es.tabView
                 if (tabView != null) {
-                    webview_slot.removeView(tabView.view)
+                    webview_slot?.removeView(tabView.view)
                 }
             }
         }
@@ -680,19 +695,19 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
 
     override fun goForeground() {
         val current = sessionManager.focusSession
-        if (webview_slot.childCount == 0 && current != null) {
+        if (webview_slot?.childCount == 0 && current != null) {
             val es = current.engineSession
             if (es != null) {
                 val tabView = es.tabView
                 if (tabView != null) {
-                    webview_slot.addView(tabView.view)
+                    webview_slot?.addView(tabView.view)
                 }
             }
         }
     }
 
     private fun initialiseNormalBrowserUi() {
-        display_url.setOnClickListener {
+        display_url?.setOnClickListener {
             chromeViewModel.showUrlInput.value = url
             // TODO: Needs to confirm with bi that what vertical should be passed into in normal browser using cases
             // TODO: For now just pass a empty string
@@ -915,7 +930,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         // After we apply the full screen rotation workaround - 'refreshVideoContainer',
         // it may not be able to get 'onExitFullScreen' callback from WebChromeClient. Just call it here
         // to leave the full screen mode.
-        if (video_container.visibility == View.VISIBLE) {
+        if (video_container?.visibility == View.VISIBLE) {
             sessionObserver.onExitFullScreen()
             return true
         }
@@ -984,7 +999,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     // URL for error pages. The URL we show in the toolbar is (A) always correct and (B) what the
     // user is probably expecting to share, so lets use that here:
     val url: String
-        get() = display_url.text.toString()
+        get() = display_url?.text.toString()
 
     private fun canGoForward(): Boolean = sessionManager.focusSession?.canGoForward == true
 
@@ -1075,14 +1090,14 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     private fun showFindInPage() {
         val focusTab = sessionManager.focusSession
         if (focusTab != null) {
-            appbar.setExpanded(false)
-            browser_bottom_bar.visibility = View.INVISIBLE
+            appbar?.setExpanded(false)
+            browser_bottom_bar?.visibility = View.INVISIBLE
             shoppingSearchViewStub.visibility = View.INVISIBLE
             rootView.isActivated = false
             findInPage.onDismissListener = {
                 rootView.isActivated = true
-                appbar.setExpanded(true)
-                browser_bottom_bar.visibility = View.VISIBLE
+                appbar?.setExpanded(true)
+                browser_bottom_bar?.visibility = View.VISIBLE
                 shoppingSearchViewStub.visibility = View.VISIBLE
             }
             findInPage.show(focusTab)
@@ -1144,7 +1159,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         }
 
         override fun onSecurityChanged(session: Session, isSecure: Boolean) {
-            site_identity.setImageLevel(if (isSecure) SITE_LOCK else SITE_GLOBE)
+            site_identity?.setImageLevel(if (isSecure) SITE_LOCK else SITE_GLOBE)
         }
 
         override fun onUrlChanged(session: Session, url: String?) {
@@ -1185,7 +1200,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 val progressIsForLoadedUrl = TextUtils.equals(currentUrl, loadedUrl)
                 // Some new url may give 100 directly and then start from 0 again. don't treat
                 // as loaded for these urls;
-                val urlBarLoadingToFinished = progress_bar.max != progress_bar.progress && progress == progress_bar.max
+                val urlBarLoadingToFinished = progress_bar?.max != progress_bar?.progress && progress == progress_bar?.max
                 if (urlBarLoadingToFinished) {
                     loadedUrl = currentUrl
                 }
@@ -1193,7 +1208,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     return
                 }
             }
-            progress_bar.progress = progress
+            progress_bar?.progress = progress
         }
 
         override fun onShowFileChooser(
@@ -1247,16 +1262,16 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
             fullscreenCallback = callback
             if (session?.engineSession?.tabView != null && view != null) {
                 // Hide browser UI and web content
-                appbar.visibility = View.INVISIBLE
-                webview_container.visibility = View.INVISIBLE
+                appbar?.visibility = View.INVISIBLE
+                webview_container?.visibility = View.INVISIBLE
                 shoppingSearchViewStub.visibility = View.INVISIBLE
-                browser_bottom_bar.visibility = View.INVISIBLE
+                browser_bottom_bar?.visibility = View.INVISIBLE
 
                 // Add view to video container and make it visible
                 val params = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-                video_container.addView(view, params)
-                video_container.visibility = View.VISIBLE
+                video_container?.addView(view, params)
+                video_container?.visibility = View.VISIBLE
 
                 // Switch to immersive mode: Hide system bars other UI controls
                 systemVisibility = ViewUtils.switchToImmersiveMode(activity)
@@ -1268,14 +1283,14 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 return
             }
             // Remove custom video views and hide container
-            video_container.removeAllViews()
-            video_container.visibility = View.GONE
+            video_container?.removeAllViews()
+            video_container?.visibility = View.GONE
 
             // Show browser UI and web content again
-            appbar.visibility = View.VISIBLE
-            webview_container.visibility = View.VISIBLE
+            appbar?.visibility = View.VISIBLE
+            webview_container?.visibility = View.VISIBLE
             shoppingSearchViewStub.visibility = View.VISIBLE
-            browser_bottom_bar.visibility = View.VISIBLE
+            browser_bottom_bar?.visibility = View.VISIBLE
             if (systemVisibility != ViewUtils.SYSTEM_UI_VISIBILITY_NONE) {
                 ViewUtils.exitImmersiveMode(systemVisibility, activity)
             }
@@ -1407,10 +1422,10 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     ?: throw RuntimeException("Tabview should be created at this moment and never be null")
             // ensure it does not have attach to parent earlier.
             targetTab.engineSession?.detach()
-            val outView = findExistingTabView(webview_slot)
-            webview_slot.removeView(outView)
+            val outView = webview_slot?.let { findExistingTabView(it) }
+            webview_slot?.removeView(outView)
             val inView = tabView.view
-            webview_slot.addView(inView)
+            webview_slot?.addView(inView)
             this.sessionObserver.changeSession(targetTab)
             startTransitionAnimation(null, inView, null)
         }
@@ -1421,9 +1436,9 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
             dismissGeoDialog()
             updateURL(tab.url)
             shoppingSearchPromptMessageViewModel.checkShoppingSearchPromptVisibility(tab.url)
-            progress_bar.progress = 0
+            progress_bar?.progress = 0
             val identity = if (tab.securityInfo.secure) SITE_LOCK else SITE_GLOBE
-            site_identity.setImageLevel(identity)
+            site_identity?.setImageLevel(identity)
             hideFindInPage()
             val current = sessionManager.focusSession
             if (current != null) {
@@ -1585,13 +1600,13 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
 
     private fun setDarkThemeEnabled(enable: Boolean) {
         rootView.setDarkTheme(enable)
-        browser_bottom_bar.setDarkTheme(enable)
-        inset_cover.setDarkTheme(enable)
-        toolbar_root.setDarkTheme(enable)
-        display_url.setDarkTheme(enable)
-        site_identity.setDarkTheme(enable)
-        urlbar.setDarkTheme(enable)
-        url_bar_divider.setDarkTheme(enable)
+        browser_bottom_bar?.setDarkTheme(enable)
+        inset_cover?.setDarkTheme(enable)
+        toolbar_root?.setDarkTheme(enable)
+        display_url?.setDarkTheme(enable)
+        site_identity?.setDarkTheme(enable)
+        urlbar?.setDarkTheme(enable)
+        url_bar_divider?.setDarkTheme(enable)
         ViewUtils.updateStatusBarStyle(!enable, requireActivity().window)
     }
 

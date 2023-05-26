@@ -17,8 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.webkit.URLUtil
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
@@ -26,9 +28,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_urlinput.input_container
-import kotlinx.android.synthetic.main.fragment_urlinput.awesomeBar
-import kotlinx.android.synthetic.main.fragment_urlinput.search_suggestion_block
+import mozilla.components.browser.awesomebar.BrowserAwesomeBar
+
 import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.ui.autocomplete.InlineAutocompleteEditText
 import org.mozilla.focus.R
@@ -87,7 +88,9 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
     private var allowSuggestion: Boolean = false
     private var isUserInput = true
     private var privateMode: Boolean = false
-
+    var input_container: ConstraintLayout?=null
+    var awesomeBar: BrowserAwesomeBar?=null
+    var search_suggestion_block: LinearLayout?=null
     override fun onCreate(bundle: Bundle?) {
         appComponent().inject(this)
         super.onCreate(bundle)
@@ -107,7 +110,9 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_urlinput, container, false)
-
+        input_container = view.findViewById(R.id.input_container)
+        awesomeBar = view.findViewById(R.id.awesomeBar)
+        search_suggestion_block = view.findViewById(R.id.search_suggestion_block)
         dismissView = view.findViewById(R.id.dismiss)
         dismissView.setOnClickListener(this)
 
@@ -150,14 +155,14 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
         val historyRepo = chromeViewModel.historyRepo
         val iconTab = toAwesomeBarIcon(R.drawable.ic_current_tab)
 
-        awesomeBar.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
+        awesomeBar?.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
             (v.layoutParams as ViewGroup.MarginLayoutParams).topMargin = insets.systemWindowInsetTop
             insets
         }
-        awesomeBar.addProviders(
+        awesomeBar?.addProviders(
 
             FrecensySuggestionProvider(
-                context = activity!!.applicationContext,
+                context = requireActivity().applicationContext,
                 switchToTabIcon = iconTab,
                 bookmarkRepository = bookmarkRepo,
                 historyRepository = historyRepo,
@@ -185,8 +190,8 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
             }
         )
 
-        awesomeBar.onInputStarted() // if something is in the clipboard, it'll be the first and show directly
-        awesomeBar.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        awesomeBar?.onInputStarted() // if something is in the clipboard, it'll be the first and show directly
+        awesomeBar?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 recyclerView.requestFocus()
@@ -235,9 +240,11 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
     }
 
     private fun updateUrlInputHeight() {
-        val urlInputHeight = input_container.resources.getDimensionPixelOffset(R.dimen.search_url_input_height)
-        input_container.layoutParams = input_container.layoutParams.apply {
-            height = urlInputHeight
+        val urlInputHeight = input_container?.resources?.getDimensionPixelOffset(R.dimen.search_url_input_height)
+        input_container?.layoutParams = input_container?.layoutParams?.apply {
+            if (urlInputHeight != null) {
+                height = urlInputHeight
+            }
         }
     }
 
@@ -257,7 +264,7 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
             R.id.clear -> {
                 urlView.setText("")
                 urlView.requestFocus()
-                awesomeBar.onInputChanged("")
+                awesomeBar?.onInputChanged("")
                 TelemetryWrapper.searchClear(isInLandscape())
             }
             R.id.dismiss -> {
@@ -365,14 +372,14 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
 
     override fun setSuggestions(texts: List<CharSequence>?) {
         this.suggestionView.removeAllViews()
-        search_suggestion_block.visibility = View.GONE
+        search_suggestion_block?.visibility = View.GONE
         if (texts == null) {
             return
         }
 
         val searchKey = urlView.originalText.trim { it <= ' ' }.toLowerCase(Locale.getDefault())
         if (texts.isNotEmpty()) {
-            search_suggestion_block.visibility = View.VISIBLE
+            search_suggestion_block?.visibility = View.VISIBLE
         }
         for (i in texts.indices) {
             val item = View.inflate(context, R.layout.tag_text, null) as TextView
@@ -423,7 +430,7 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
             return
         }
         if (allowSuggestion) {
-            awesomeBar.onInputChanged(originalText.toLowerCase(Locale.getDefault()))
+            awesomeBar?.onInputChanged(originalText.toLowerCase(Locale.getDefault()))
             this@UrlInputFragment.presenter.onInput(originalText, detectThrottle())
         }
         val visibility = if (TextUtils.isEmpty(originalText)) View.GONE else View.VISIBLE

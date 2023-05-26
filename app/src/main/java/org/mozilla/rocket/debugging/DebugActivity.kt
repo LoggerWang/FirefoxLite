@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_debug.*
 import org.json.JSONArray
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.FirebaseHelper
@@ -24,10 +23,23 @@ import java.util.concurrent.TimeUnit
 class DebugActivity : AppCompatActivity() {
 
     private lateinit var preference: SharedPreferences
+    private lateinit var switch_disable_server_push: Switch
+    private lateinit var debug_locale_text: TextView
+    private lateinit var debug_locale_layout: LinearLayout
+    private lateinit var debug_firebase_id: LinearLayout
+    private lateinit var debug_firebase_register_token: LinearLayout
+    private lateinit var debug_mission_reminder: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_debug)
+        var toolbar: Toolbar = findViewById(R.id.toolbar)
+        switch_disable_server_push = findViewById(R.id.switch_disable_server_push)
+        debug_locale_text = findViewById(R.id.debug_locale_text)
+        debug_locale_layout = findViewById(R.id.debug_locale_layout)
+        debug_firebase_id = findViewById(R.id.debug_firebase_id)
+        debug_firebase_register_token = findViewById(R.id.debug_firebase_register_token)
+        debug_mission_reminder = findViewById(R.id.debug_mission_reminder)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

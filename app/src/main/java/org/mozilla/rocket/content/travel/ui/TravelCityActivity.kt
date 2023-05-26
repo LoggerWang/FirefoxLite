@@ -7,13 +7,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import android.widget.TableLayout
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_travel_city.*
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.BaseActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
@@ -55,6 +59,12 @@ class TravelCityActivity : BaseActivity() {
     private lateinit var detailAdapter: DelegateAdapter
     private lateinit var onboardingSpotlightDialog: Dialog
     private lateinit var city: BaseCityData
+    private lateinit var favorite_button: AppCompatImageButton
+    private lateinit var toolbar: Toolbar
+    private lateinit var refresh_button: AppCompatImageButton
+    private lateinit var city_details: RecyclerView
+    private lateinit var container: FrameLayout
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -62,7 +72,12 @@ class TravelCityActivity : BaseActivity() {
         travelCityViewModel = getViewModel(travelCityViewModelCreator)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         setContentView(R.layout.activity_travel_city)
-
+        favorite_button = findViewById(R.id.favorite_button)
+        toolbar = findViewById(R.id.toolbar)
+        refresh_button = findViewById(R.id.refresh_button)
+        city_details = findViewById(R.id.city_details)
+        container = findViewById(R.id.container)
+        spinner = findViewById(R.id.spinner)
         city = intent?.extras?.getParcelable(EXTRA_CITY) ?: BaseCityData("", "", "", "", "")
 
         initToolBar()

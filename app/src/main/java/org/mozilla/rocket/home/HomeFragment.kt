@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,34 +23,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.button_menu.menu_red_dot
-import kotlinx.android.synthetic.main.fragment_home.account_layout
-import kotlinx.android.synthetic.main.fragment_home.arc_panel
-import kotlinx.android.synthetic.main.fragment_home.arc_view
-import kotlinx.android.synthetic.main.fragment_home.content_hub
-import kotlinx.android.synthetic.main.fragment_home.content_hub_layout
-import kotlinx.android.synthetic.main.fragment_home.content_hub_title
-import kotlinx.android.synthetic.main.fragment_home.home_background
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_fake_input
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_fake_input_icon
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_fake_input_text
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_menu_button
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_tab_counter
-import kotlinx.android.synthetic.main.fragment_home.home_fragment_title
-import kotlinx.android.synthetic.main.fragment_home.logo_man_notification
-import kotlinx.android.synthetic.main.fragment_home.main_list
-import kotlinx.android.synthetic.main.fragment_home.page_indicator
-import kotlinx.android.synthetic.main.fragment_home.private_mode_button
-import kotlinx.android.synthetic.main.fragment_home.profile_button
-import kotlinx.android.synthetic.main.fragment_home.reward_button
-import kotlinx.android.synthetic.main.fragment_home.search_panel
-import kotlinx.android.synthetic.main.fragment_home.shopping_button
 import org.mozilla.focus.R
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
+import org.mozilla.focus.tabs.TabCounter
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.DialogUtils
 import org.mozilla.focus.utils.FirebaseHelper
@@ -71,17 +53,17 @@ import org.mozilla.rocket.fxa.ProfileActivity
 import org.mozilla.rocket.home.contenthub.ui.ContentHub
 import org.mozilla.rocket.home.logoman.ui.LogoManNotification
 import org.mozilla.rocket.home.topsites.domain.PinTopSiteUseCase
-import org.mozilla.rocket.home.topsites.ui.AddNewTopSitesActivity
-import org.mozilla.rocket.home.topsites.ui.Site
-import org.mozilla.rocket.home.topsites.ui.SitePage
-import org.mozilla.rocket.home.topsites.ui.SitePageAdapterDelegate
+import org.mozilla.rocket.home.topsites.ui.*
 import org.mozilla.rocket.home.topsites.ui.SiteViewHolder.Companion.TOP_SITE_LONG_CLICK_TARGET
+import org.mozilla.rocket.home.ui.HomeScreenBackground
+import org.mozilla.rocket.home.ui.MenuButton
 import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_DEFAULT
 import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_DOWNLOADING
 import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_UNREAD
 import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_WARNING
 import org.mozilla.rocket.msrp.data.Mission
 import org.mozilla.rocket.msrp.ui.RewardActivity
+import org.mozilla.rocket.nightmode.themed.*
 import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserHelper
 import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserPreferenceViewModel
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchActivity
@@ -113,6 +95,30 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private lateinit var defaultBrowserHelper: DefaultBrowserHelper
     private var currentShoppingBtnVisibleState = false
 
+
+    private lateinit var menu_red_dot: ImageView
+    private lateinit var account_layout: ThemedLinearLayout
+    private lateinit var arc_panel:ThemedLinearLayout
+    private lateinit var arc_view:ThemedImageView
+    private lateinit var content_hub:ContentHub
+    private lateinit var content_hub_layout: LinearLayout
+    private lateinit var content_hub_title: ThemedTextView
+    private lateinit var home_background: HomeScreenBackground
+    private lateinit var home_fragment_fake_input: ThemedView
+    private lateinit var home_fragment_fake_input_icon:ThemedImageView
+    private lateinit var home_fragment_fake_input_text:ThemedTextView
+    private lateinit var home_fragment_menu_button: MenuButton
+    private lateinit var home_fragment_tab_counter: TabCounter
+    private lateinit var home_fragment_title:ImageView
+    private lateinit var logo_man_notification:LogoManNotification
+    private lateinit var main_list: ViewPager2
+    private lateinit var page_indicator: PagerIndicator
+    private lateinit var private_mode_button:ThemedImageView
+    private lateinit var profile_button:ImageView
+    private lateinit var reward_button:ImageView
+    private lateinit var search_panel: ThemedConstraintLayout
+    private lateinit var shopping_button: ThemedImageView
+
     private val topSitesPageChangeCallback = object : OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             homeViewModel.onTopSitesPagePositionChanged(position)
@@ -132,7 +138,30 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        var view = inflater.inflate(R.layout.fragment_home, container, false)
+        shopping_button = view.findViewById(R.id.shopping_button)
+        menu_red_dot = view.findViewById(R.id.menu_red_dot)
+        account_layout = view.findViewById(R.id.account_layout)
+        arc_panel = view.findViewById(R.id.arc_panel)
+        arc_view = view.findViewById(R.id.arc_view)
+        content_hub = view.findViewById(R.id.content_hub)
+        content_hub_layout = view.findViewById(R.id.content_hub_layout)
+        content_hub_title = view.findViewById(R.id.content_hub_title)
+        home_background = view.findViewById(R.id.home_background)
+        home_fragment_fake_input = view.findViewById(R.id.home_fragment_fake_input)
+        home_fragment_fake_input_icon = view.findViewById(R.id.home_fragment_fake_input_icon)
+        home_fragment_fake_input_text = view.findViewById(R.id.home_fragment_fake_input_text)
+        home_fragment_menu_button = view.findViewById(R.id.home_fragment_menu_button)
+        home_fragment_tab_counter = view.findViewById(R.id.home_fragment_tab_counter)
+        home_fragment_title = view.findViewById(R.id.home_fragment_title)
+        logo_man_notification = view.findViewById(R.id.logo_man_notification)
+        main_list = view.findViewById(R.id.main_list)
+        page_indicator = view.findViewById(R.id.page_indicator)
+        private_mode_button = view.findViewById(R.id.private_mode_button)
+        profile_button = view.findViewById(R.id.profile_button)
+        reward_button = view.findViewById(R.id.reward_button)
+        search_panel = view.findViewById(R.id.search_panel)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

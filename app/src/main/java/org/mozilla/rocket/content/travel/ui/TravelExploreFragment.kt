@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_travel_explore.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
@@ -44,6 +45,8 @@ class TravelExploreFragment : Fragment() {
     private lateinit var travelExploreViewModel: TravelExploreViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var exploreAdapter: DelegateAdapter
+    private lateinit var explore_recycler_view: RecyclerView
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -55,7 +58,9 @@ class TravelExploreFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_travel_explore, container, false)
+        var view = inflater.inflate(R.layout.fragment_travel_explore, container, false)
+            explore_recycler_view = view.findViewById(R.id.explore_recycler_view)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.menu_item_text_image.view.menu_item_image
-import kotlinx.android.synthetic.main.menu_item_text_image.view.menu_item_text
 import org.mozilla.focus.R
 import org.mozilla.focus.widget.EqualDistributeGrid
 
@@ -76,22 +76,22 @@ class MenuLayout : FrameLayout {
             private val tintResId: Int?
         ) : MenuItem(type, id) {
             override fun createView(context: Context, parent: ViewGroup): View {
-                return LayoutInflater.from(context)
-                        .inflate(R.layout.menu_item_text_image, parent, false).apply {
-                            id = viewId
-                            menu_item_image.apply {
-                                setImageResource(drawableResId)
-                                if (tintResId != null) {
-                                    imageTintList = ContextCompat.getColorStateList(context, tintResId)
-                                }
+               var view = LayoutInflater.from(context)
+                    .inflate(R.layout.menu_item_text_image, parent, false)
+                       view.id = viewId
+                var menu_item_image:ImageView =  view.findViewById(R.id.menu_item_image)
+                        menu_item_image.setImageResource(drawableResId)
+                if (tintResId != null) {
+                    menu_item_image.imageTintList = ContextCompat.getColorStateList(context, tintResId)
+                }
+
+                var menu_item_text:TextView =  view.findViewById(R.id.menu_item_text)
+                menu_item_text.setText(textResId)
+                if (tintResId != null) {
+                    menu_item_text.setTextColor(ContextCompat.getColorStateList(context, tintResId))
                             }
-                            menu_item_text.apply {
-                                setText(textResId)
-                                if (tintResId != null) {
-                                    setTextColor(ContextCompat.getColorStateList(context, tintResId))
-                                }
-                            }
-                        }
+
+                return view
             }
         }
     }

@@ -7,12 +7,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_search_city.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.DialogUtils
@@ -21,6 +25,7 @@ import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.common.ui.ContentTabActivity
+import org.mozilla.rocket.content.common.ui.NoResultView
 import org.mozilla.rocket.content.common.ui.VerticalTelemetryViewModel
 import org.mozilla.rocket.content.getViewModel
 import org.mozilla.rocket.content.travel.ui.adapter.CitySearchGoogleAdapterDelegate
@@ -42,6 +47,11 @@ class TravelCitySearchActivity : AppCompatActivity() {
     private lateinit var searchViewModel: TravelCitySearchViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var adapter: DelegateAdapter
+    private lateinit var search_keyword_edit: EditText
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var clear: ImageButton
+    private lateinit var no_result_view: NoResultView
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -49,6 +59,11 @@ class TravelCitySearchActivity : AppCompatActivity() {
         searchViewModel = getViewModel(searchViewModelCreator)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         setContentView(R.layout.activity_search_city)
+        search_keyword_edit = findViewById(R.id.search_keyword_edit)
+        recyclerView = findViewById(R.id.recyclerView)
+        clear = findViewById(R.id.clear)
+        no_result_view = findViewById(R.id.no_result_view)
+        spinner = findViewById(R.id.spinner)
         search_keyword_edit.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchViewModel.search(this@TravelCitySearchActivity, s.toString())

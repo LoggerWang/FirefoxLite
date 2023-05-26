@@ -22,22 +22,17 @@ import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.airbnb.lottie.LottieAnimationView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_first_run.animation_description
-import kotlinx.android.synthetic.main.fragment_first_run.animation_layout
-import kotlinx.android.synthetic.main.fragment_first_run.animation_view
-import kotlinx.android.synthetic.main.fragment_first_run.description
-import kotlinx.android.synthetic.main.fragment_first_run.item_browsing
-import kotlinx.android.synthetic.main.fragment_first_run.item_games
-import kotlinx.android.synthetic.main.fragment_first_run.item_news
-import kotlinx.android.synthetic.main.fragment_first_run.item_shopping
-import kotlinx.android.synthetic.main.fragment_first_run.progress_bar
-import kotlinx.android.synthetic.main.fragment_first_run.select_button
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.MainActivity
 import org.mozilla.focus.navigation.ScreenNavigator
@@ -68,6 +63,18 @@ class FirstrunFragment : Fragment(), ScreenNavigator.FirstrunScreen {
 
     private var pageStartTime = 0L
 
+
+    private lateinit var animation_description:TextView
+    private lateinit var animation_layout:ConstraintLayout
+    private lateinit var animation_view:LottieAnimationView
+    private lateinit var description:TextView
+    private lateinit var item_browsing: FrameLayout
+    private lateinit var item_games:FrameLayout
+    private lateinit var item_news:FrameLayout
+    private lateinit var item_shopping:FrameLayout
+    private lateinit var progress_bar: ProgressBar
+    private lateinit var select_button: ImageView
+
     override fun getFragment(): Fragment {
         return this
     }
@@ -80,8 +87,21 @@ class FirstrunFragment : Fragment(), ScreenNavigator.FirstrunScreen {
         FirebaseHelper.cancelTrace("coldStart")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_first_run, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var view = inflater.inflate(R.layout.fragment_first_run, container, false)
+        description = view.findViewById(R.id.description)
+        animation_layout = view.findViewById(R.id.animation_layout)
+        animation_description = view.findViewById(R.id.animation_description)
+        animation_view = view.findViewById(R.id.animation_view)
+        item_browsing = view.findViewById(R.id.item_browsing)
+        item_games = view.findViewById(R.id.item_games)
+        item_news = view.findViewById(R.id.item_news)
+        item_shopping = view.findViewById(R.id.item_shopping)
+        progress_bar = view.findViewById(R.id.progress_bar)
+        select_button = view.findViewById(R.id.select_button)
+        return view
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

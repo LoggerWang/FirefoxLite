@@ -10,6 +10,9 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,14 +22,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_mission_coupon.coupon_code
-import kotlinx.android.synthetic.main.fragment_mission_coupon.coupon_copy_btn
-import kotlinx.android.synthetic.main.fragment_mission_coupon.coupon_expiration
-import kotlinx.android.synthetic.main.fragment_mission_coupon.coupon_go_shopping_btn
-import kotlinx.android.synthetic.main.fragment_mission_coupon.faq_text
-import kotlinx.android.synthetic.main.fragment_mission_coupon.image
-import kotlinx.android.synthetic.main.fragment_mission_coupon.loading_view
-import kotlinx.android.synthetic.main.fragment_mission_coupon.title
 import org.mozilla.focus.R
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.appContext
@@ -40,6 +35,15 @@ class MissionCouponFragment : Fragment() {
     private val safeArgs: MissionCouponFragmentArgs by navArgs()
     private val mission by lazy { safeArgs.mission }
     private lateinit var viewModel: MissionCouponViewModel
+    private lateinit var coupon_code:TextView
+    private lateinit var coupon_copy_btn:TextView
+    private lateinit var coupon_expiration:TextView
+    private lateinit var coupon_go_shopping_btn:TextView
+    private lateinit var faq_text: TextView
+    private lateinit var image:ImageView
+    private lateinit var loading_view:ProgressBar
+    private lateinit var title:TextView
+
 
     @Inject
     lateinit var missionCouponViewModelCreator: Lazy<MissionCouponViewModel>
@@ -56,6 +60,14 @@ class MissionCouponFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coupon_code = view.findViewById(R.id.coupon_code)
+        coupon_copy_btn = view.findViewById(R.id.coupon_copy_btn)
+        coupon_expiration = view.findViewById(R.id.coupon_expiration)
+        title = view.findViewById(R.id.title)
+        coupon_go_shopping_btn = view.findViewById(R.id.coupon_go_shopping_btn)
+        faq_text = view.findViewById(R.id.faq_text)
+        image = view.findViewById(R.id.image)
+        loading_view = view.findViewById(R.id.loading_view)
         initViews()
         bindData()
         observeAction()

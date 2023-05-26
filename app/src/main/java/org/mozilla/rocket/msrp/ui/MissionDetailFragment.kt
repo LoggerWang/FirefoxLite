@@ -9,7 +9,9 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,27 +21,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_mission_detail.congrats_title_layout
-import kotlinx.android.synthetic.main.fragment_mission_detail.date_layout_row_1
-import kotlinx.android.synthetic.main.fragment_mission_detail.date_layout_row_2
-import kotlinx.android.synthetic.main.fragment_mission_detail.faq_text
-import kotlinx.android.synthetic.main.fragment_mission_detail.how_to_redeem
-import kotlinx.android.synthetic.main.fragment_mission_detail.image
-import kotlinx.android.synthetic.main.fragment_mission_detail.join_button
-import kotlinx.android.synthetic.main.fragment_mission_detail.join_layout
-import kotlinx.android.synthetic.main.fragment_mission_detail.join_layout_separator
-import kotlinx.android.synthetic.main.fragment_mission_detail.join_terms
-import kotlinx.android.synthetic.main.fragment_mission_detail.loading_view
-import kotlinx.android.synthetic.main.fragment_mission_detail.mission_step_text_1
-import kotlinx.android.synthetic.main.fragment_mission_detail.quit_button
-import kotlinx.android.synthetic.main.fragment_mission_detail.quit_button_separator
-import kotlinx.android.synthetic.main.fragment_mission_detail.redeem_button
-import kotlinx.android.synthetic.main.fragment_mission_detail.redeem_later_button
-import kotlinx.android.synthetic.main.fragment_mission_detail.redeem_layout
-import kotlinx.android.synthetic.main.fragment_mission_detail.sign_in_text
-import kotlinx.android.synthetic.main.fragment_mission_detail.title
-import kotlinx.android.synthetic.main.fragment_mission_detail.view.day_text
-import kotlinx.android.synthetic.main.fragment_urlinput.dismiss
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.DialogUtils
 import org.mozilla.focus.utils.IntentUtils
@@ -63,6 +44,27 @@ class MissionDetailFragment : Fragment(), NavigationResult {
     private val mission by lazy { safeArgs.mission }
     private lateinit var missionViewModel: MissionViewModel
     private lateinit var missionDetailViewModel: MissionDetailViewModel
+    private lateinit var congrats_title_layout : LinearLayout
+    private lateinit var date_layout_row_1 : ConstraintLayout
+    private lateinit var date_layout_row_2 : ConstraintLayout
+    private lateinit var faq_text : TextView
+    private lateinit var how_to_redeem: TextView
+    private lateinit var image: ImageView
+    private lateinit var join_button : Button
+    private lateinit var join_layout: LinearLayout
+    private lateinit var join_layout_separator:View
+    private lateinit var join_terms : TextView
+    private lateinit var loading_view: ProgressBar
+    private lateinit var mission_step_text_1: TextView
+    private lateinit var quit_button : Button
+    private lateinit var quit_button_separator : View
+    private lateinit var redeem_button : Button
+    private lateinit var redeem_later_button: Button
+    private lateinit var redeem_layout:LinearLayout
+    private lateinit var sign_in_text : TextView
+    private lateinit var title : TextView
+    private lateinit var day_text: TextView
+    private lateinit var dismiss : View
 
     @Inject
     lateinit var missionViewModelCreator: Lazy<MissionViewModel>
@@ -84,6 +86,27 @@ class MissionDetailFragment : Fragment(), NavigationResult {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        congrats_title_layout = view.findViewById(R.id.congrats_title_layout)
+        date_layout_row_1 = view.findViewById(R.id.date_layout_row_1)
+        date_layout_row_2 = view.findViewById(R.id.date_layout_row_2)
+        faq_text = view.findViewById(R.id.faq_text)
+        how_to_redeem = view.findViewById(R.id.how_to_redeem)
+        image = view.findViewById(R.id.image)
+        join_button = view.findViewById(R.id.join_button)
+        join_layout = view.findViewById(R.id.join_layout)
+        join_layout_separator = view.findViewById(R.id.join_layout_separator)
+        join_terms = view.findViewById(R.id.join_terms)
+        loading_view = view.findViewById(R.id.loading_view)
+        mission_step_text_1 = view.findViewById(R.id.mission_step_text_1)
+        quit_button = view.findViewById(R.id.quit_button)
+        quit_button_separator = view.findViewById(R.id.quit_button_separator)
+        redeem_button = view.findViewById(R.id.redeem_button)
+        redeem_later_button = view.findViewById(R.id.redeem_later_button)
+        redeem_layout = view.findViewById(R.id.redeem_layout)
+        sign_in_text = view.findViewById(R.id.sign_in_text)
+        title = view.findViewById(R.id.title)
+        day_text = view.findViewById(R.id.day_text)
+        dismiss = view.findViewById(R.id.dismiss)
         initViews()
         bindViews()
         observeActions()
@@ -275,7 +298,7 @@ class MissionDetailFragment : Fragment(), NavigationResult {
 
         dateView.isVisible = true
         dateView.isActivated = active
-        dateView.day_text.text = dateText
+        dateView.findViewById<TextView>(R.id.day_text).text = dateText
     }
 
     private fun observeActions() {

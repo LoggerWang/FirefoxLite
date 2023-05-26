@@ -3,7 +3,8 @@ package org.mozilla.rocket.content.travel.ui.adapter
 import android.graphics.Outline
 import android.view.View
 import android.view.ViewOutlineProvider
-import kotlinx.android.synthetic.main.item_city.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -20,6 +21,8 @@ class CityViewHolder(
     override val containerView: View,
     private val travelExploreViewModel: TravelExploreViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
+    var city_name: TextView = containerView.findViewById(R.id.city_name)
+    var city_image: ImageView = containerView.findViewById(R.id.city_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val cityItem = uiModel as CityUiModel
         city_name.text = cityItem.name

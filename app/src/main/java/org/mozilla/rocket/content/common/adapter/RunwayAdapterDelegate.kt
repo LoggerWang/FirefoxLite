@@ -2,7 +2,7 @@ package org.mozilla.rocket.content.common.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.LinearSnapHelper
-import kotlinx.android.synthetic.main.item_runway_list.*
+import androidx.recyclerview.widget.RecyclerView
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
@@ -27,8 +27,9 @@ class RunwayViewHolder(
     private val runwayViewModel: RunwayViewModel,
     private val category: String = "",
     private val telemetryViewModel: VerticalTelemetryViewModel? = null
-) : DelegateAdapter.ViewHolder(containerView) {
 
+) : DelegateAdapter.ViewHolder(containerView) {
+    var runway_list: RecyclerView?=containerView.findViewById<RecyclerView>(R.id.runway_list)
     private var adapter = DelegateAdapter(
         AdapterDelegatesManager().apply {
             add(RunwayItem::class, R.layout.item_runway, RunwayItemAdapterDelegate(runwayViewModel))
@@ -37,12 +38,12 @@ class RunwayViewHolder(
 
     init {
         val spaceWidth = itemView.resources.getDimensionPixelSize(R.dimen.card_space_width)
-        runway_list.addItemDecoration(HorizontalSpaceItemDecoration(spaceWidth))
-        runway_list.adapter = this@RunwayViewHolder.adapter
+        runway_list?.addItemDecoration(HorizontalSpaceItemDecoration(spaceWidth))
+        runway_list?.adapter = this@RunwayViewHolder.adapter
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(runway_list)
         telemetryViewModel?.let {
-            runway_list.monitorScrollImpression(it)
+            runway_list?.monitorScrollImpression(it)
         }
     }
 
@@ -51,7 +52,7 @@ class RunwayViewHolder(
         adapter.setData(runway.items)
 
         if (category.isNotEmpty() && telemetryViewModel != null && !runway.items.isNullOrEmpty()) {
-            runway_list.firstImpression(
+            runway_list?.firstImpression(
                 telemetryViewModel,
                 category,
                 runway.items[0].subCategoryId

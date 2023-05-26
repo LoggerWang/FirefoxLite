@@ -15,8 +15,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_edit_bookmark.*
+//import kotlinx.android.synthetic.main.activity_edit_bookmark.*
 import org.mozilla.focus.R
 import org.mozilla.focus.persistence.BookmarkModel
 import org.mozilla.focus.viewmodel.BookmarkViewModel
@@ -88,13 +89,14 @@ class EditBookmarkActivity : BaseActivity() {
             }
         }
     }
-
+    var toolbar: Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
         viewModel = getViewModel(viewModelCreator)
 
         setContentView(R.layout.activity_edit_bookmark)
+        toolbar= findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val drawable: Drawable = DrawableCompat.wrap(resources.getDrawable(R.drawable.edit_close, theme))
         DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.paletteWhite100))

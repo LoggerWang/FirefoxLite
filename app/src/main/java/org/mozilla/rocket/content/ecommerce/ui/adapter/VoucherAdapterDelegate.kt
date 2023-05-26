@@ -1,7 +1,10 @@
 package org.mozilla.rocket.content.ecommerce.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_voucher.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import org.mozilla.focus.R
 import org.mozilla.focus.utils.DrawableUtils
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -17,7 +20,9 @@ class VoucherViewHolder(
     override val containerView: View,
     private val voucherViewModel: VoucherViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var voucher_item:CardView = containerView.findViewById(R.id.voucher_item)
+    var voucher_category_text:TextView = containerView.findViewById(R.id.voucher_category_text)
+    var voucher_category_image:ImageView = containerView.findViewById(R.id.voucher_category_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val voucherItem = uiModel as Voucher
 

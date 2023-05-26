@@ -2,9 +2,11 @@ package org.mozilla.rocket.shopping.search.ui.adapter
 
 import android.graphics.Color
 import android.view.View
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_shopping_search_preference.*
+import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchPreferencesViewModel
@@ -38,7 +40,9 @@ class SiteViewHolder(
     override val containerView: View,
     private val viewModel: ShoppingSearchPreferencesViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var preference_site_name: TextView = containerView.findViewById(R.id.preference_site_name)
+    var preference_site_url: TextView = containerView.findViewById(R.id.preference_site_url)
+    var preference_site_switch: SwitchCompat = containerView.findViewById(R.id.preference_site_switch)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         uiModel as ShoppingSiteItem
         preference_site_name.text = uiModel.title

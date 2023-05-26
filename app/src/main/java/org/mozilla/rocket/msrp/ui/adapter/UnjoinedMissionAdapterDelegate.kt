@@ -1,15 +1,13 @@
 package org.mozilla.rocket.msrp.ui.adapter
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.item_unjoined_mission.expiration_text
-import kotlinx.android.synthetic.main.item_unjoined_mission.image
-import kotlinx.android.synthetic.main.item_unjoined_mission.red_dot
-import kotlinx.android.synthetic.main.item_unjoined_mission.title
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -30,6 +28,10 @@ class UnjoinedMissionsViewHolder(
 
     private val imgReqOpts = RequestOptions().apply { transforms(CenterCrop(), RoundedCorners(containerView.dpToPx(4f))) }
 
+    var title: TextView = containerView.findViewById(R.id.title)
+    var expiration_text: TextView = containerView.findViewById(R.id.expiration_text)
+    var red_dot: View = containerView.findViewById(R.id.red_dot)
+    var image: ImageView = containerView.findViewById(R.id.image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         uiModel as MissionUiModel.UnjoinedMission
 

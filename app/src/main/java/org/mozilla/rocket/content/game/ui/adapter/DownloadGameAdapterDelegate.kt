@@ -2,7 +2,8 @@ package org.mozilla.rocket.content.game.ui.adapter
 
 import android.view.ContextMenu
 import android.view.View
-import kotlinx.android.synthetic.main.item_game.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -19,6 +20,8 @@ class GameViewHolder(
     override val containerView: View,
     private val downloadGameViewModel: DownloadGameViewModel
 ) : DelegateAdapter.ViewHolder(containerView), View.OnCreateContextMenuListener {
+    var game_name:TextView = containerView.findViewById(R.id.game_name)
+    var game_image:ImageView = containerView.findViewById(R.id.game_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val gameItem = uiModel as Game
         game_name.text = gameItem.name

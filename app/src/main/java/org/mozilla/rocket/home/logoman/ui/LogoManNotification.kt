@@ -11,6 +11,9 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,11 +23,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import kotlinx.android.synthetic.main.home_notification_board.notification_icon
-import kotlinx.android.synthetic.main.home_notification_board.notification_subtitle
-import kotlinx.android.synthetic.main.home_notification_board.notification_title
-import kotlinx.android.synthetic.main.logo_man_notification.view.logo_man
-import kotlinx.android.synthetic.main.logo_man_notification.view.notification_board
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.focus.utils.DrawableUtils
@@ -212,6 +210,10 @@ class LogoManNotification : FrameLayout {
         override val containerView: View,
         private val clickListener: () -> Unit
     ) : DelegateAdapter.ViewHolder(containerView) {
+
+        var notification_title: TextView = containerView.findViewById(R.id.notification_title)
+        var notification_subtitle: TextView = containerView.findViewById(R.id.notification_subtitle)
+        var notification_icon: ImageView = containerView.findViewById(R.id.notification_icon)
         override fun bind(uiModel: DelegateAdapter.UiModel) {
             uiModel as RemoteNotification
             notification_title.text = uiModel.title
@@ -243,7 +245,9 @@ class LogoManNotification : FrameLayout {
     ) : DelegateAdapter.ViewHolder(containerView) {
 
         private val imageSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, containerView.resources.displayMetrics).toInt()
-
+        var notification_title: TextView = containerView.findViewById(R.id.notification_title)
+        var notification_subtitle: TextView = containerView.findViewById(R.id.notification_subtitle)
+        var notification_icon: ImageView = containerView.findViewById(R.id.notification_icon)
         override fun bind(uiModel: DelegateAdapter.UiModel) {
             uiModel as MissionNotification
             notification_title.text = uiModel.title

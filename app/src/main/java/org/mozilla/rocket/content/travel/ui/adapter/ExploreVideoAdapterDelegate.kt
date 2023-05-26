@@ -7,7 +7,8 @@ import android.os.Build
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewOutlineProvider
-import kotlinx.android.synthetic.main.item_travel_detail_video.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -30,6 +31,12 @@ class ExploreVideoViewHolder(
     private val travelCityViewModel: TravelCityViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
 
+    var explore_video_length: TextView = containerView.findViewById(R.id.explore_video_length)
+    var explore_video_title: TextView = containerView.findViewById(R.id.explore_video_title)
+    var explore_video_author: TextView = containerView.findViewById(R.id.explore_video_author)
+    var explore_video_views: TextView = containerView.findViewById(R.id.explore_video_views)
+    var explore_video_date: TextView = containerView.findViewById(R.id.explore_video_date)
+    var explore_video_image: ImageView = containerView.findViewById(R.id.explore_video_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val exploreVideo = uiModel as VideoUiModel
 

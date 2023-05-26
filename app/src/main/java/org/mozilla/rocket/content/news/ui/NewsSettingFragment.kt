@@ -91,7 +91,7 @@ class NewsSettingFragment : PreferenceFragmentCompat() {
         personalizedNewsPreference?.isVisible = false
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
         if (preference?.key == PREF_NEWS_LANG) {
             onLanguagePrefClick()
         } else if (preference?.key == PREF_PERSONALIZED_NEWS) {
@@ -100,8 +100,13 @@ class NewsSettingFragment : PreferenceFragmentCompat() {
         return super.onPreferenceTreeClick(preference)
     }
 
+//    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+//
+//        return super.onPreferenceTreeClick(preference)
+//    }
+
     private fun onLanguagePrefClick() {
-        dialogHelper.build(context!!, ::setUserPreferLanguage)
+        dialogHelper.build(requireContext(), ::setUserPreferLanguage)
     }
 
     private fun onPersonalizedNewsClick() {

@@ -1,7 +1,8 @@
 package org.mozilla.rocket.content.game.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_game_category.*
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -29,6 +30,8 @@ class InstantGameCategoryViewHolder(
     instantGameViewModel: InstantGameViewModel,
     private val telemetryViewModel: VerticalTelemetryViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
+    var game_list: RecyclerView = containerView.findViewById(R.id.game_list)
+    var category_title: TextView = containerView.findViewById(R.id.category_title)
     private var adapter = DelegateAdapter(
         AdapterDelegatesManager().apply {
             add(Game::class, R.layout.item_game, InstantGameAdapterDelegate(instantGameViewModel))

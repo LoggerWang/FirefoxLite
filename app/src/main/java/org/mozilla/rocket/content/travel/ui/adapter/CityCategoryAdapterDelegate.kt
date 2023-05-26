@@ -1,7 +1,9 @@
 package org.mozilla.rocket.content.travel.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_city_category.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -27,6 +29,8 @@ class CityCategoryViewHolder(
     private val travelExploreViewModel: TravelExploreViewModel,
     private val telemetryViewModel: VerticalTelemetryViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
+    var city_list: RecyclerView = containerView.findViewById(R.id.city_list)
+    var category_title: TextView = containerView.findViewById(R.id.category_title)
     private var adapter = DelegateAdapter(
         AdapterDelegatesManager().apply {
             add(CityUiModel::class, R.layout.item_city, CityAdapterDelegate(travelExploreViewModel))

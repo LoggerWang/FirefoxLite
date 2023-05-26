@@ -6,12 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.StrictMode
 import android.view.View
-import kotlinx.android.synthetic.main.item_recommended_site.content_image
-import kotlinx.android.synthetic.main.item_recommended_site.text
+import android.widget.ImageView
+import org.mozilla.focus.R
 import org.mozilla.focus.utils.DimenUtils
 import org.mozilla.icon.FavIconUtils
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
+import org.mozilla.rocket.nightmode.themed.ThemedTextView
 import org.mozilla.strictmodeviolator.StrictModeViolation
 
 class RecommendedSitesAdapterDelegate(
@@ -26,6 +27,8 @@ class RecommendedSiteViewHolder(
     private val topSiteClickListener: TopSiteClickListener
 ) : DelegateAdapter.ViewHolder(containerView) {
 
+    var text: ThemedTextView = containerView.findViewById(R.id.text)
+    var content_image: ImageView = containerView.findViewById(R.id.content_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         when (val site = uiModel as Site) {
             is Site.UrlSite -> {

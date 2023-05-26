@@ -1,8 +1,7 @@
 package org.mozilla.rocket.msrp.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_redeemed_mission.expiration_text
-import kotlinx.android.synthetic.main.item_redeemed_mission.title
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -20,6 +19,8 @@ class RedeemedMissionsViewHolder(
     override val containerView: View
 ) : DelegateAdapter.ViewHolder(containerView) {
     override fun bind(uiModel: DelegateAdapter.UiModel) {
+        var title: TextView = containerView.findViewById(R.id.title)
+        var expiration_text: TextView = containerView.findViewById(R.id.expiration_text)
         uiModel as MissionUiModel.RedeemedMission
 
         title.text = uiModel.title

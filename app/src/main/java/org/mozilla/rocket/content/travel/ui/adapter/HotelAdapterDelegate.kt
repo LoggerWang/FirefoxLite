@@ -2,13 +2,15 @@ package org.mozilla.rocket.content.travel.ui.adapter
 
 import android.graphics.Bitmap
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import kotlinx.android.synthetic.main.item_hotel.*
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -27,6 +29,17 @@ class HotelViewHolder(
     private val travelCityViewModel: TravelCityViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
 
+    var hotel_source: TextView = containerView.findViewById(R.id.hotel_source)
+    var hotel_name: TextView = containerView.findViewById(R.id.hotel_name)
+    var hotel_description: TextView = containerView.findViewById(R.id.hotel_description)
+    var hotel_rating: TextView = containerView.findViewById(R.id.hotel_rating)
+    var hotel_currency: TextView = containerView.findViewById(R.id.hotel_currency)
+    var hotel_price: TextView = containerView.findViewById(R.id.hotel_price)
+    var hotel_free_wifi: TextView = containerView.findViewById(R.id.hotel_free_wifi)
+    var hotel_no_creditcard_required: TextView = containerView.findViewById(R.id.hotel_no_creditcard_required)
+    var hotel_pay_at_hotel: TextView = containerView.findViewById(R.id.hotel_pay_at_hotel)
+    var hotel_extras: LinearLayout = containerView.findViewById(R.id.hotel_extras)
+    var hotel_image: ImageView = containerView.findViewById(R.id.hotel_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val hotelUiModel = uiModel as HotelUiModel
 

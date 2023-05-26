@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_banner.image
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 
@@ -48,12 +47,12 @@ class CarouselBannerAdapter(
         private var onItemClickListener: ((BannerItem) -> Unit)? = null
 
         fun bind(bannerItem: BannerItem) {
-            GlideApp.with(containerView.context)
-                .asBitmap()
-                .placeholder(R.drawable.placeholder)
-                .fitCenter()
-                .load(bannerItem.imageUrl)
-                .into(image)
+//            GlideApp.with(containerView.context)
+//                .asBitmap()
+//                .placeholder(R.drawable.placeholder)
+//                .fitCenter()
+//                .load(bannerItem.imageUrl)
+//                .into(image)
 
             containerView.setOnClickListener { onItemClickListener?.invoke(bannerItem) }
         }

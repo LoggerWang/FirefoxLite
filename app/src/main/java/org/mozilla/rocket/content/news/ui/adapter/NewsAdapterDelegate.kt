@@ -2,8 +2,9 @@ package org.mozilla.rocket.content.news.ui.adapter
 
 import android.text.format.DateUtils
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.item_news.*
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -20,7 +21,10 @@ class NewsViewHolder(
     private val category: String,
     private val newsViewModel: NewsViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var news_item_headline: TextView = containerView.findViewById(R.id.news_item_headline)
+    var news_item_source: TextView = containerView.findViewById(R.id.news_item_source)
+    var news_item_time: TextView = containerView.findViewById(R.id.news_item_time)
+    var news_item_image: ImageView = containerView.findViewById(R.id.news_item_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val newsUiModel = uiModel as NewsUiModel
 

@@ -2,8 +2,10 @@ package org.mozilla.rocket.content.travel.ui.adapter
 
 import android.view.View
 import android.webkit.URLUtil
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.item_section_header.*
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -23,7 +25,8 @@ class SectionHeaderViewHolder(
     override val containerView: View,
     private val travelCityViewModel: TravelCityViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var header_title: TextView = containerView.findViewById(R.id.header_title)
+    var more: LinearLayout = containerView.findViewById(R.id.more)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val header = uiModel as SectionHeaderUiModel
         when (header.type) {

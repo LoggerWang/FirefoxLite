@@ -3,7 +3,8 @@ package org.mozilla.rocket.content.travel.ui.adapter
 import android.graphics.Outline
 import android.view.View
 import android.view.ViewOutlineProvider
-import kotlinx.android.synthetic.main.item_travel_detail_wiki.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -20,7 +21,9 @@ class ExploreWikiViewHolder(
     override val containerView: View,
     private val travelCityViewModel: TravelCityViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var explore_wiki_content: TextView = containerView.findViewById(R.id.explore_wiki_content)
+    var explore_wiki_source: TextView = containerView.findViewById(R.id.explore_wiki_source)
+    var explore_wiki_image: ImageView = containerView.findViewById(R.id.explore_wiki_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val exploreWiki = uiModel as WikiUiModel
 

@@ -1,7 +1,8 @@
 package org.mozilla.rocket.content.ecommerce.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_product_category.*
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegate
@@ -32,20 +33,24 @@ class ProductCategoryViewHolder(
             add(ProductItem::class, R.layout.item_product, ProductAdapterDelegate(dealViewModel))
         }
     )
+    var product_list: RecyclerView?=null
+    var category_title: TextView?=null
 
     init {
+        product_list = containerView.findViewById(R.id.product_list)
+        category_title = containerView.findViewById(R.id.category_title)
         val spaceWidth = itemView.resources.getDimensionPixelSize(R.dimen.card_space_width)
-        product_list.addItemDecoration(HorizontalSpaceItemDecoration(spaceWidth))
-        product_list.adapter = this@ProductCategoryViewHolder.adapter
+        product_list?.addItemDecoration(HorizontalSpaceItemDecoration(spaceWidth))
+        product_list?.adapter = this@ProductCategoryViewHolder.adapter
         val snapHelper = StartSnapHelper()
         snapHelper.attachToRecyclerView(product_list)
-        product_list.monitorScrollImpression(telemetryViewModel)
+        product_list?.monitorScrollImpression(telemetryViewModel)
     }
 
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val productCategory = uiModel as ProductCategory
-        category_title.text = if (productCategory.stringResourceId != 0) {
-            category_title.context.getString(productCategory.stringResourceId)
+        category_title?.text = if (productCategory.stringResourceId != 0) {
+            category_title?.context?.getString(productCategory.stringResourceId)
         } else {
             productCategory.subcategoryName
         }
@@ -53,7 +58,7 @@ class ProductCategoryViewHolder(
         adapter.setData(productCategory.items)
 
         if (!productCategory.items.isNullOrEmpty()) {
-            product_list.firstImpression(
+            product_list?.firstImpression(
                 telemetryViewModel,
                 TelemetryWrapper.Extra_Value.SHOPPING_DEAL,
                 productCategory.items[0].subCategoryId

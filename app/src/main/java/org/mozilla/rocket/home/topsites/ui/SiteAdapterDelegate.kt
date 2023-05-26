@@ -8,18 +8,19 @@ import android.graphics.Color
 import android.os.StrictMode
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import kotlinx.android.synthetic.main.item_top_site.*
-import kotlinx.android.synthetic.main.item_top_site.content_image
-import kotlinx.android.synthetic.main.item_top_site.text
-import kotlinx.android.synthetic.main.item_dummy_top_site.*
+import com.airbnb.lottie.LottieAnimationView
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.DimenUtils
 import org.mozilla.icon.FavIconUtils
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.chrome.ChromeViewModel
+import org.mozilla.rocket.nightmode.themed.ThemedTextView
 import org.mozilla.strictmodeviolator.StrictModeViolation
 
 class SiteAdapterDelegate(
@@ -35,7 +36,10 @@ class SiteViewHolder(
     private val topSiteClickListener: TopSiteClickListener,
     private val chromeViewModel: ChromeViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var text: ThemedTextView = containerView.findViewById(R.id.text)
+    var content_image: ImageView = containerView.findViewById(R.id.content_image)
+    var pin_indicator: FrameLayout = containerView.findViewById(R.id.pin_indicator)
+    var content_image_mask: LottieAnimationView = containerView.findViewById(R.id.content_image_mask)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val site = uiModel as Site
         when (site) {

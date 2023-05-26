@@ -1,7 +1,8 @@
 package org.mozilla.rocket.content.travel.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_travel_detail_ig.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.TopSitesUtils
 import org.mozilla.icon.FavIconUtils
@@ -19,7 +20,8 @@ class ExploreIgViewHolder(
     override val containerView: View,
     private val travelCityViewModel: TravelCityViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-
+    var explore_ig_tag: TextView = containerView.findViewById(R.id.explore_ig_tag)
+    var explore_ig_icon: ImageView = containerView.findViewById(R.id.explore_ig_icon)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val exploreIg = uiModel as IgUiModel
 

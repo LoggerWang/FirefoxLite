@@ -3,6 +3,8 @@ package org.mozilla.rocket.content.travel.ui.adapter
 import android.graphics.Outline
 import android.view.View
 import android.view.ViewOutlineProvider
+import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.android.synthetic.main.item_bucket_list.*
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
@@ -20,6 +22,8 @@ class BucketListCityViewHolder(
     private val travelBucketListViewModel: TravelBucketListViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
 
+    var city_name: TextView = containerView.findViewById(R.id.city_name)
+    var city_image: ImageView = containerView.findViewById(R.id.city_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val bucketListCity = uiModel as BucketListCityUiModel
         city_name.text = bucketListCity.name

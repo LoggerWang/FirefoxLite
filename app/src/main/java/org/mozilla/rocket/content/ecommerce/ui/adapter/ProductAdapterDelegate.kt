@@ -1,12 +1,14 @@
 package org.mozilla.rocket.content.ecommerce.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_product.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.content.ecommerce.ui.DealViewModel
+import org.mozilla.rocket.content.ecommerce.ui.RatingView
 import kotlin.math.roundToInt
 
 class ProductAdapterDelegate(private val dealViewModel: DealViewModel) : AdapterDelegate {
@@ -18,18 +20,24 @@ class ProductViewHolder(
     override val containerView: View,
     private val dealViewModel: DealViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
+    var product_name: TextView?=containerView.findViewById(R.id.product_name)
+    var product_brand: TextView?=containerView.findViewById(R.id.product_brand)
+    var product_price: TextView?=containerView.findViewById(R.id.product_price)
+    var product_discount: TextView?=containerView.findViewById(R.id.product_discount)
+    var product_rating: RatingView?=containerView.findViewById(R.id.product_rating)
+    var product_image: ImageView?=containerView.findViewById(R.id.product_image)
     override fun bind(uiModel: DelegateAdapter.UiModel) {
         val productItem = uiModel as ProductItem
-        product_name.text = productItem.title
-        product_brand.text = productItem.source
-        product_price.text = productItem.price
-        product_rating.updateRatingInfo(productItem.ratingCount, productItem.reviews)
+        product_name?.text = productItem.title
+        product_brand?.text = productItem.source
+        product_price?.text = productItem.price
+        product_rating?.updateRatingInfo(productItem.ratingCount, productItem.reviews)
         product_discount.apply {
             if (productItem.discount.isNotEmpty()) {
-                product_discount.text = productItem.discount
-                product_discount.visibility = View.VISIBLE
+                product_discount?.text = productItem.discount
+                product_discount?.visibility = View.VISIBLE
             } else {
-                product_discount.visibility = View.GONE
+                product_discount?.visibility = View.GONE
             }
         }
 

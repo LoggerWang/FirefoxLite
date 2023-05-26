@@ -5,16 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_news.news_list
-import kotlinx.android.synthetic.main.fragment_news.news_progress_center
-import kotlinx.android.synthetic.main.fragment_news.no_result_view
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,10 +25,7 @@ import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.adapter.DelegatePagedListAdapter
 import org.mozilla.rocket.content.appComponent
-import org.mozilla.rocket.content.common.ui.ContentTabActivity
-import org.mozilla.rocket.content.common.ui.VerticalTelemetryViewModel
-import org.mozilla.rocket.content.common.ui.firstImpression
-import org.mozilla.rocket.content.common.ui.monitorScrollImpression
+import org.mozilla.rocket.content.common.ui.*
 import org.mozilla.rocket.content.getActivityViewModel
 import org.mozilla.rocket.content.news.data.NewsItem
 import org.mozilla.rocket.content.news.ui.adapter.NewsAdapterDelegate
@@ -55,6 +52,9 @@ class NewsFragment : Fragment() {
     private var isLoading = false
     private val uiScope = CoroutineScope(Dispatchers.Main)
     private var stateLoadingJob: Job? = null
+    private lateinit var news_list: RecyclerView
+    private lateinit var news_progress_center: ProgressBar
+    private lateinit var no_result_view:NoResultView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -68,7 +68,9 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        var view = inflater.inflate(R.layout.fragment_news, container, false)
+            news_list = view.findViewById(R.id.news_list)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

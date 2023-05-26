@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_shopping.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.content.appComponent
@@ -34,12 +35,19 @@ class ShoppingActivity : FragmentActivity() {
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var adapter: ShoppingTabsAdapter
 
+    lateinit var view_pager:ViewPager
+    lateinit var shopping_tabs:TabLayout
+    lateinit var refresh_button: AppCompatImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
         shoppingViewModel = getViewModel(shoppingViewModelCreator)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         setContentView(R.layout.activity_shopping)
+        view_pager = findViewById(R.id.view_pager)
+        shopping_tabs = findViewById(R.id.shopping_tabs)
+        refresh_button = findViewById(R.id.refresh_button)
         initViewPager()
         initTabLayout()
         observeRefreshAction()

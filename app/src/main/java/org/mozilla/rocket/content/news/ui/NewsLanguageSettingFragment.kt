@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_news_language_setting.*
 import org.mozilla.focus.R
 import org.mozilla.focus.widget.BackKeyHandleable
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.common.ui.GridLayoutItemDecoration
+import org.mozilla.rocket.content.common.ui.NoResultView
 import org.mozilla.rocket.content.getActivityViewModel
 import org.mozilla.rocket.content.news.data.NewsLanguage
 import java.util.Locale
@@ -30,6 +31,9 @@ class NewsLanguageSettingFragment : Fragment(), BackKeyHandleable {
 
     private lateinit var newsPageStateViewModel: NewsPageStateViewModel
     private lateinit var newsLanguageSettingViewModel: NewsLanguageSettingViewModel
+    private lateinit var news_language_list: RecyclerView
+    private lateinit var no_result_view: NoResultView
+    private lateinit var spinner: ProgressBar
 
     val languages = mutableListOf<NewsLanguage>()
 
@@ -46,7 +50,11 @@ class NewsLanguageSettingFragment : Fragment(), BackKeyHandleable {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news_language_setting, container, false)
+        var view  =inflater.inflate(R.layout.fragment_news_language_setting, container, false)
+            news_language_list = view.findViewById(R.id.news_language_list)
+        no_result_view = view.findViewById(R.id.no_result_view)
+        spinner = view.findViewById(R.id.spinner)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_voucher.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
@@ -33,6 +33,7 @@ class VoucherFragment : Fragment() {
     private lateinit var voucherViewModel: VoucherViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var voucherAdapter: DelegateAdapter
+    private lateinit var content_voucher_list: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -43,7 +44,9 @@ class VoucherFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_voucher, container, false)
+        var view =  inflater.inflate(R.layout.fragment_voucher, container, false)
+        content_voucher_list = view.findViewById(R.id.content_voucher_list)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

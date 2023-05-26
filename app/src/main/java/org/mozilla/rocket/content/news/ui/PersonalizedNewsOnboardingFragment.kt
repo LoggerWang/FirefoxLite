@@ -8,10 +8,10 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_personalized_news_onboarding.*
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.InfoActivity
 import org.mozilla.focus.utils.SupportUtils
@@ -29,6 +29,9 @@ class PersonalizedNewsOnboardingFragment : Fragment() {
 
     private lateinit var newsPageStateViewModel: NewsPageStateViewModel
     private lateinit var personalizedNewsOnboardingViewModel: PersonalizedNewsOnboardingViewModel
+    private lateinit var personalized_news_onboarding_btn_no: TextView
+    private lateinit var personalized_news_onboarding_btn_yes: TextView
+    private lateinit var personalized_news_onboarding_description: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -42,7 +45,11 @@ class PersonalizedNewsOnboardingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_personalized_news_onboarding, container, false)
+        var view = inflater.inflate(R.layout.fragment_personalized_news_onboarding, container, false)
+            personalized_news_onboarding_btn_no = view.findViewById(R.id.personalized_news_onboarding_btn_no)
+        personalized_news_onboarding_btn_yes = view.findViewById(R.id.personalized_news_onboarding_btn_yes)
+        personalized_news_onboarding_description = view.findViewById(R.id.personalized_news_onboarding_description)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

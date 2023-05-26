@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -12,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_news_tab.*
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.SettingsActivity
 import org.mozilla.rocket.content.appComponent
@@ -36,6 +36,8 @@ class NewsTabFragment : Fragment() {
     private lateinit var newsTabViewModel: NewsTabViewModel
     private lateinit var newsViewModel: NewsViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
+    private lateinit var news_setting: AppCompatImageButton
+    private lateinit var news_refresh_button: AppCompatImageButton
 
     private var newsSettings: Pair<NewsLanguage, List<NewsCategory>>? = null
 
@@ -53,7 +55,10 @@ class NewsTabFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news_tab, container, false)
+        var view = inflater.inflate(R.layout.fragment_news_tab, container, false)
+        news_setting = view.findViewById(R.id.news_setting)
+        news_refresh_button = view.findViewById(R.id.news_refresh_button)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,7 +146,7 @@ class NewsTabFragment : Fragment() {
     private fun launchSettings() {
         val intent = Intent().run {
             putExtra(EXTRA_CONFIG_NEWS, "config")
-            setClass(context!!, SettingsActivity::class.java)
+            setClass(requireContext(), SettingsActivity::class.java)
         }
         startActivityForResult(intent, SETTING_REQUEST_CODE)
     }

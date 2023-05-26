@@ -9,17 +9,14 @@ import android.os.Bundle
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_content_tab.*
-import kotlinx.android.synthetic.main.toolbar.*
+
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.BaseActivity
 import org.mozilla.focus.utils.Constants
@@ -36,6 +33,7 @@ import org.mozilla.rocket.content.view.BottomBar
 import org.mozilla.rocket.download.data.DownloadsRepository
 import org.mozilla.rocket.extension.nonNullObserve
 import org.mozilla.rocket.extension.switchFrom
+import org.mozilla.rocket.nightmode.themed.ThemedImageView
 import org.mozilla.rocket.privately.PrivateTabViewProvider
 import org.mozilla.rocket.tabs.SessionManager
 import org.mozilla.rocket.tabs.TabViewProvider
@@ -64,25 +62,44 @@ class ContentTabActivity : BaseActivity(), TabsSessionProvider.SessionHost, Cont
     private lateinit var uiMessageReceiver: BroadcastReceiver
     private lateinit var bottomBarItemAdapter: BottomBarItemAdapter
 
+    var appbar: AppBarLayout?=null
+    var bottom_bar: BottomBar?=null
+    var toolbar_root: BottomBar?=null
+    var site_identity: ThemedImageView?=null
+    var display_url: TextView?=null
+    var progress:ProgressBar? =null
+    var browser_container:FrameLayout? =null
+    var snack_bar_container:FrameLayout? =null
+    lateinit var video_container:ViewGroup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_content_tab)
 
+        appbar = findViewById(R.id.appbar)
+        bottom_bar = findViewById(R.id.bottom_bar)
+        site_identity = findViewById(R.id.site_identity)
+        display_url = findViewById(R.id.display_url)
+        progress = findViewById(R.id.progress)
+        browser_container = findViewById(R.id.browser_container)
+        video_container = findViewById(R.id.video_container)
+        snack_bar_container = findViewById(R.id.snack_bar_container)
+
         chromeViewModel = getViewModel(chromeViewModelCreator)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         tabViewProvider = PrivateTabViewProvider(this)
         sessionManager = SessionManager(tabViewProvider)
 
-        appbar.setOnApplyWindowInsetsListener { v, insets ->
+        appbar?.setOnApplyWindowInsetsListener { v, insets ->
             (v.layoutParams as ConstraintLayout.LayoutParams).topMargin = insets.systemWindowInsetTop
             insets
         }
 
         makeStatusBarTransparent()
 
-        setupBottomBar(bottom_bar)
+        setupBottomBar(bottom_bar!!)
 
         initBroadcastReceivers()
 
@@ -144,11 +161,11 @@ class ContentTabActivity : BaseActivity(), TabsSessionProvider.SessionHost, Cont
         super.onConfigurationChanged(newConfig)
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            toolbar_root.visibility = View.GONE
-            bottom_bar.visibility = View.GONE
+            toolbar_root?.visibility = View.GONE
+            bottom_bar?.visibility = View.GONE
         } else {
-            toolbar_root.visibility = View.VISIBLE
-            bottom_bar.visibility = View.VISIBLE
+            toolbar_root?.visibility = View.VISIBLE
+            bottom_bar?.visibility = View.VISIBLE
         }
     }
 
@@ -192,9 +209,9 @@ class ContentTabActivity : BaseActivity(), TabsSessionProvider.SessionHost, Cont
 
     override fun getProgressBar(): ProgressBar? = progress
 
-    override fun getFullScreenGoneViews() = listOf(toolbar_root, bottom_bar)
+    override fun getFullScreenGoneViews() = listOf(toolbar_root, bottom_bar) as List<View>
 
-    override fun getFullScreenInvisibleViews() = listOf(browser_container)
+    override fun getFullScreenInvisibleViews() = listOf(browser_container) as List<View>
 
     override fun getFullScreenContainerView(): ViewGroup = video_container
 
@@ -281,19 +298,21 @@ class ContentTabActivity : BaseActivity(), TabsSessionProvider.SessionHost, Cont
 
         chromeViewModel.showDownloadFinishedSnackBar.observe(this, Observer { downloadInfo ->
             val message = getString(R.string.download_completed, downloadInfo.fileName)
-            Snackbar.make(snack_bar_container, message, Snackbar.LENGTH_LONG).apply {
-                // Set the open action only if we can.
-                if (downloadInfo.existInDownloadManager()) {
-                    setAction(R.string.open) {
-                        try {
-                            IntentUtils.intentOpenFile(this@ContentTabActivity, downloadInfo.fileUri, downloadInfo.mimeType)
-                        } catch (e: URISyntaxException) {
-                            e.printStackTrace()
+            snack_bar_container?.let {
+                Snackbar.make(it, message, Snackbar.LENGTH_LONG).apply {
+                    // Set the open action only if we can.
+                    if (downloadInfo.existInDownloadManager()) {
+                        setAction(R.string.open) {
+                            try {
+                                IntentUtils.intentOpenFile(this@ContentTabActivity, downloadInfo.fileUri, downloadInfo.mimeType)
+                            } catch (e: URISyntaxException) {
+                                e.printStackTrace()
+                            }
                         }
                     }
+                    anchorView = bottom_bar
+                    show()
                 }
-                anchorView = bottom_bar
-                show()
             }
         })
     }

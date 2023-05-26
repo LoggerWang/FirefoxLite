@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_travel_bucket_list.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
@@ -34,6 +38,11 @@ class TravelBucketListFragment : Fragment() {
     private lateinit var travelBucketListViewModel: TravelBucketListViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var bucketListAdapter: DelegateAdapter
+    private lateinit var bucket_list_recycler_view: RecyclerView
+    private lateinit var bucket_list_empty_explore: TextView
+    private lateinit var bucket_list_content_layout: FrameLayout
+    private lateinit var spinner: ProgressBar
+    private lateinit var bucket_list_empty_view: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -43,7 +52,13 @@ class TravelBucketListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_travel_bucket_list, container, false)
+       var view  = inflater.inflate(R.layout.fragment_travel_bucket_list, container, false)
+        bucket_list_recycler_view = view.findViewById(R.id.bucket_list_recycler_view)
+        bucket_list_empty_explore = view.findViewById(R.id.bucket_list_empty_explore)
+        bucket_list_content_layout = view.findViewById(R.id.bucket_list_content_layout)
+        spinner = view.findViewById(R.id.spinner)
+        bucket_list_empty_view = view.findViewById(R.id.bucket_list_empty_view)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

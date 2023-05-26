@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_deal.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
@@ -19,6 +20,7 @@ import org.mozilla.rocket.content.common.adapter.Runway
 import org.mozilla.rocket.content.common.adapter.RunwayAdapterDelegate
 import org.mozilla.rocket.content.common.adapter.RunwayItem
 import org.mozilla.rocket.content.common.ui.ContentTabActivity
+import org.mozilla.rocket.content.common.ui.NoResultView
 import org.mozilla.rocket.content.common.ui.RunwayViewModel
 import org.mozilla.rocket.content.common.ui.VerticalTelemetryViewModel
 import org.mozilla.rocket.content.ecommerce.ui.adapter.ProductCategory
@@ -43,6 +45,10 @@ class DealFragment : Fragment() {
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var dealAdapter: DelegateAdapter
 
+    lateinit var content_deals:RecyclerView
+    lateinit var no_result_view:NoResultView
+    lateinit var spinner:ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
@@ -53,7 +59,11 @@ class DealFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_deal, container, false)
+        var view = inflater.inflate(R.layout.fragment_deal, container, false)
+        content_deals = view.findViewById(R.id.content_deals)
+        no_result_view = view.findViewById(R.id.no_result_view)
+        spinner = view.findViewById(R.id.spinner)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import dagger.Lazy
-import kotlinx.android.synthetic.main.activity_game_mode.*
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.BaseActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
@@ -47,12 +47,15 @@ class GameModeActivity : BaseActivity(), TabsSessionProvider.SessionHost, Conten
     private lateinit var sessionManager: SessionManager
     private lateinit var contentTabHelper: ContentTabHelper
     private lateinit var contentTabObserver: ContentTabHelper.Observer
+    private lateinit var fragment_container: FrameLayout
+    private lateinit var video_container: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_mode)
-
+        fragment_container = findViewById(R.id.fragment_container)
+        video_container = findViewById(R.id.video_container)
         chromeViewModel = getViewModel(chromeViewModelCreator)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         tabViewProvider = PrivateTabViewProvider(this)

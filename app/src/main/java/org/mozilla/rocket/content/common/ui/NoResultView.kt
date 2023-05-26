@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
-import kotlinx.android.synthetic.main.no_result_view.view.*
 import org.mozilla.focus.R
 
 class NoResultView @JvmOverloads constructor(
@@ -16,10 +16,16 @@ class NoResultView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyle) {
 
     private val button: TextView
+    private val no_result_view_text: TextView
+//    private val no_result_view_button: TextView
+    private val no_result_view_image: ImageView
 
     init {
         View.inflate(context, R.layout.no_result_view, this)
         button = findViewById(R.id.no_result_view_button)
+        no_result_view_text = findViewById(R.id.no_result_view_text)
+//        no_result_view_button = findViewById(R.id.no_result_view_button)
+        no_result_view_image = findViewById(R.id.no_result_view_image)
 
         isClickable = false
     }
@@ -33,7 +39,7 @@ class NoResultView @JvmOverloads constructor(
     }
 
     fun setButtonText(text: String) {
-        no_result_view_button.text = text
+        button.text = text
     }
 
     fun release() {

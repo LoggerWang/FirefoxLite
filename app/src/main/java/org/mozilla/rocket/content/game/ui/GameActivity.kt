@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
 import android.view.View
+import android.view.ViewParent
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_game.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.content.appComponent
@@ -30,12 +32,18 @@ class GameActivity : FragmentActivity() {
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
 
     private lateinit var adapter: GameTabsAdapter
+    private lateinit var view_pager: ViewPager
+    private lateinit var games_tabs: TabLayout
+    lateinit var refresh_button: AppCompatImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
         super.onCreate(savedInstanceState)
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
         setContentView(R.layout.activity_game)
+        view_pager = findViewById(R.id.view_pager)
+        games_tabs = findViewById(R.id.games_tabs)
+        refresh_button = findViewById(R.id.refresh_button)
         initViewPager()
         initTabLayout()
         initToolBar()

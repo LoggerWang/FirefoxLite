@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_coupon.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.content.appComponent
-import org.mozilla.rocket.content.common.ui.ContentTabActivity
-import org.mozilla.rocket.content.common.ui.VerticalTelemetryViewModel
-import org.mozilla.rocket.content.common.ui.firstImpression
-import org.mozilla.rocket.content.common.ui.monitorScrollImpression
+import org.mozilla.rocket.content.common.ui.*
 import org.mozilla.rocket.content.ecommerce.ui.adapter.Coupon
 import org.mozilla.rocket.content.ecommerce.ui.adapter.CouponAdapterDelegate
 import org.mozilla.rocket.content.getActivityViewModel
@@ -33,6 +31,9 @@ class CouponFragment : Fragment() {
     private lateinit var couponViewModel: CouponViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var couponAdapter: DelegateAdapter
+    lateinit var coupon_list:RecyclerView
+    lateinit var no_result_view:NoResultView
+    lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -43,7 +44,11 @@ class CouponFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_coupon, container, false)
+        var inflate = inflater.inflate(R.layout.fragment_coupon, container, false)
+        coupon_list =inflate.findViewById(R.id.coupon_list)
+        no_result_view =inflate.findViewById(R.id.no_result_view)
+        spinner =inflate.findViewById(R.id.spinner)
+        return inflate
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

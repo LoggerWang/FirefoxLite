@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import dagger.Lazy
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_travel.*
 import org.mozilla.focus.R
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.content.appComponent
@@ -42,6 +43,9 @@ class TravelActivity : FragmentActivity() {
     private lateinit var travelExploreViewModel: TravelExploreViewModel
     private lateinit var telemetryViewModel: VerticalTelemetryViewModel
     private lateinit var tab: Tab
+    private lateinit var view_pager: ViewPager
+    private lateinit var travel_tabs: TabLayout
+    private lateinit var refresh_button: AppCompatImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -52,7 +56,9 @@ class TravelActivity : FragmentActivity() {
         telemetryViewModel = getViewModel(telemetryViewModelCreator)
 
         setContentView(R.layout.activity_travel)
-
+        view_pager = findViewById(R.id.view_pager)
+        travel_tabs = findViewById(R.id.travel_tabs)
+        refresh_button = findViewById(R.id.refresh_button)
         tab = intent?.extras?.getParcelable(EXTRA_DEFAULT_TAB) ?: Explore
 
         initViewPager()

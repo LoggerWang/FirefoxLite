@@ -3,12 +3,9 @@ package org.mozilla.rocket.settings.defaultbrowser.ui
 import android.content.Context
 import android.content.DialogInterface
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.layout_default_browser_tutorial_dialog.view.first_step_description
-import kotlinx.android.synthetic.main.layout_default_browser_tutorial_dialog.view.first_step_image
-import kotlinx.android.synthetic.main.layout_default_browser_tutorial_dialog.view.second_step_description
-import kotlinx.android.synthetic.main.layout_default_browser_tutorial_dialog.view.second_step_image
-import kotlinx.android.synthetic.main.layout_default_browser_tutorial_dialog.view.title
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 
@@ -27,6 +24,11 @@ class DefaultBrowserTutorialDialog(
     private val onDismissListeners = mutableListOf<() -> Unit>()
 
     private var cancellable = false
+    private lateinit var title : TextView
+    private lateinit var first_step_description : TextView
+    private lateinit var first_step_image : ImageView
+    private lateinit var second_step_description : TextView
+    private lateinit var second_step_image : ImageView
 
     init {
         initView()
@@ -81,15 +83,20 @@ class DefaultBrowserTutorialDialog(
     }
 
     private fun initView() {
-        with(view.title) {
+        title = view.findViewById(R.id.title)
+        first_step_description = view.findViewById(R.id.first_step_description)
+        first_step_image = view.findViewById(R.id.first_step_image)
+        second_step_description = view.findViewById(R.id.second_step_description)
+        second_step_image = view.findViewById(R.id.second_step_image)
+        with(title) {
             data.title.let { text = it }
         }
 
-        with(view.first_step_description) {
+        with(first_step_description) {
             data.firstStepDescription.let { text = it }
         }
 
-        with(view.first_step_image) {
+        with(first_step_image) {
             val width = data.firstStepImageWidth
             val height = data.firstStepImageHeight
             if (width != 0 && height != 0) {
@@ -116,11 +123,11 @@ class DefaultBrowserTutorialDialog(
             }
         }
 
-        with(view.second_step_description) {
+        with(second_step_description) {
             data.secondStepDescription.let { text = it }
         }
 
-        with(view.second_step_image) {
+        with(second_step_image) {
             val width = data.secondStepImageWidth
             val height = data.secondStepImageHeight
             if (width != 0 && height != 0) {

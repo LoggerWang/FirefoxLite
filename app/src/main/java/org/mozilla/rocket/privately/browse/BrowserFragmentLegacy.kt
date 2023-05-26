@@ -26,7 +26,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_private_browser_legacy.*
 import org.mozilla.focus.BuildConfig
 import org.mozilla.focus.FocusApplication
 import org.mozilla.focus.R
@@ -94,6 +93,7 @@ class BrowserFragmentLegacy : LocaleAwareFragment(),
     private lateinit var toolbarRoot: ViewGroup
 
     private lateinit var trackerPopup: TrackerPopup
+    private lateinit var browser_bottom_bar : BottomBar
 
     private var systemVisibility = ViewUtils.SYSTEM_UI_VISIBILITY_NONE
 
@@ -134,7 +134,7 @@ class BrowserFragmentLegacy : LocaleAwareFragment(),
         }
 
         siteIdentity = view.findViewById(R.id.site_identity)
-
+        browser_bottom_bar = view.findViewById(R.id.browser_bottom_bar)
         browserContainer = view.findViewById(R.id.browser_container)
         videoContainer = view.findViewById(R.id.video_container)
         tabViewSlot = view.findViewById(R.id.tab_view_slot)

@@ -25,8 +25,6 @@ import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_private_browser.*
-import kotlinx.android.synthetic.main.toolbar.*
 import mozilla.components.browser.engine.system.SystemEngineView
 import mozilla.components.browser.session.Session
 import mozilla.components.browser.session.SessionManager
@@ -57,11 +55,13 @@ import org.mozilla.rocket.extension.nonNullObserve
 import org.mozilla.rocket.extension.switchFrom
 import org.mozilla.rocket.extension.updateTrackingProtectionPolicy
 import org.mozilla.rocket.menu.PrivateWebContextMenu
+import org.mozilla.rocket.nightmode.themed.ThemedLinearLayout
 import org.mozilla.rocket.tabs.web.Download
 import org.mozilla.rocket.tabs.web.DownloadCallback
 import org.mozilla.threadutils.ThreadUtils
 import org.mozilla.urlutils.UrlUtils
 import javax.inject.Inject
+import org.mozilla.focus.widget.ResizableKeyboardLayout
 
 private const val SITE_GLOBE = 0
 private const val SITE_LOCK = 1
@@ -91,6 +91,10 @@ class BrowserFragment : LocaleAwareFragment(),
     private lateinit var siteIdentity: ImageView
 
     private lateinit var trackerPopup: TrackerPopup
+    private lateinit var browser_bottom_bar : BottomBar
+    private lateinit var toolbar_root : ThemedLinearLayout
+    private lateinit var tab_view_slot : FrameLayout
+    private lateinit var browser_container : ResizableKeyboardLayout
 
     private var lastSession: Session? = null
 
@@ -126,7 +130,9 @@ class BrowserFragment : LocaleAwareFragment(),
         super.onViewCreated(view, savedState)
 
         setupBottomBar(view)
-
+        browser_bottom_bar = view.findViewById(R.id.browser_bottom_bar)
+        toolbar_root = view.findViewById(R.id.toolbar_root)
+        tab_view_slot = view.findViewById(R.id.tab_view_slot)
         displayUrlView = view.findViewById(R.id.display_url)
         displayUrlView.setOnClickListener {
             chromeViewModel.showUrlInput.setValue(chromeViewModel.currentUrl.value)

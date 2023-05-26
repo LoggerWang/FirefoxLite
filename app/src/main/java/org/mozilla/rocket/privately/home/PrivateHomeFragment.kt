@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,7 +23,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.airbnb.lottie.LottieAnimationView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_private_homescreen.pm_home_brand_description
 import org.mozilla.focus.R
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
@@ -46,6 +46,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     private lateinit var logoMan: LottieAnimationView
     private lateinit var fakeInput: View
     private lateinit var privateModeBtn: View
+    private lateinit var pm_home_brand_description : TextView
 
     @Override
     override fun onCreate(bundle: Bundle?) {
@@ -60,6 +61,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pm_home_brand_description  = view.findViewById<TextView>(R.id.pm_home_brand_description)
         logoMan = view.findViewById(R.id.pm_home_logo)
         fakeInput = view.findViewById(R.id.pm_home_fake_input)
         initDescription()

@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import kotlinx.android.synthetic.main.content_error_view.error_text
-import kotlinx.android.synthetic.main.content_error_view.retry_button
-import kotlinx.android.synthetic.main.fragment_redeem_list.content_layout
-import kotlinx.android.synthetic.main.fragment_redeem_list.empty_view
-import kotlinx.android.synthetic.main.fragment_redeem_list.error_view
-import kotlinx.android.synthetic.main.fragment_redeem_list.loading_view
-import kotlinx.android.synthetic.main.fragment_redeem_list.recycler_view
 import org.mozilla.focus.R
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
@@ -27,6 +24,7 @@ import org.mozilla.rocket.msrp.ui.adapter.MissionUiModel
 import org.mozilla.rocket.msrp.ui.adapter.RedeemableMissionAdapterDelegate
 import org.mozilla.rocket.msrp.ui.adapter.RedeemedMissionAdapterDelegate
 import javax.inject.Inject
+import android.widget.LinearLayout
 
 class RedeemListFragment : Fragment() {
 
@@ -35,6 +33,13 @@ class RedeemListFragment : Fragment() {
 
     private lateinit var missionViewModel: MissionViewModel
     private lateinit var adapter: DelegateAdapter
+    private lateinit var error_text: TextView
+    private lateinit var retry_button : Button
+    private lateinit var content_layout: FrameLayout
+    private lateinit var empty_view : LinearLayout
+    private lateinit var error_view : View
+    private lateinit var loading_view: ProgressBar
+    private lateinit var recycler_view : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent().inject(this)
@@ -48,6 +53,13 @@ class RedeemListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        error_text = view.findViewById(R.id.error_text)
+        retry_button = view.findViewById(R.id.retry_button)
+        content_layout = view.findViewById(R.id.content_layout)
+        empty_view = view.findViewById(R.id.empty_view)
+        error_view = view.findViewById(R.id.error_view)
+        loading_view = view.findViewById(R.id.loading_view)
+        recycler_view = view.findViewById(R.id.recycler_view)
         initRecyclerView()
         initErrorView()
         bindListData()

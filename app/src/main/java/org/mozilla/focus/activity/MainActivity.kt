@@ -394,8 +394,8 @@ class MainActivity : BaseActivity(),
     }
 
     override fun onStart() {
-        checkInAppUpdate()
         super.onStart()
+        checkInAppUpdate()
     }
 
     override fun onResume() {

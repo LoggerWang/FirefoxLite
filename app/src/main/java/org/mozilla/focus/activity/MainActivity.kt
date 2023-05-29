@@ -590,8 +590,10 @@ class MainActivity : BaseActivity(),
     override fun postSurveyNotification() {
         val intent = IntentUtils.createInternalOpenUrlIntent(this,
                 surveyUrl, true)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntentUtils.getFlag())
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         val builder = NotificationUtil.importantBuilder(this)
                 .setContentTitle(getString(R.string.survey_notification_title, "\uD83D\uDE4C"))

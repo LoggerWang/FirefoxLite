@@ -243,7 +243,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime:${Versions.paging}"
     implementation "androidx.paging:paging-runtime-ktx:${Versions.paging}"
 
-    implementation ("androidx.work:work-runtime:${Versions.arch_work}")
+    implementation ("androidx.work:work-runtime:2.7.0")
     // to fix dependency conflicts between work-runtime and firebase-inappmessaging-display
     implementation("com.google.guava:guava:${Versions.guava_android}") {
         // has conflicts with existing library

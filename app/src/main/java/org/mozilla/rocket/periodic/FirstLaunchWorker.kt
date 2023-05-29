@@ -18,6 +18,7 @@ import org.mozilla.focus.notification.RocketMessagingService.Companion.STR_PUSH_
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.AppConfigWrapper
 import org.mozilla.focus.utils.IntentUtils
+import org.mozilla.focus.utils.PendingIntentUtils
 
 class FirstLaunchWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 
@@ -63,7 +64,7 @@ class FirstLaunchWorker(context: Context, workerParams: WorkerParameters) : Work
     private fun showNotification(context: Context, messageId: String, title: String?, message: String, openUrl: String?, command: String?, deepLink: String?) {
         val intent = IntentUtils.genFirstrunNotificationClickForBroadcastReceiver(context, messageId, openUrl, command, deepLink)
         val openRocketPending = PendingIntent.getBroadcast(context, REQUEST_CODE_CLICK_NOTIFICATION, intent,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         val builder = NotificationUtil.importantBuilder(context)
                 .also {
                     if (title != null) {
@@ -83,7 +84,7 @@ class FirstLaunchWorker(context: Context, workerParams: WorkerParameters) : Work
 
     private fun addDeleteTelemetry(appContext: Context, builder: NotificationCompat.Builder, messageId: String, link: String?) {
         val intent = IntentUtils.genDeleteFirstrunNotificationActionForBroadcastReceiver(appContext, messageId, link)
-        val pendingIntent = PendingIntent.getBroadcast(appContext, REQUEST_CODE_DELETE_NOTIFICATION, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getBroadcast(appContext, REQUEST_CODE_DELETE_NOTIFICATION, intent, PendingIntentUtils.getFlag())
         builder.setDeleteIntent(pendingIntent)
     }
 }

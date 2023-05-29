@@ -54,6 +54,7 @@ import org.mozilla.focus.utils.DialogUtils
 import org.mozilla.focus.utils.FirebaseHelper
 import org.mozilla.focus.utils.FirebaseHelper.FIREBASE_READY
 import org.mozilla.focus.utils.IntentUtils
+import org.mozilla.focus.utils.PendingIntentUtils
 import org.mozilla.focus.utils.SafeIntent
 import org.mozilla.focus.utils.ShortcutUtils
 import org.mozilla.focus.utils.SupportUtils
@@ -368,6 +369,8 @@ class MainActivity : BaseActivity(),
                         if (!downloadState.isStartFromContextMenu) {
                             Toast.makeText(this@MainActivity, R.string.download_started, Toast.LENGTH_LONG).show()
                         }
+
+                    else -> {}
                 }
             })
             showDownloadFinishedSnackBar.observe(this@MainActivity, Observer { downloadInfo ->
@@ -588,7 +591,7 @@ class MainActivity : BaseActivity(),
         val intent = IntentUtils.createInternalOpenUrlIntent(this,
                 surveyUrl, true)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
 
         val builder = NotificationUtil.importantBuilder(this)
                 .setContentTitle(getString(R.string.survey_notification_title, "\uD83D\uDE4C"))
@@ -840,7 +843,7 @@ class MainActivity : BaseActivity(),
                 this,
                 0,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntentUtils.getFlag()
         )
 
         val builder = NotificationUtil.baseBuilder(this, NotificationUtil.Channel.LOW_PRIORITY)

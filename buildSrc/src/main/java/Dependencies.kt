@@ -1,12 +1,12 @@
 object Versions {
     const val min_sdk = 21
-    const val target_sdk = 31
-    const val compile_sdk = 31
+    const val target_sdk = 32
+    const val compile_sdk = 32
     const val build_tools = "30.0.3"
     const val version_code = 1
     const val version_name = "2.5.2"
-    const val android_gradle_plugin = "4.0.2"
-    const val gms_oss_licenses_plugin = "0.10.2"
+    const val android_gradle_plugin = "7.4.2"
+    const val gms_oss_licenses_plugin = "0.10.6"
     const val support = "1.0.0"
     const val appcompat = "1.2.0"
     const val material = "1.1.0-alpha05"
@@ -31,7 +31,7 @@ object Versions {
     const val paging = "2.1.2"
     const val findbugs = "3.0.1"
     const val lottie = "3.4.0"
-    const val leakcanary = "2.0-beta-3"
+    const val leakcanary = "2.11"
     const val android_components = "0.52.0"
     const val android_components_awesomebar = "0.56.0"
     const val adjust = "4.20.0"

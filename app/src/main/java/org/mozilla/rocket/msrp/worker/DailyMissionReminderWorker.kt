@@ -19,6 +19,7 @@ import org.mozilla.focus.activity.MainActivity
 import org.mozilla.focus.notification.NotificationId
 import org.mozilla.focus.notification.NotificationUtil
 import org.mozilla.focus.utils.DrawableUtils
+import org.mozilla.focus.utils.PendingIntentUtils
 import org.mozilla.rocket.debugging.DebugActivity
 import org.mozilla.rocket.msrp.data.Mission
 import java.util.Calendar
@@ -70,7 +71,7 @@ class DailyMissionReminderWorker(
         val text = appContext.getString(R.string.msrp_notification_reminder, couponName)
         val largeIcon = DrawableUtils.getBitmap(ContextCompat.getDrawable(appContext, R.drawable.logo_man_push_notification))
         val pendingIntent = PendingIntent.getActivity(appContext, 0,
-                Intent(appContext, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
+                Intent(appContext, MainActivity::class.java), PendingIntentUtils.getFlag())
         val builder = NotificationUtil.baseBuilder(appContext, NotificationUtil.Channel.IMPORTANT)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentTitle(couponName)

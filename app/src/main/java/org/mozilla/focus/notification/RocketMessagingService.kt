@@ -29,6 +29,7 @@ import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.telemetry.TelemetryWrapper.isTelemetryEnabled
 import org.mozilla.focus.utils.FirebaseHelper
 import org.mozilla.focus.utils.IntentUtils
+import org.mozilla.focus.utils.PendingIntentUtils
 import org.mozilla.focus.utils.Settings
 import org.mozilla.rocket.msrp.data.LoggingInterceptor
 import org.mozilla.telemetry.TelemetryHolder
@@ -243,12 +244,12 @@ class RocketMessagingService : FirebaseMessagingServiceWrapper() {
                     command,
                     deepLink
             )
-            return PendingIntent.getBroadcast(appContext, RocketMessagingService.REQUEST_CODE_CLICK_NOTIFICATION, clickIntent, PendingIntent.FLAG_ONE_SHOT)
+            return PendingIntent.getBroadcast(appContext, RocketMessagingService.REQUEST_CODE_CLICK_NOTIFICATION, clickIntent, PendingIntentUtils.getFlag())
         }
 
         private fun addDeleteTelemetry(appContext: Context, builder: NotificationCompat.Builder, messageId: String?, link: String?) {
             val intent = IntentUtils.genDeleteFirebaseNotificationActionForBroadcastReceiver(appContext, messageId, link)
-            val pendingIntent = PendingIntent.getBroadcast(appContext, RocketMessagingService.REQUEST_CODE_DELETE_NOTIFICATION, intent, PendingIntent.FLAG_ONE_SHOT)
+            val pendingIntent = PendingIntent.getBroadcast(appContext, RocketMessagingService.REQUEST_CODE_DELETE_NOTIFICATION, intent, PendingIntentUtils.getFlag())
             builder.setDeleteIntent(pendingIntent)
         }
 

@@ -197,7 +197,7 @@ object DialogUtils {
     fun showRateAppNotification(context: Context) { // Brings up Rocket and display full screen "Love Rocket" dialog
         val openRocket = IntentUtils.genFeedbackNotificationClickForBroadcastReceiver(context)
         val openRocketPending = PendingIntent.getBroadcast(context, REQUEST_RATE_CLICK, openRocket,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         val string = context.getString(R.string.rate_app_dialog_text_title, context.getString(R.string.app_name)) + "\uD83D\uDE00"
         val builder = NotificationUtil.importantBuilder(context)
                 .setContentText(string)
@@ -206,13 +206,13 @@ object DialogUtils {
         // Build notification action for rate 5 stars
         val rateStar = IntentUtils.genRateStarNotificationActionForBroadcastReceiver(context)
         val rateStarPending = PendingIntent.getBroadcast(context, REQUEST_RATE_RATE, rateStar,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         builder.addAction(R.drawable.notification_rating, context.getString(R.string.rate_app_notification_action_rate), rateStarPending)
         // Send this intent in Broadcast receiver so we can canel the notification there.
         // Build notification action for  feedback
         val feedback = IntentUtils.genFeedbackNotificationActionForBroadcastReceiver(context)
         val feedbackPending = PendingIntent.getBroadcast(context, REQUEST_RATE_FEEDBACK, feedback,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         builder.addAction(R.drawable.notification_feedback, context.getString(R.string.rate_app_notification_action_feedback), feedbackPending)
         // Show notification
         NotificationUtil.sendNotification(context, NotificationId.LOVE_FIREFOX, builder)
@@ -224,7 +224,7 @@ object DialogUtils {
     fun showDefaultSettingNotification(context: Context, message: String? = null) { // Let NotificationActionBroadcastReceiver handle what to do
         val openDefaultBrowserSetting = IntentUtils.genDefaultBrowserSettingIntentForBroadcastReceiver(context)
         val openRocketPending = PendingIntent.getBroadcast(context, REQUEST_DEFAULT_CLICK, openDefaultBrowserSetting,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         val title: String? = if (TextUtils.isEmpty(message)) {
             context.getString(R.string.preference_default_browser) + "?\uD83D\uDE0A"
         } else {
@@ -242,7 +242,7 @@ object DialogUtils {
     fun showPrivacyPolicyUpdateNotification(context: Context) {
         val privacyPolicyUpdateNotice = IntentUtils.genPrivacyPolicyUpdateNotificationActionForBroadcastReceiver(context)
         val openRocketPending = PendingIntent.getBroadcast(context, REQUEST_PRIVACY_POLICY_CLICK, privacyPolicyUpdateNotice,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntentUtils.getFlag())
         val builder = NotificationUtil.importantBuilder(context)
                 .setContentTitle(context.getString(R.string.privacy_policy_update_notification_title))
                 .setContentText(context.getString(R.string.privacy_policy_update_notification_action))

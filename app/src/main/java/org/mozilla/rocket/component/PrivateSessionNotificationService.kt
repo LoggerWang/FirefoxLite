@@ -14,6 +14,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.notification.NotificationId
 import org.mozilla.focus.notification.NotificationUtil
 import org.mozilla.focus.telemetry.TelemetryWrapper
+import org.mozilla.focus.utils.PendingIntentUtils
 import org.mozilla.rocket.privately.PrivateMode
 import org.mozilla.rocket.privately.PrivateModeActivity
 
@@ -65,7 +66,7 @@ class PrivateSessionNotificationService : Service() {
         return PendingIntent.getActivity(applicationContext,
                 0,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntentUtils.getFlag())
     }
 
     companion object {

@@ -8,15 +8,13 @@ package org.mozilla.focus.activity
 import android.app.Activity
 import android.app.Dialog
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.res.Resources
 import android.database.ContentObserver
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -35,6 +33,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.Lazy
+import de.blinkt.openvpn.OpenVpnApi
+import de.blinkt.openvpn.OpenVpnApi.getNodeFileMsgNew
+import de.blinkt.openvpn.utils.ProxyModeEnum
 import org.mozilla.focus.R
 import org.mozilla.focus.fragment.BrowserFragment
 import org.mozilla.focus.fragment.ListPanelDialog
@@ -48,16 +49,8 @@ import org.mozilla.focus.screenshot.ScreenshotViewerActivity
 import org.mozilla.focus.tabs.tabtray.TabTray
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.urlinput.UrlInputFragment
-import org.mozilla.focus.utils.AppConstants
-import org.mozilla.focus.utils.Constants
-import org.mozilla.focus.utils.DialogUtils
-import org.mozilla.focus.utils.FirebaseHelper
+import org.mozilla.focus.utils.*
 import org.mozilla.focus.utils.FirebaseHelper.FIREBASE_READY
-import org.mozilla.focus.utils.IntentUtils
-import org.mozilla.focus.utils.PendingIntentUtils
-import org.mozilla.focus.utils.SafeIntent
-import org.mozilla.focus.utils.ShortcutUtils
-import org.mozilla.focus.utils.SupportUtils
 import org.mozilla.focus.web.GeoPermissionCache
 import org.mozilla.focus.web.WebViewProvider
 import org.mozilla.rocket.appupdate.InAppUpdateController
@@ -74,11 +67,7 @@ import org.mozilla.rocket.extension.nonNullObserve
 import org.mozilla.rocket.firstrun.FirstrunFragment
 import org.mozilla.rocket.home.HomeFragment
 import org.mozilla.rocket.home.topsites.ui.AddNewTopSitesActivity
-import org.mozilla.rocket.landing.DialogQueue
-import org.mozilla.rocket.landing.NavigationModel
-import org.mozilla.rocket.landing.OrientationState
-import org.mozilla.rocket.landing.PortraitComponent
-import org.mozilla.rocket.landing.PortraitStateModel
+import org.mozilla.rocket.landing.*
 import org.mozilla.rocket.menu.BrowserMenuDialog
 import org.mozilla.rocket.menu.HomeMenuDialog
 import org.mozilla.rocket.periodic.FirstLaunchWorker
@@ -96,7 +85,7 @@ import org.mozilla.rocket.tabs.TabsSessionProvider
 import org.mozilla.rocket.theme.ThemeManager
 import org.mozilla.rocket.widget.enqueue
 import java.net.URISyntaxException
-import java.util.Locale
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -217,6 +206,32 @@ class MainActivity : BaseActivity(),
         observeChromeAction()
 
         appUpdateController.onReceiveIntent(getIntent())
+
+        initVpn()
+    }
+
+    private fun initVpn() {
+        OpenVpnApi.setActivity(this)
+        OpenVpnApi.setBaseUrl("https://api.tiks.pro/")
+        OpenVpnApi. setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
+        // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
+        OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
+        OpenVpnApi. mCustomPkgNameList.add("com.mucc.tess")
+
+        OpenVpnApi. serverLiveData.observe(this) { serverBean ->
+            val profile = serverBean.profile
+            Log.e("muccc_server", profile!!.link!!)
+            OpenVpnApi.checkDownloadUrl(profile.server_code!!, profile.salt!!, profile.link!!)
+        }
+
+        val map = HashMap<String, String>()
+        map["userId"] = "a.5242925349028eb5"
+        map["trace_id"] = "030cf250789848a786a8ed526e6b73a9"
+        map["app_id"] = "com.tiktok.forbannedcountries"
+        map["app_version"] = "4010028"
+        map["os_version"] = "30"
+        map["beyla_id"] = "a.5242925349028eb5"
+        getNodeFileMsgNew(map)
     }
 
     private fun initViews() {

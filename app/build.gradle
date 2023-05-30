@@ -57,6 +57,9 @@ android {
 
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_11
+            freeCompilerArgs += [
+                    "-Xjvm-default=all",
+            ]
         }
 
         kapt {
@@ -217,6 +220,7 @@ dependencies {
     implementation project(':cachedrequestloader')
     implementation project(':permissionhandler')
     implementation project(':strictmodeviolator')
+    implementation project (':vpnLib')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
 

@@ -113,7 +113,12 @@ class BrowserFragment : LocaleAwareFragment(),
     ): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_private_browser, container, false)
+        var view  = inflater.inflate(R.layout.fragment_private_browser, container, false)
+        browser_container = view.findViewById(R.id.browser_container)
+        tab_view_slot = view.findViewById(R.id.tab_view_slot)
+        toolbar_root = view.findViewById(R.id.toolbar_root)
+        browser_bottom_bar = view.findViewById(R.id.browser_bottom_bar)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

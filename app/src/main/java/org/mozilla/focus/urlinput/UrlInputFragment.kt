@@ -88,7 +88,7 @@ class UrlInputFragment : Fragment(), UrlInputContract.View, View.OnClickListener
     private var allowSuggestion: Boolean = false
     private var isUserInput = true
     private var privateMode: Boolean = false
-    var input_container: ConstraintLayout?=null
+    var input_container: LinearLayout?=null
     var awesomeBar: BrowserAwesomeBar?=null
     var search_suggestion_block: LinearLayout?=null
     override fun onCreate(bundle: Bundle?) {

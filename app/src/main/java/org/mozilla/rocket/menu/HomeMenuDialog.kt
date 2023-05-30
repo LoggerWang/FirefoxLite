@@ -118,6 +118,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
         content_services_red_dot = rootView.findViewById(R.id.content_services_red_dot)
         add_top_sites_red_dot = rootView.findViewById(R.id.add_top_sites_red_dot)
         themes_red_dot = rootView.findViewById(R.id.themes_red_dot)
+        menu_history = rootView.findViewById(R.id.menu_history)
         scroll_view.apply {
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {

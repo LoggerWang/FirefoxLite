@@ -313,6 +313,12 @@ dependencies {
 //    firebaseImplementation "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}"
 
     implementation "com.google.android.play:core-ktx:${Versions.play}"
+
+    //belay 等工具包
+    implementation zeus.modules.middleground.SDKBeyla
+    implementation zeus.modules.middleground.SDKBaseCore
+    implementation zeus.modules.middleground.SDKToolsKit
+    implementation zeus.modules.middleground.TaskManager
 }
 
 // There is a issue with Appcompat 1.1.0 which has the WebView crash on Android 5 devices.

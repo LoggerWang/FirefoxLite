@@ -38,6 +38,7 @@ import org.mozilla.focus.utils.FirebaseHelper.stopAndClose
 import org.mozilla.focus.utils.ViewUtils
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.component.RocketLauncherActivity
 import org.mozilla.rocket.content.appComponent
@@ -388,6 +389,12 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             account_layout.setDarkTheme(darkThemeEnable)
             shopping_button.setDarkTheme(darkThemeEnable)
             private_mode_button.setDarkTheme(darkThemeEnable)
+            content_hub_title.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    BuriedPointUtil.addClick("cccc_bbbb")
+                }
+
+            })
         })
     }
 

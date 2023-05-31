@@ -1,4 +1,16 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven {url 'https://nexus.ushareit.me/repository/maven-releases/'}
+    }
 
+    dependencies {
+        classpath group:'com.ushareit.android', name:'zeusplugin', version:'1.0.7'
+    }
+}
+
+apply plugin: 'com.ushareit.zeus'
 include ':feature-tabs'
 project(':feature-tabs').projectDir = new File(rootDir, 'components/feature/tabs')
 

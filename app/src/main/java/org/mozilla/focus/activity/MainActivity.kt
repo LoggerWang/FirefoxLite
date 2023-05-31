@@ -32,6 +32,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.anysitebrowser.taskdispatcher.TaskManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.Lazy
@@ -62,6 +63,7 @@ import org.mozilla.focus.web.GeoPermissionCache
 import org.mozilla.focus.web.WebViewProvider
 import org.mozilla.rocket.appupdate.InAppUpdateController
 import org.mozilla.rocket.appupdate.InAppUpdateIntro
+import org.mozilla.rocket.buriedpoint.SDKBeylaOnDestroyAsyncTask
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.ChromeViewModel.OpenUrlAction
 import org.mozilla.rocket.component.LaunchIntentDispatcher
@@ -217,6 +219,10 @@ class MainActivity : BaseActivity(),
         observeChromeAction()
 
         appUpdateController.onReceiveIntent(getIntent())
+
+    // 任务调度器
+    TaskManager.getInstance()
+        .start()
     }
 
     private fun initViews() {
@@ -451,6 +457,12 @@ class MainActivity : BaseActivity(),
         sessionManager?.destroy()
         unregisterFirebaseEventReceiver()
         super.onDestroy()
+
+        // 任务调度器
+        // 任务调度器
+        TaskManager.getInstance()
+            .add(SDKBeylaOnDestroyAsyncTask())
+            .start()
     }
 
     override fun onNewIntent(unsafeIntent: Intent) {

@@ -349,7 +349,7 @@
   <string name="msrp_challenge_description">15,000 रुपयांचे शॉपी व्हाउचर</string>
   <string name="msrp_challenge_details_title_1">7-दिवसीय आव्हानात सामील व्हा</string>
   <string name="msrp_challenge_details_body_1">सलग सात दिवस फक्त बटण क्लिक करून %1$s मुख्यपृष्ठावर खरेदी, बातमी, गेम वापरून पहा.</string>
-  <string name="msrp_challenge_details_title_2">आपला बक्षीस घेण्यासाठी आपल्या Firefox खात्याचा वापर करा</string>
+  <string name="msrp_challenge_details_title_2">आपला बक्षीस घेण्यासाठी आपल्या AnySite Browser खात्याचा वापर करा</string>
   <string name="msrp_challenge_details_body_2">%1$s विमोचन पूर्ण करण्या आधी आपण जे खाते वापरणार आहेत त्यात साइन इन केले आहे याची खात्री करा.</string>
   <string name="msrp_challenge_details_sign_in_to_start">प्रारंभ करण्यासाठी आपला ईमेल पत्ता प्रविष्ट करा.</string>
   <string name="msrp_challenge_button_1">मी तयार आहे!</string>
@@ -357,13 +357,13 @@
   <string name="msrp_challenge_tou_terms_of_use">वापरण्याच्या अटी</string>
   <string name="msrp_challenge_button_2">मिशन सोडा</string>
   <string name="msrp_challenge_separator">विमोचन कसे करायचे</string>
-  <string name="msrp_challenge_button_4">विमोचन करण्यासाठी Firefox खाते वापरा</string>
+  <string name="msrp_challenge_button_4">विमोचन करण्यासाठी AnySite Browser खाते वापरा</string>
   <string name="msrp_challenge_leaving_body">आपली सर्व प्रगती हटविली जाईल. आपल्याला खात्री आहे?</string>
   <string name="msrp_challenge_leaving_button_1">रद्द करा</string>
   <string name="msrp_challenge_leaving_button_2">सोडा</string>
   <string name="msrp_completed_popup_title">अभिनंदन!</string>
   <string name="msrp_completed_popup_body">आमच्या काही नवीन वैशिष्ट्यांचा वापर केल्याबद्दल धन्यवाद. आम्हाला आशा आहे की आपण त्यांचा आनंद घेतला असेल!</string>
-  <string name="msrp_completed_popup_button1">विमोचन करण्यासाठी Firefox खाते वापरा</string>
+  <string name="msrp_completed_popup_button1">विमोचन करण्यासाठी AnySite Browser खाते वापरा</string>
   <string name="msrp_completed_popup_button2">नंतर</string>
   <string name="msrp_challenge_completed_title">अभिनंदन!</string>
   <string name="msrp_challenge_completed_body">आमच्या काही नवीन वैशिष्ट्यांचा वापर केल्याबद्दल धन्यवाद. आम्हाला आशा आहे की आपण त्यांचा आनंद घेतला असेल!</string>
@@ -380,10 +380,10 @@
   <string name="msrp_contact_us">संपर्क करा</string>
   <string name="msrp_reward_redeem_redeem">विमोचन करा</string>
   <string name="msrp_reward_redeem_voucher">व्हाउचर</string>
-  <string name="msrp_disqualification_title_1">चेतावणी: अनेक Firefox खाती आढळली</string>
+  <string name="msrp_disqualification_title_1">चेतावणी: अनेक AnySite Browser खाती आढळली</string>
   <string name="msrp_disqualification_body_1">7-दिवसांच्या आव्हानात भाग घेण्यासाठी फक्त एक फायरफॉक्स खाते वापरल जाऊ शकत. आपण दुसरे खाते बदलल्यास आणि वापरल्यास आपण या आव्हानातून अपात्र ठराल.</string>
   <string name="msrp_disqualification_button_1">मला समजले</string>
-  <string name="msrp_disqualification_title_2">अंतिम चेतावणी: अनेक Firefox खाती आढळली</string>
+  <string name="msrp_disqualification_title_2">अंतिम चेतावणी: अनेक AnySite Browser खाती आढळली</string>
   <string name="msrp_disqualification_title_3">खाते अक्षम केले</string>
   <string name="msrp_disqualification_body_3">आपण यापुढे 7-दिवस आव्हानात भाग घेऊ शकत नाही.</string>
   <string name="msrp_disqualification_button_3">बंद करा</string>

@@ -93,7 +93,7 @@ android {
         }
         debug {
             def userName = System.getenv("USER")
-            applicationIdSuffix ".debug." + userName
+            applicationIdSuffix ".debug"
             versionNameSuffix applicationIdSuffix
         }
         // Use a separate buildType for coverage: testCoverageEnabled produces slower code (4-5x slower
@@ -307,6 +307,7 @@ dependencies {
     androidTestImplementation("tools.fastlane:screengrab:${Versions.fastlane_screengrab}", {
         exclude group: 'com.android.support.test.uiautomator', module: 'uiautomator-v18'
     })
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
     // LeakCanary
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}"

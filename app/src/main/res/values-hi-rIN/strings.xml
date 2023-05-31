@@ -83,7 +83,7 @@
   <string name="content_theme_4">चर्चित ख़बरें पढ़ें</string>
   <string name="button_done">संपन्न करें</string>
   <string name="label_menu_bookmark">बुकमार्क</string>
-  <string name="label_menu_download">डाउनलोड</string>
+  <string name="label_menu_download"><string name="label_menu_vpn">VPN</string>डाउनलोड</string>
   <string name="label_menu_find_in_page">पृष्ठ में खोजें</string>
   <string name="label_menu_clear_cache">कैशे मिटाएं</string>
   <string name="label_menu_history">इतिहास</string>
@@ -402,7 +402,7 @@
   <string name="msrp_challenge_description">₹ 15,000 की शॉपिंग वॉऊचर</string>
   <string name="msrp_challenge_details_title_1">7-दिवसीय चुनौती में शामिल हों</string>
   <string name="msrp_challenge_details_body_1">%1$s के मुख्य पृष्ठ पर बस लगातार सात दिनों तक बटन दबाकर शॉपिंग, समाचार, गेम को आज़माएं।</string>
-  <string name="msrp_challenge_details_title_2">अपने इनाम को पाने के लिए अपने Firefox खाते का प्रयोग करें</string>
+  <string name="msrp_challenge_details_title_2">अपने इनाम को पाने के लिए अपने AnySite Browser खाते का प्रयोग करें</string>
   <string name="msrp_challenge_details_body_2">अपने इनाम पाने की प्रक्रिया को पूरा करने से पहले जिस खाते का आप उपयोग करना चाहते हैं उसमें साइन इन करना ना भूलें। %1$s</string>
   <string name="msrp_challenge_details_sign_in_to_start">शुरू करने के लिए अपना ईमेल पता दर्ज करें।</string>
   <string name="msrp_challenge_button_1">मैं शामिल हूं!</string>
@@ -410,13 +410,13 @@
   <string name="msrp_challenge_tou_terms_of_use">उपयोग की शर्तें</string>
   <string name="msrp_challenge_button_2">प्रतियोगिता छोड़ें</string>
   <string name="msrp_challenge_separator">इनाम कैसे पाएं</string>
-  <string name="msrp_challenge_button_4">इनाम पाने के लिए Firefox खाते का उपयोग करें</string>
+  <string name="msrp_challenge_button_4">इनाम पाने के लिए AnySite Browser खाते का उपयोग करें</string>
   <string name="msrp_challenge_leaving_body">आपकी सभी प्रगति मिटा दी जाएगी। आप सुनिश्चित हैं?</string>
   <string name="msrp_challenge_leaving_button_1">रद्द करें</string>
   <string name="msrp_challenge_leaving_button_2">छोड़ें</string>
   <string name="msrp_completed_popup_title">बधाई हो!</string>
   <string name="msrp_completed_popup_body">हमारी कुछ नई विशेषताओं को आज़माने के लिए धन्यवाद। हमें उम्मीद है कि आपने इनका उपयोग करके आनंद लिया होगा!</string>
-  <string name="msrp_completed_popup_button1">इनाम पाने के लिए Firefox खाते का उपयोग करें</string>
+  <string name="msrp_completed_popup_button1">इनाम पाने के लिए AnySite Browser खाते का उपयोग करें</string>
   <string name="msrp_completed_popup_button2">बाद में</string>
   <string name="msrp_challenge_completed_title">बधाई हो!</string>
   <string name="msrp_challenge_completed_body">हमारी कुछ नई विशेषताओं को आज़माने के लिए धन्यवाद। हमें उम्मीद है कि आपने इनका उपयोग करके आनंद लिया होगा!</string>

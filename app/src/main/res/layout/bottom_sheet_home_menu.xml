@@ -7,15 +7,12 @@
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/menu_bottom_margin"
-    android:paddingStart="@dimen/menu_horizontal_margin"
-    android:paddingEnd="@dimen/menu_horizontal_margin"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_height"
+        android:layout_height="165dp"
         android:background="@drawable/background_menu" >
 
         <LinearLayout
@@ -36,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="71dp"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     android:gravity="center_horizontal"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
@@ -130,6 +128,125 @@
                         android:text="@string/label_menu_download"/>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/menu_vpn"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_pvn_black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        style="@style/MenuButtonText"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/label_menu_vpn"/>
+
+                </LinearLayout>
+
+            </org.mozilla.focus.widget.EqualDistributeGrid>
+            <org.mozilla.focus.widget.EqualDistributeGrid
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <LinearLayout
+                    android:id="@+id/menu_clean"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:id="@+id/img_clean"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/menu_delete"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        style="@style/MenuButtonText"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/label_menu_clear_cache"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/menu_help"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_bookmarks"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        style="@style/MenuButtonText"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/menu_help"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/menu_setting"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/menu_history"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        style="@style/MenuButtonText"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/label_menu_settings"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+
+                </LinearLayout>
+
 
             </org.mozilla.focus.widget.EqualDistributeGrid>
 
@@ -138,7 +255,8 @@
                 android:layout_height="1dp"
                 android:background="@color/paletteLightGreyA100"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="7dp"/>
+                android:layout_marginBottom="7dp"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/btn_private_browsing"
@@ -148,6 +266,7 @@
                 android:paddingEnd="24dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
@@ -215,6 +334,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -266,6 +386,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground">
@@ -307,6 +428,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground">
@@ -348,6 +470,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground">
@@ -399,6 +522,7 @@
                 android:layout_height="1dp"
                 android:background="@color/paletteLightGreyA100"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 android:layout_marginBottom="7dp"/>
 
             <LinearLayout
@@ -407,6 +531,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="18dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground">
@@ -441,6 +566,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="18dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground">
@@ -469,6 +595,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="18dp"
                 android:paddingEnd="24dp"
+                android:visibility="gone"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"

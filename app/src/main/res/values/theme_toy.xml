@@ -11,6 +11,12 @@
 
     <style name="ThemeToy"/>
 
+    <style name="ThemeToyAnySiteDefault" parent="ThemeToy.Light">
+        <item name="themeGradientStart">@color/themeColorWhite</item>
+        <item name="themeGradientCenter">@color/themeColorWhite</item>
+        <item name="themeGradientEnd">@color/themeColorWhite</item>
+    </style>
+
     <style name="ThemeToyDefault" parent="ThemeToy.Light">
         <item name="themeGradientStart">@color/themeGradientStart</item>
         <item name="themeGradientCenter">@color/themeGradientCenter</item>
@@ -69,4 +75,6 @@
     <color name="themeGradientStartPrivate">#8700BD</color>
     <color name="themeGradientCenterPrivate">#220092</color>
     <color name="themeGradientEndPrivate">#170067</color>
+
+    <color name="themeColorWhite">#FFFFFF</color>
 </resources>

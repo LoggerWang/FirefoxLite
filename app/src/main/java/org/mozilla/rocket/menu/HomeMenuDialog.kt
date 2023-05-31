@@ -60,6 +60,8 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
     private lateinit var add_top_sites_red_dot: View
     private lateinit var themes_red_dot: View
     private lateinit var menu_exit: LinearLayout
+    private lateinit var menu_setting: LinearLayout
+    private lateinit var menu_clean: LinearLayout
 
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -119,6 +121,8 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
         add_top_sites_red_dot = rootView.findViewById(R.id.add_top_sites_red_dot)
         themes_red_dot = rootView.findViewById(R.id.themes_red_dot)
         menu_history = rootView.findViewById(R.id.menu_history)
+        menu_setting = rootView.findViewById(R.id.menu_setting)
+        menu_clean = rootView.findViewById(R.id.menu_clean)
         scroll_view.apply {
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
@@ -165,6 +169,21 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     TelemetryWrapper.clickMenuDownload()
                 }
             }
+            menu_setting.setOnClickListener {
+                postDelayClickEvent {
+                    cancel()
+                    chromeViewModel.checkToDriveDefaultBrowser()
+                    chromeViewModel.openPreference.call()
+                    TelemetryWrapper.clickMenuSettings()
+                }
+            }
+            menu_clean.setOnClickListener {
+                postDelayClickEvent {
+                    cancel()
+                    onDeleteClicked()
+                    TelemetryWrapper.clickMenuClearCache()
+                }
+            }
         }
     }
 
@@ -174,8 +193,8 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                 night_mode_switch.isChecked = nightModeSettings.isEnabled
             })
             menuViewModel.isHomeScreenShoppingSearchEnabled.observe(this@HomeMenuDialog, Observer {
-                btn_private_browsing.isVisible = it
-                menu_smart_shopping_search.isVisible = !it
+//                btn_private_browsing.isVisible = it
+//                menu_smart_shopping_search.isVisible = !it
             })
             chromeViewModel.isPrivateBrowsingActive.observe(this@HomeMenuDialog, Observer {
                 img_private_mode.isActivated = it

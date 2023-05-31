@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.mucc.flownet.baseUrl
 import de.blinkt.openvpn.core.ConfigParser
+import de.blinkt.openvpn.core.OpenVPNThread
 import de.blinkt.openvpn.core.ProfileManager
 import de.blinkt.openvpn.core.VPNLaunchHelper
 import de.blinkt.openvpn.flowapi.*
@@ -157,29 +158,7 @@ object OpenVpnApi {
         return serverStateLiveData.value ?: ConnectState.STATE_DISCONNECTED
     }
 
-    // 启动VPN, 全部代理
-    @Throws(RemoteException::class)
-    fun startVpn(config: String?, sCountry: String?, userName: String?) {
-        val cp = ConfigParser()
-        try {
-            cp.parseConfig(StringReader(config))
-            val vp = cp.convertProfile() // Analysis.ovpn
-            Log.d("muccc", "startVpnInternal: ==============$cp\n$vp")
-            vp.mName = sCountry
-            if (vp.checkProfile(OpenVpnApi.mActivity) != R.string.no_error_found) {
-                throw RemoteException(mActivity.getString(vp.checkProfile(mActivity)))
-            }
-            vp.mProfileCreator = OpenVpnApi.mActivity.packageName
-            vp.mUsername = userName
-            vp.mAllowedAppsVpn.clear()
-            vp.mAllowedAppsVpnAreDisallowed = true
-            // vp.mPassword = pw;
-            ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
-            VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
-        } catch (e: IOException) {
-            throw RemoteException(e.message)
-        } catch (e: ConfigParser.ConfigParseError) {
-            throw RemoteException(e.message)
-        }
-    }
+     fun stopVpn(){
+         OpenVPNThread.stop()
+     }
 }

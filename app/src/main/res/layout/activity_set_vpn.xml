@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/paletteWhite100"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivVpnBack"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvVpnTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="VPN"
+        android:textColor="#191919"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivVpnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivVpnBack"
+        app:layout_constraintTop_toTopOf="@+id/ivVpnBack" />
+
+    <ImageView
+        android:id="@+id/ivWorldBg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="38dp"
+        app:layout_constraintDimensionRatio="h,284:145"
+        app:layout_constraintTop_toBottomOf="@+id/ivVpnBack" />
+
+    <ImageView
+        android:id="@+id/ivConnBg"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivVpnBack" />
+
+    <ImageView
+        android:id="@+id/ivState"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivConnBg"
+        app:layout_constraintEnd_toEndOf="@+id/ivConnBg"
+        app:layout_constraintStart_toStartOf="@+id/ivConnBg"
+        app:layout_constraintTop_toTopOf="@+id/ivConnBg" />
+
+    <TextView
+        android:id="@+id/tvConnState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Connecting"
+        android:textColor="#191919"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivConnBg" />
+
+    <TextView
+        android:id="@+id/tvConnStateHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Protect your privacy"
+        android:textColor="#191919"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivConnBg" />
+
+    <View
+        android:id="@+id/viewSplit"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="42dp"
+        android:background="#F1F1F1"
+        app:layout_constraintTop_toBottomOf="@+id/tvConnStateHint" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewSplit" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

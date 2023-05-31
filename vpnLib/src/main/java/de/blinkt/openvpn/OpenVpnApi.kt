@@ -102,7 +102,9 @@ object OpenVpnApi {
                 Log.e("muccc_e", this.message ?: "--")
             }.collect {
                 it.data?.let { zoneModel ->
-                    zoneLiveData.value = zoneModel.zones
+                    withContext(Dispatchers.Main) {
+                        zoneLiveData.value = zoneModel.zones
+                    }
                     if (autoConnect) {
                         val bean = zoneModel.zones.firstOrNull { zoneBean ->
                             if (connectZoneId.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id

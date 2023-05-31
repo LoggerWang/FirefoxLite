@@ -218,27 +218,36 @@ class MainActivity : BaseActivity(),
         OpenVpnApi. setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
         // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
         OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
-        OpenVpnApi. mCustomPkgNameList.add("com.mucc.tess")
+        OpenVpnApi. mCustomPkgNameList.add(packageName)
 
         OpenVpnApi.zoneLiveData.observe(this) { zoneList = it }
        val settings = Settings(this,"vpn_settings")
        val autoConnectVpn = settings.getBoolean("autoConnectVpn",false)
        val connectZoneId = settings.get("connectZoneId","") // 上次连接的zone_id, 如果是自动的, 则为空""
 
-        findViewById<TextView>(R.id.tvVVV).setOnClickListener {
-            val map=HashMap<String, String>()
-            map.put("trace_id","muccc")
-            map.put("app_id","com.sailfishvpn.fastly.ios")
-            map.put("app_version","4010079")
-            map.put("os_version","29")
-            map.put("user_id","a.5242925349028eb5")
+        val map=HashMap<String, String>()
+        map.put("trace_id","muccc")
+        map.put("app_id","com.sailfishvpn.fastly.ios")
+        map.put("app_version","4010079")
+        map.put("os_version","29")
+        map.put("user_id","a.5242925349028eb5")
 //            map.put("country","")
 //            map.put("gaid","")
-            map.put("beyla_id","fa441a4acf544cf0b9179d7d898cd7b3")
+        map.put("beyla_id","fa441a4acf544cf0b9179d7d898cd7b3")
 //            map.put("ip","")
 //            map.put("device_id","")
 //            map.put("release_channel","")
-            OpenVpnApi.getZoneList(map,connectZoneId!!,autoConnectVpn)
+        OpenVpnApi.getZoneList(map,connectZoneId!!,autoConnectVpn)
+
+
+        findViewById<TextView>(R.id.tvVVV).setOnClickListener {
+            if (this::zoneList.isInitialized){
+                val intent = Intent(this, SetVpnActivity::class.java)
+                startActivity(intent)
+            }else{
+                OpenVpnApi.getZoneList(map,connectZoneId,autoConnectVpn)
+            }
+
         }
     }
 

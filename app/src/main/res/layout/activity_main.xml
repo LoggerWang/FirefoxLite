@@ -23,9 +23,9 @@
         android:id="@+id/tvVVV"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:background="#66FF0000"
+        android:background="#66FF99FF"
         android:gravity="center"
         android:text="ConnectVpn"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center_vertical|end"/>
 </FrameLayout>
 

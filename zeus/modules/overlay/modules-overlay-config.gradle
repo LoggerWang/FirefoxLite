@@ -1,0 +1,19 @@
+/**
+ * 这里的配置会覆盖zeus/default/xxx.gradle中的配置
+ *
+ * 当zeus/repos/下已经有对应组件仓库源码的时候，revision配置不生效，请主动git切换想要的分支
+ *
+ */
+
+zeus {
+    modules {
+        middleground {
+            SDKBaseCore {
+                // true时使用源码
+                useSource false
+                // 使用源码的分支
+                revision 'develop'
+            }
+        }
+    }
+}

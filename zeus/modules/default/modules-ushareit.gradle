@@ -1,0 +1,77 @@
+/**
+ * 源码和二进制仓库管理配置文件
+ *
+ * 所有组件都可以配置，当你不关心其他组件的时候
+ * 把其他组件配置成Maven二进制依赖可以大大提高构建速度
+ *
+ * 所有配置的组件都必须配置在zeus-->modules下面
+ * 如果需要使用源码，请到overlay目录的<modules-overlay-config.gradle>文件中配置
+ *
+ * 文档：https://doc.ushareit.me/web/#/28?page_id=3079
+ */
+
+zeus {
+    modules {
+        middleground {
+
+            SDKBeyla {
+                owner 'zhuxh@ushareit.com'
+                contributors(['zhuxh@ushareit.com'])
+                description 'Beyla采集'
+                homePage 'https://gitlab.ushareit.me/android/middleground/SDKBeyla'
+                absoluteRepo 'git@gitlab.ushareit.me:android/middleground/SDKBeyla.git'
+                maven {
+                    artifactId 'sdkbeyla'
+                    groupId 'com.anysitebrowser'
+                    version 'ZEUS_VERSION_SDKBeyla'
+                }
+            }
+
+
+            SDKBaseCore {
+                owner '李宏斌:lihb@ushareit.com'
+                contributors(["刘峰松:liufs@ushareit.com", "藏文涛:zangwt@ushareit.com",
+                              "李宁:lining@ushareit.com", "刘昭:liuzhao@ushareit.com",
+                              "李硕研:lisy@ushareit.com", "李宏斌:lihb@ushareit.com"])
+                description '核心库，包括了日志，网络，算法，线程池等'
+                homePage 'https://gitlab.ushareit.me/android/middleground/sdkbasecore.git'
+                absoluteRepo 'git@gitlab.ushareit.me:android/middleground/sdkbasecore.git'
+                maven {
+                    artifactId 'sdkbasecore'
+                    groupId 'com.anysitebrowser'
+                    version 'ZEUS_VERSION_SDKBaseCore'
+                    forceDependency true
+                }
+            }
+
+            SDKToolsKit {
+                owner '刘峰松:lihb@ushareit.com'
+                contributors(["刘峰松:liufs@ushareit.com", "藏文涛:zangwt@ushareit.com",
+                              "李宁:lining@ushareit.com", "刘昭:liuzhao@ushareit.com",
+                              "李硕研:lisy@ushareit.com", "李宏斌:lihb@ushareit.com"])
+                description '核心库，包括了日志，网络，算法，线程池等'
+                homePage 'https://gitlab.ushareit.me/android/middleground/sdktoolskit.git'
+                absoluteRepo 'git@gitlab.ushareit.me:android/middleground/sdktoolskit.git'
+                maven {
+                    artifactId 'sdktoolskit'
+                    groupId 'com.anysitebrowser'
+                    version 'ZEUS_VERSION_SDKToolsKit'
+                    forceDependency true
+                }
+            }
+
+            TaskManager {
+                owner '刘昭:liuzhao@ushareit.com'
+                contributors(["刘昭:liuzhao@ushareit.com", "郭桦宇:guohy@ushareit.com"])
+                description '任务调度器'
+                homePage 'https://gitlab.ushareit.me/android/middleground/TaskManager'
+                absoluteRepo 'git@gitlab.ushareit.me:android/middleground/TaskManager.git'
+                maven {
+                    artifactId 'taskmanager'
+                    groupId 'com.anysitebrowser'
+                    version 'ZEUS_VERSION_TaskManager'
+                }
+            }
+        }
+    }
+}

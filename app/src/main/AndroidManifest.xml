@@ -187,6 +187,12 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification"/>
 
+        <!-- SDKBeyla 需要的组件声明 start -->
+        <meta-data android:name="BEYLA_HOME_ACTIVITY" android:value="org.mozilla.rocket.activity.MainActivity" />
+        <meta-data android:name="BEYLA_CHANNEL" android:value="GOOGLEPLAY" />
+        <meta-data android:name="BEYLA_APPTOKEN" android:value="ANYSITE_BROWSER" />
+        <!-- SDKBeyla 需要的组件声明 end -->
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/notificationAccent"/>

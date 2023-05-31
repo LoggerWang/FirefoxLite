@@ -96,7 +96,7 @@ android {
         }
         debug {
             def userName = System.getenv("USER")
-            applicationIdSuffix ".debug." + userName
+            applicationIdSuffix ".debug"
             versionNameSuffix applicationIdSuffix
         }
         // Use a separate buildType for coverage: testCoverageEnabled produces slower code (4-5x slower
@@ -311,12 +311,19 @@ dependencies {
     androidTestImplementation("tools.fastlane:screengrab:${Versions.fastlane_screengrab}", {
         exclude group: 'com.android.support.test.uiautomator', module: 'uiautomator-v18'
     })
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
     // LeakCanary
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}"
 //    firebaseImplementation "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}"
 
     implementation "com.google.android.play:core-ktx:${Versions.play}"
+
+    //belay 等工具包
+    implementation zeus.modules.middleground.SDKBeyla
+    implementation zeus.modules.middleground.SDKBaseCore
+    implementation zeus.modules.middleground.SDKToolsKit
+    implementation zeus.modules.middleground.TaskManager
 }
 
 // There is a issue with Appcompat 1.1.0 which has the WebView crash on Android 5 devices.

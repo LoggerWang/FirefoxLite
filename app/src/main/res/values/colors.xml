@@ -157,9 +157,9 @@
     <color name="myShotOnBoardingBackground">#B3111111</color>
 
     <!--  Home Screen -->
-    <color name="homeArcPanelBackground">@color/paletteLightGreyB100</color>
+    <color name="homeArcPanelBackground">#FFFFFF</color>
     <color name="homeArcPanelBackgroundNight">#414146</color>
-    <color name="homeSearchPanelBackground">#F4F4F4</color>
+    <color name="homeSearchPanelBackground">#FFFFFF</color>
     <color name="homeSearchPanelBackgroundNight">@color/paletteDarkGreyC100</color>
     <color name="homeShoppingSearchButtonTint">@color/paletteLightBlack100</color>
     <color name="homeShoppingSearchButtonTintNight">@color/paletteWhite100</color>

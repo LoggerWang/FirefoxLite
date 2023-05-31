@@ -340,9 +340,9 @@
   <string name="msrp_voucher_title">మీ %1$s సిద్ధంగా ఉంది!</string>
   <string name="msrp_faq">ఏమైనా సందేహాలున్నాయా? %1$s.</string>
   <string name="msrp_contact_us">మమ్మల్ని సంప్రదించండి</string>
-  <string name="msrp_disqualification_title_1">హెచ్చరిక: పలు Firefox ఖాతాలు కనుగొనబడ్డాయి</string>
+  <string name="msrp_disqualification_title_1">హెచ్చరిక: పలు AnySite Browser ఖాతాలు కనుగొనబడ్డాయి</string>
   <string name="msrp_disqualification_button_1">నాకు అర్థమయ్యింది</string>
-  <string name="msrp_disqualification_title_2">చివరి హెచ్చరిక: పలు Firefox ఖాతాలు కనుగొనబడ్డాయి</string>
+  <string name="msrp_disqualification_title_2">చివరి హెచ్చరిక: పలు AnySite Browser ఖాతాలు కనుగొనబడ్డాయి</string>
   <string name="msrp_disqualification_title_3">ఖాతా అచేతనమయ్యింది</string>
   <string name="msrp_disqualification_button_3">మూసివేయి</string>
   <string name="msrp_reward_challenge_error_button">మళ్లీ ప్రయత్నించు</string>

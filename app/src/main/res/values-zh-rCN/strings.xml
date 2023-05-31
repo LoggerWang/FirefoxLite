@@ -402,7 +402,7 @@
   <string name="msrp_challenge_description">价值 15,000 印尼卢比（Rp）Shopee 代金券</string>
   <string name="msrp_challenge_details_title_1">加入七日挑战赛</string>
   <string name="msrp_challenge_details_body_1">连续七天点击 %1$s 主页中的购物、新闻、游戏功能。</string>
-  <string name="msrp_challenge_details_title_2">使用 Firefox 账户兑换奖励</string>
+  <string name="msrp_challenge_details_title_2">使用 AnySite Browser 账户兑换奖励</string>
   <string name="msrp_challenge_details_body_2">%1$s。完成兑换之前，请务必保持登录到要使用的账户。</string>
   <string name="msrp_challenge_details_sign_in_to_start">请在此输入您的电子邮箱地址，即可开始挑战。</string>
   <string name="msrp_challenge_button_1">我要參加！</string>
@@ -410,13 +410,13 @@
   <string name="msrp_challenge_tou_terms_of_use">使用条款</string>
   <string name="msrp_challenge_button_2">离开任务</string>
   <string name="msrp_challenge_separator">如何兑换</string>
-  <string name="msrp_challenge_button_4">使用 Firefox 账户兑换</string>
+  <string name="msrp_challenge_button_4">使用 AnySite Browser 账户兑换</string>
   <string name="msrp_challenge_leaving_body">将删除您的所有进度，确定吗？</string>
   <string name="msrp_challenge_leaving_button_1">取消</string>
   <string name="msrp_challenge_leaving_button_2">离开</string>
   <string name="msrp_completed_popup_title">恭喜您！</string>
   <string name="msrp_completed_popup_body">感谢试用我们的若干新功能，希望你会喜欢！</string>
-  <string name="msrp_completed_popup_button1">使用 Firefox 账户兑换</string>
+  <string name="msrp_completed_popup_button1">使用 AnySite Browser 账户兑换</string>
   <string name="msrp_completed_popup_button2">稍后</string>
   <string name="msrp_challenge_completed_title">恭喜您！</string>
   <string name="msrp_challenge_completed_body">感谢试用我们的若干新功能，希望你会喜欢！</string>

@@ -1,0 +1,33 @@
+/**
+ * 源码和二进制仓库管理配置文件
+ *
+ * 所有组件都可以配置，当你不关心其他组件的时候
+ * 把其他组件配置成Maven二进制依赖可以大大提高构建速度
+ *
+ * 所有配置的组件都必须配置在zeus-->modules下面
+ * 如果需要使用源码，请到overlay目录的<modules-overlay-config.gradle>文件中配置
+ *
+ * 文档：https://doc.ushareit.me/web/#/28?page_id=3079
+ */
+
+zeus {
+    modules {
+        google {
+            material {
+                maven {
+                    groupId 'com.google.android.material'
+                    artifactId 'material'
+                    version 'ZEUS_VERSION_material'
+                }
+            }
+        }
+
+//         okhttp3 {
+//             maven {
+//                 groupId 'com.squareup.okhttp3'
+//                 artifactId 'okhttp'
+//                 version 'ZEUS_VERSION_okhttp'
+//             }
+//         }
+    }
+}

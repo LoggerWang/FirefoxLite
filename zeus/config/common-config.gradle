@@ -1,0 +1,15 @@
+/**
+ * 这里可以做一些全局的配置
+ * 仅支持如下已经配置好的字段
+ */
+zeus {
+    config {
+        android {
+            compileSdkVersion 30
+            buildToolsVersion "30.0.3"
+            minSdkVersion 16
+            targetSdkVersion 30
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+    }
+}

@@ -1,0 +1,49 @@
+/**
+ * 文档：https://doc.ushareit.me/web/#/28?page_id=3079
+ */
+
+zeus {
+    modules {
+        androidx {
+            appcompat {
+                maven {
+                    groupId 'androidx.appcompat'
+                    artifactId 'appcompat'
+                    version 'ZEUS_VERSION_appcompat'
+                }
+            }
+
+            constraint_layout {
+                maven {
+                    groupId 'androidx.constraintlayout'
+                    artifactId 'constraintlayout'
+                    version 'ZEUS_VERSION_constraint-layout'
+                }
+            }
+
+            junit {
+                maven {
+                    groupId 'junit'
+                    artifactId 'junit'
+                    version 'ZEUS_VERSION_junit'
+                }
+            }
+
+            runner {
+                maven {
+                    groupId 'androidx.test.ext'
+                    artifactId 'junit'
+                    version 'ZEUS_VERSION_runner'
+                }
+            }
+
+            espresso_core {
+                maven {
+                    groupId 'androidx.test.espresso'
+                    artifactId 'espresso-core'
+                    version 'ZEUS_VERSION_espresso-core'
+                }
+            }
+        }
+    }
+}

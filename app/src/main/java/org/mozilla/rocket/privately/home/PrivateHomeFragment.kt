@@ -95,9 +95,9 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     private fun observeViewModel() {
         activity?.apply {
             val shortcutViewModel = ViewModelProvider(this).get(ShortcutViewModel::class.java)
-            monitorShortcutPromotion(this, shortcutViewModel)
-            monitorShortcutMessage(this, shortcutViewModel)
-            monitorShortcutCreation(this, shortcutViewModel)
+//            monitorShortcutPromotion(this, shortcutViewModel)
+//            monitorShortcutMessage(this, shortcutViewModel)
+//            monitorShortcutCreation(this, shortcutViewModel)
         }
     }
 

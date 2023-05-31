@@ -3,7 +3,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources>
     <string name="mozilla" translatable="false">Mozilla</string>
-    <string name="firefox" translatable="false">Firefox</string>
+    <string name="firefox" translatable="false">AnySite Browser</string>
     <string name="mpl" translatable="false">Mozilla Public License</string>
     <!-- Label used for buttons, e.g. in dialogs -->
     <string name="action_cancel">CANCEL</string>
@@ -49,7 +49,7 @@
 
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
          Clicking this action will launch Rocket and perform a search in the default search engine.
-         Please keep the "Firefox Rocket" part and don't localize the product name. -->
+         Please keep the "AnySite Browser Rocket" part and don't localize the product name. -->
     <string name="text_selection_search_action">Search in Anysite Browser</string>
 
     <!-- Content of "about Rocket". Argument 1 is the major body of the content #about_content_body.
@@ -65,7 +65,7 @@
     ]]></string>
 
     <!-- Content of about Rocket.
-    %1$s is the app name of the content. i.e.x. Firefox Rocket
+    %1$s is the app name of the content. i.e.x. AnySite Browser Rocket
     %2$s is "Mozilla" -->
     <string name="about_content_body">%1$s is a fast and lightweight browser produced by %2$s. Our mission is to foster a healthy, open internet.</string>
     <string name="about_link_learn_more">Learn more</string>
@@ -110,7 +110,7 @@
 
     <string name="preference_mozilla_telemetry">Send usage data</string>
 
-    <!-- Item in Preferences that shows the app name wants to send telemetry. Parameter %1$s is the app name, i.e. Firefox Rocket.
+    <!-- Item in Preferences that shows the app name wants to send telemetry. Parameter %1$s is the app name, i.e. AnySite Browser Rocket.
     %2$s is "Mozilla"-->
     <string name="preference_mozilla_telemetry_summary">%2$s strives to collect only what we need to provide and improve %1$s for everyone.</string>
     <string name="preference_learn_more">Learn more</string>
@@ -168,7 +168,7 @@
 
     <!-- This text is the title of a dialog shown if no app could be found for a custom link protocol. -->
     <string name="external_app_prompt_no_app_title">Find an app that can open link</string>
-    <!-- This text is shown in a dialog if no app could be found for a custom link protocol. Argument 1 is the name of the app (i.e. Firefox Rocket) and %2$s is the name of
+    <!-- This text is shown in a dialog if no app could be found for a custom link protocol. Argument 1 is the name of the app (i.e. AnySite Browser Rocket) and %2$s is the name of
          the app store installed on the device (usually that's Google Play). -->
     <string name="external_app_prompt_no_app">None of the apps on your device are able to open this link. You can leave %1$s to search %2$s for an app that can.</string>
 
@@ -315,7 +315,7 @@
     <!-- A checkbox option in the dialog which ask users to give geolocation permission to the site.
         Users' decision will be remembered and future display of the dialog will be skipped if this
         option is checked. These memorized decisions will be wiped out if the App is restarted.
-        %1$s is the App name (Firefox Rocket). -->
+        %1$s is the App name (AnySite Browser Rocket). -->
     <string name="geolocation_dialog_message_cache_it">Don’t ask again for this site until %1$s restarts</string>
     <string name="geolocation_dialog_allow">ALLOW</string>
     <string name="geolocation_dialog_block">BLOCK</string>
@@ -490,7 +490,7 @@
     <string name="rate_app_notification_action_rate">RATE US</string>
     <string name="rate_app_dialog_btn_feedback">Leave Feedback</string>
     <string name="rate_app_notification_action_feedback">FEEDBACK</string> 
-    <string name="rate_app_feedback_url" translatable="false">https://qsurvey.mozilla.com/s3/Firefox-Lite-v2-5-Survey1</string>
+    <string name="rate_app_feedback_url" translatable="false">https://qsurvey.mozilla.com/s3/AnySite Browser-v2-5-Survey1</string>
    
     <!-- User satisfaction survey-->
     <!-- The title of the dialog for asking users to take a satisfaction survey, %1$s is the App name. -->
@@ -499,7 +499,7 @@
     <string name="survey_dialog_text_content">Tell us your thoughts about what you love, or what we could be doing better.</string>
     <!-- A button to go to the survey website. -->
     <string name="survey_dialog_btn">Take survey</string>
-    <string name="survey_url" translatable="false">https://qsurvey.mozilla.com/s3/Firefox-Lite-v2-5-Survey2</string>
+    <string name="survey_url" translatable="false">https://qsurvey.mozilla.com/s3/AnySite Browser-v2-5-Survey2</string>
 
 
     <!--In-app Promotion, Share app.-->
@@ -865,7 +865,7 @@
     <string name="msrp_challenge_details_title_1">Join the 7-Day challenge</string>
     <!-- The %1$s here is a placeholder for "Anysite Browser"-->
     <string name="msrp_challenge_details_body_1">Try Shopping, News, Game on %1$s Home by simply clicking the buttons for seven days in a row.</string>
-    <string name="msrp_challenge_details_title_2">Use your Firefox account to redeem your reward</string>
+    <string name="msrp_challenge_details_title_2">Use your AnySite Browser account to redeem your reward</string>
     <!-- The %1$s here is a placeholder for "Enter your email address to get started."-->
     <string name="msrp_challenge_details_body_2">%1$s Make sure you sign in to the account you want to use before you complete your redemption.</string>
     <string name="msrp_challenge_details_sign_in_to_start">Enter your email address to get started.</string>
@@ -878,7 +878,7 @@
     <string name="msrp_challenge_button_2">Leave mission</string>
     <!--"How to redeem" is the title for a section to let users know how to redeem the voucher--> 
     <string name="msrp_challenge_separator">How to redeem</string>
-    <string name="msrp_challenge_button_4">Use Firefox account to redeem</string>
+    <string name="msrp_challenge_button_4">Use AnySite Browser account to redeem</string>
     
     <!--Challenge (Leaving confirmation)-->
     <string name="msrp_challenge_leaving_body">All your progress will be deleted. Are you sure?</string>
@@ -889,7 +889,7 @@
     <!--Challenge  completed (popup)-->
     <string name="msrp_completed_popup_title">Congratulations!</string>
     <string name="msrp_completed_popup_body">Thanks for trying out some of our new features. We hope you’ve enjoyed using them!</string>
-    <string name="msrp_completed_popup_button1">Use Firefox account to redeem</string>
+    <string name="msrp_completed_popup_button1">Use AnySite Browser account to redeem</string>
     <string name="msrp_completed_popup_button2">Later</string>
     
     <!--Challenge completed (full screen)-->
@@ -927,11 +927,11 @@
     <string name="msrp_reward_redeem_coupon" translatable="false">Voucher</string>
     
     <!--Suspicious account activity-->
-    <string name="msrp_disqualification_title_1">Warning: multiple Firefox accounts detected</string>
-    <string name="msrp_disqualification_body_1">Only one Firefox account may be used to participate in the 7-Day challenge. If you switch and use another account, you will be disqualified from this challenge.</string>
+    <string name="msrp_disqualification_title_1">Warning: multiple AnySite Browser accounts detected</string>
+    <string name="msrp_disqualification_body_1">Only one AnySite Browser account may be used to participate in the 7-Day challenge. If you switch and use another account, you will be disqualified from this challenge.</string>
     <string name="msrp_disqualification_button_1">I understand</string>
     
-    <string name="msrp_disqualification_title_2">Final warning: multiple Firefox accounts detected</string>
+    <string name="msrp_disqualification_title_2">Final warning: multiple AnySite Browser accounts detected</string>
     
     <string name="msrp_disqualification_title_3">Account disabled</string>
     <string name="msrp_disqualification_body_3">You can no longer participate in the 7-Day challenge.</string>
@@ -1076,5 +1076,6 @@
     <!-- If the user had a url in his/her clipboard, the user  will see the URL in the first of the Awesome Bar suggestion -->
     <string name="awesomebar_open_link_clipboard">Open Copied Link</string>
 
+    <string name="label_menu_vpn">VPN</string>
 
 </resources>

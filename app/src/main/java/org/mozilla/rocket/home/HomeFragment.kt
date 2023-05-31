@@ -38,6 +38,7 @@ import org.mozilla.focus.utils.FirebaseHelper.stopAndClose
 import org.mozilla.focus.utils.ViewUtils
 import org.mozilla.rocket.adapter.AdapterDelegatesManager
 import org.mozilla.rocket.adapter.DelegateAdapter
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.component.RocketLauncherActivity
 import org.mozilla.rocket.content.appComponent
@@ -109,6 +110,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private lateinit var home_fragment_fake_input_text:ThemedTextView
     private lateinit var home_fragment_menu_button: MenuButton
     private lateinit var home_fragment_tab_counter: TabCounter
+    private lateinit var iv_home_history: ImageView
+    private lateinit var iv_home_marks: ImageView
     private lateinit var home_fragment_title:ImageView
     private lateinit var logo_man_notification:LogoManNotification
     private lateinit var main_list: ViewPager2
@@ -116,8 +119,11 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private lateinit var private_mode_button:ThemedImageView
     private lateinit var profile_button:ImageView
     private lateinit var reward_button:ImageView
-    private lateinit var search_panel: ThemedConstraintLayout
+    private lateinit var search_panel: ThemedLinearLayout
     private lateinit var shopping_button: ThemedImageView
+
+    /** Home背景是否支持切换*/
+    private  var homeBackgroundChangeAble = false
 
     private val topSitesPageChangeCallback = object : OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
@@ -161,6 +167,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         profile_button = view.findViewById(R.id.profile_button)
         reward_button = view.findViewById(R.id.reward_button)
         search_panel = view.findViewById(R.id.search_panel)
+        iv_home_history = view.findViewById(R.id.iv_home_history)
+        iv_home_marks = view.findViewById(R.id.iv_home_marks)
         return view
     }
 
@@ -200,6 +208,14 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 TelemetryWrapper.longPressDownloadIndicator()
                 true
             }
+        }
+        iv_home_history.setOnClickListener {
+            chromeViewModel.showHistory.call()
+            TelemetryWrapper.clickMenuHistory()
+        }
+        iv_home_marks.setOnClickListener {
+            chromeViewModel.showBookmarks.call()
+            TelemetryWrapper.clickMenuBookmark()
         }
         home_fragment_tab_counter.setOnClickListener {
             chromeViewModel.showTabTray.call()
@@ -263,8 +279,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             backgroundGestureDetector.onTouchEvent(event)
         }
         homeViewModel.toggleBackgroundColor.observe(viewLifecycleOwner, Observer {
-            val themeSet = themeManager.toggleNextTheme()
-            TelemetryWrapper.changeThemeTo(themeSet.name)
+            if (homeBackgroundChangeAble) {
+                val themeSet = themeManager.toggleNextTheme()
+                TelemetryWrapper.changeThemeTo(themeSet.name)
+            }
         })
         homeViewModel.resetBackgroundColor.observe(viewLifecycleOwner, Observer {
             themeManager.resetDefaultTheme()
@@ -388,6 +406,12 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             account_layout.setDarkTheme(darkThemeEnable)
             shopping_button.setDarkTheme(darkThemeEnable)
             private_mode_button.setDarkTheme(darkThemeEnable)
+            content_hub_title.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    BuriedPointUtil.addClick("cccc_bbbb")
+                }
+
+            })
         })
     }
 
@@ -645,9 +669,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         chromeViewModel.themeSettingMenuClicked.observe(viewLifecycleOwner, Observer {
             homeViewModel.onThemeSettingMenuClicked()
         })
+        //主题切换弹窗dialog
         homeViewModel.showThemeSetting.observe(viewLifecycleOwner, Observer {
             activity?.let {
-                DialogUtils.showThemeSettingDialog(it, homeViewModel)
+//                DialogUtils.showThemeSettingDialog(it, homeViewModel)
             }
         })
         homeViewModel.showSetAsDefaultBrowserOnboarding.observe(viewLifecycleOwner, Observer {

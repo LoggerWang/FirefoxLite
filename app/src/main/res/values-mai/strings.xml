@@ -10,7 +10,7 @@
   <string name="menu_give_feedback">प्रतिक्रिया दिअ</string>
   <string name="menu_share_with_friends">संगी सँ साझा करू</string>
   <string name="share_dialog_title">द्वारा साझा करू</string>
-  <string name="text_selection_search_action">Firefox Rocket मे खोजू</string>
+  <string name="text_selection_search_action">AnySite Browser Rocket मे खोजू</string>
   <string name="about_content_body">%1$s %2$s द्वारा बनाएल गेल एकटा तेज आ हलुक ब्राउज़र अछि. हमर लक्ष्य अछि स्वस्थ, मुक्त इंटरनेट केँ बढ़ावा देनाय अछि.</string>
   <string name="about_link_learn_more">अधिक जानू</string>
   <string name="about_link_support">सहायता</string>
@@ -59,7 +59,7 @@
   <string name="contextmenu_open_image_in_new_tab">चित्र नव टैब मे खोलू</string>
   <string name="firstrun_close_button">बेस, बुझि गेलहूँ!</string>
   <string name="label_menu_bookmark">पुस्तकचिह्न</string>
-  <string name="label_menu_download">डाउनलोड</string>
+  <string name="label_menu_download"><string name="label_menu_vpn">VPN</string>डाउनलोड</string>
   <string name="label_menu_clear_cache">कैश मेटाबू</string>
   <string name="label_menu_history">इतिहास</string>
   <string name="label_menu_share">साझा करू</string>

@@ -6,7 +6,9 @@
 package org.mozilla.focus
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.os.Process
 import android.os.StrictMode
 import android.preference.PreferenceManager
 import android.util.TimingLogger
@@ -14,6 +16,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.anysitebrowser.base.core.beylaid.BeylaIdHelper
+import com.anysitebrowser.base.core.log.Logger
+import com.anysitebrowser.base.core.thread.ThreadPollFactory
+import com.anysitebrowser.base.core.utils.lang.ObjectStore
+import com.anysitebrowser.taskdispatcher.TaskManager
+import com.anysitebrowser.taskdispatcher.initconfig.TaskManagerConfig
+import com.anysitebrowser.tools.core.utils.WWUtils
+import com.anysitebrowser.tools.core.utils.device.ProcessUtils
 import mozilla.components.browser.engine.system.SystemEngine
 import mozilla.components.browser.session.SessionManager
 import mozilla.components.concept.engine.DefaultSettings
@@ -25,12 +35,12 @@ import org.mozilla.focus.notification.NotificationUtil
 import org.mozilla.focus.screenshot.ScreenshotManager
 import org.mozilla.focus.search.SearchEngineManager
 import org.mozilla.focus.telemetry.TelemetryWrapper
-import org.mozilla.focus.utils.AdjustHelper
 import org.mozilla.focus.utils.AppConstants
 import org.mozilla.focus.utils.FirebaseHelper
 import org.mozilla.focus.utils.Settings
 import org.mozilla.focus.web.WebViewProvider
 import org.mozilla.rocket.abtesting.LocalAbTesting
+import org.mozilla.rocket.buriedpoint.SDKBeylaAttachBaseContextMainTask
 import org.mozilla.rocket.di.AppComponent
 import org.mozilla.rocket.di.AppModule
 import org.mozilla.rocket.di.DaggerAppComponent
@@ -48,7 +58,6 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
     lateinit var partnerActivator: PartnerActivator
     var isInPrivateProcess = false
     var isForeground = false
-
     val settings by lazy {
         SettingsProvider(this)
     }
@@ -130,6 +139,11 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
     }
 
     override fun onCreate() {
+        // 任务调度器
+        // 任务调度器
+        TaskManager.getInstance()
+            .start()
+
         TimingLogger(TAG, "coldStart before firebase performance initialization").also {
             TelemetryWrapper.init(this)
             it.addSplit("init TelemetryWrapper")
@@ -159,6 +173,40 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
         monitorPrivateProcess()
 
         registerCustomInAppMessagingListener()
+
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        initZeusConfig()
+    }
+
+    fun initZeusConfig(){
+        // 设置SDKCore中的全局环境
+        ObjectStore.setContext(this)
+        // TODO 设置Log的tag前缀，只有初始化后，才能显示出log
+        Logger.init("GA.")
+        // TODO 设置App缓存文件在存储卡的根目录名
+        WWUtils.setAppRootDirName("Gaia")
+        // TODO 设置beyla id生成规则，是否要求有存储权限(如果App强制要求存储权限就填true，App未要求存储权限填发false)
+        BeylaIdHelper.enableStorage(false)
+        // 进程名
+        var mProcessName = ProcessUtils.getProcessName(Process.myPid())
+        // 是否是主进程
+        val isMainProcess = ProcessUtils.isAppMainProcess(baseContext, mProcessName)
+        // 任务管理器配置
+        val managerConfig = TaskManagerConfig.newBuilder()
+            .debugMode(false)
+            .setCPUExecutor(ThreadPollFactory.CPUProvider.CPU)
+            .setIOExecutor(ThreadPollFactory.IOProvider.IO)
+            .setTaskRunThreshold(1000)
+            .build()
+        // 任务管理器初始化 参数：Application、是否是主进程、框架配置项
+        TaskManager.init(this@FocusApplication, isMainProcess, managerConfig)
+        // 任务调度器
+        TaskManager.getInstance()
+            .add(SDKBeylaAttachBaseContextMainTask())
+            .start()
     }
 
     /**

@@ -23,7 +23,8 @@ public class ThemeManager {
     }
 
     public enum ThemeSet {
-        Default(R.style.ThemeToyDefault),
+        Default(R.style.ThemeToyAnySiteDefault),
+//        Default(R.style.ThemeToyDefault),
 
         Theme1(R.style.ThemeToy01),
         Theme2(R.style.ThemeToy02),

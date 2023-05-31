@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.mozilla.rocket.nightmode.themed.ThemedLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:gravity="center_vertical"
+    android:elevation="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_corner_12_white"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/vpn_thunder_off"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="VPN"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="6dp"
+        android:text="Protect your privacy"
+        android:textStyle="bold"/>
+    <com.suke.widget.SwitchButton
+        android:id="@+id/vpn_switch_button"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        app:sb_checked_color="#34e8a6"
+        app:sb_show_indicator="false" />
+</org.mozilla.rocket.nightmode.themed.ThemedLinearLayout>

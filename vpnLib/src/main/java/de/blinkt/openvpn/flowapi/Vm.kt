@@ -3,6 +3,7 @@ package de.blinkt.openvpn.flowapi
 
 import androidx.appcompat.app.AppCompatActivity
 import com.mucc.flownet.HandlerException
+import de.blinkt.openvpn.model.BaseResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import okhttp3.ResponseBody

@@ -1,4 +1,4 @@
-package de.blinkt.openvpn.flowapi
+package de.blinkt.openvpn.model
 
 import com.mucc.flownet.ApiException
 
@@ -7,6 +7,7 @@ class BaseResponse<T> {
     val data: T? = null;
     val result_code: Int? = null;
     val message = "";
+    val msg = "";
 
     fun isValid(): Boolean {
         return result_code == 200

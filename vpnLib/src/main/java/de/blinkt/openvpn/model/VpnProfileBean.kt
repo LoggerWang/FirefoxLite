@@ -1,4 +1,4 @@
-package de.blinkt.openvpn.flowapi
+package de.blinkt.openvpn.model
 
 import java.io.Serializable
 

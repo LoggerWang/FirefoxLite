@@ -12,14 +12,13 @@ import android.content.*
 import android.content.res.Resources
 import android.database.ContentObserver
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.annotation.VisibleForTesting
@@ -34,8 +33,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.Lazy
 import de.blinkt.openvpn.OpenVpnApi
-import de.blinkt.openvpn.OpenVpnApi.getNodeFileMsgNew
+import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ProxyModeEnum
+import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
 import org.mozilla.focus.fragment.BrowserFragment
 import org.mozilla.focus.fragment.ListPanelDialog
@@ -210,28 +210,52 @@ class MainActivity : BaseActivity(),
         initVpn()
     }
 
+
+    private lateinit var zoneList:ArrayList<ZoneBean>
     private fun initVpn() {
         OpenVpnApi.setActivity(this)
-        OpenVpnApi.setBaseUrl("https://api.tiks.pro/")
+        OpenVpnApi.setBaseUrl("https://test-api.cybervpn.pro/")
         OpenVpnApi. setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
         // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
         OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
         OpenVpnApi. mCustomPkgNameList.add("com.mucc.tess")
 
-        OpenVpnApi. serverLiveData.observe(this) { serverBean ->
-            val profile = serverBean.profile
-            Log.e("muccc_server", profile!!.link!!)
-            OpenVpnApi.checkDownloadUrl(profile.server_code!!, profile.salt!!, profile.link!!)
-        }
+        OpenVpnApi.zoneLiveData.observe(this) { zoneList = it }
+       val settings = Settings(this,"vpn_settings")
+       val autoConnectVpn = settings.getBoolean("autoConnectVpn",false)
+       val connectZoneId = settings.get("connectZoneId","") // 上次连接的zone_id, 如果是自动的, 则为空""
 
-        val map = HashMap<String, String>()
-        map["userId"] = "a.5242925349028eb5"
-        map["trace_id"] = "030cf250789848a786a8ed526e6b73a9"
-        map["app_id"] = "com.tiktok.forbannedcountries"
-        map["app_version"] = "4010028"
-        map["os_version"] = "30"
-        map["beyla_id"] = "a.5242925349028eb5"
-        getNodeFileMsgNew(map)
+        findViewById<TextView>(R.id.tvVVV).setOnClickListener {
+            val map=HashMap<String, String>()
+            map.put("trace_id","muccc")
+            map.put("app_id","com.sailfishvpn.fastly.ios")
+            map.put("app_version","4010079")
+            map.put("os_version","29")
+            map.put("user_id","a.5242925349028eb5")
+//            map.put("country","")
+//            map.put("gaid","")
+            map.put("beyla_id","fa441a4acf544cf0b9179d7d898cd7b3")
+//            map.put("ip","")
+//            map.put("device_id","")
+//            map.put("release_channel","")
+            OpenVpnApi.getZoneList(map,connectZoneId!!,autoConnectVpn)
+        }
+    }
+
+    private fun connectVpn(){
+        val map=HashMap<String, String>()
+        map.put("trace_id","muccc")
+        map.put("app_id","com.sailfishvpn.fastly.ios")
+        map.put("app_version","4010079")
+        map.put("os_version","29")
+        map.put("user_id","a.5242925349028eb5")
+//            map.put("country","")
+//            map.put("gaid","")
+        map.put("beyla_id","fa441a4acf544cf0b9179d7d898cd7b3")
+//            map.put("ip","")
+//            map.put("device_id","")
+//            map.put("release_channel","")
+        OpenVpnApi.getZoneProfile(map,"")
     }
 
     private fun initViews() {

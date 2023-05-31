@@ -18,5 +18,14 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvVVV"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:background="#66FF0000"
+        android:gravity="center"
+        android:text="ConnectVpn"
+        android:layout_gravity="center"/>
 </FrameLayout>
 

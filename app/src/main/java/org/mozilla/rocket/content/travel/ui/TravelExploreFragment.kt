@@ -58,8 +58,9 @@ class TravelExploreFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_travel_explore, container, false)
-            explore_recycler_view = view.findViewById(R.id.explore_recycler_view)
+        val view = inflater.inflate(R.layout.fragment_travel_explore, container, false)
+        explore_recycler_view = view.findViewById(R.id.explore_recycler_view)
+        spinner = view.findViewById(R.id.spinner)
         return view
     }
 

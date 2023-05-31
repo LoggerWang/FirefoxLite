@@ -115,6 +115,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
         menu_preferences = rootView.findViewById(R.id.menu_preferences)
         menu_delete = rootView.findViewById(R.id.menu_delete)
         menu_exit = rootView.findViewById(R.id.menu_exit)
+        menu_history = rootView.findViewById(R.id.menu_history)
         initMenuTabs(rootView)
         initMenuItems(rootView)
         initBottomBar()

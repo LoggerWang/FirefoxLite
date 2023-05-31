@@ -1,4 +1,4 @@
-## 🚨 Important notice about Firefox Lite
+## 🚨 Important notice about Anysite Browser
 
 Effective June 30, 2021, this app will no longer receive security or other updates. [Download the official Firefox Android](https://play.google.com/store/apps/details?id=org.mozilla.firefox) app now for a fast, private & safe web browser. 
 
@@ -11,12 +11,12 @@ https://play.google.com/store/apps/details?id=org.mozilla.firefox&hl=en_US
 Privacy Notice:
 https://www.mozilla.org/privacy/firefox-lite/
 
-### About Mozilla
+### About Mozillaa
 Mozilla exists to build the Internet as a public resource accessible to all because we believe open and free is better than closed and controlled. We build products like Firefox to promote choice and transparency and give people more control over their lives online. Learn more at https://www.mozilla.org
 
 ---
 
-# Firefox Lite
+# Anysite Browser
 [![Build Status](https://app.bitrise.io/app/2bee753c3b6709ca/status.svg?token=wKSNHE4YO8gQHd2W_I0tNg&branch=master)](https://app.bitrise.io/app/2bee753c3b6709ca)
 
 Getting Involved

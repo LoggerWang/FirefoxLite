@@ -36,14 +36,19 @@ class SiteViewHolder(
     private val topSiteClickListener: TopSiteClickListener,
     private val chromeViewModel: ChromeViewModel
 ) : DelegateAdapter.ViewHolder(containerView) {
-    var text: ThemedTextView = containerView.findViewById(R.id.text)
-    var content_image: ImageView = containerView.findViewById(R.id.content_image)
-    var pin_indicator: FrameLayout = containerView.findViewById(R.id.pin_indicator)
-    var content_image_mask: LottieAnimationView = containerView.findViewById(R.id.content_image_mask)
+    lateinit var text: ThemedTextView
+    lateinit var content_image: ImageView
+    lateinit var pin_indicator: FrameLayout
+    lateinit var content_image_mask: LottieAnimationView
     override fun bind(uiModel: DelegateAdapter.UiModel) {
+
         val site = uiModel as Site
         when (site) {
             is Site.UrlSite -> {
+                 text = containerView.findViewById(R.id.text)
+                 content_image = containerView.findViewById(R.id.content_image)
+                 pin_indicator = containerView.findViewById(R.id.pin_indicator)
+                 content_image_mask = containerView.findViewById(R.id.content_image_mask)
                 text.text = site.title
 
                 // Tried AsyncTask and other simple offloading, the performance drops significantly.
@@ -85,6 +90,10 @@ class SiteViewHolder(
                 }
             }
             is Site.EmptyHintSite -> {
+                text = containerView.findViewById(R.id.text)
+                content_image = containerView.findViewById(R.id.content_image)
+                pin_indicator = containerView.findViewById(R.id.pin_indicator)
+//                content_image_mask = containerView.findViewById(R.id.content_image_mask)
                 text.setText(R.string.add_top_site_placeholder)
 
                 content_image.setImageResource(R.drawable.action_add)
@@ -106,6 +115,7 @@ class SiteViewHolder(
             }
         }
         if (site != Site.DummySite) {
+            text = containerView.findViewById(R.id.text)
             text.setDarkTheme(chromeViewModel.isDarkTheme.value == true)
         }
     }

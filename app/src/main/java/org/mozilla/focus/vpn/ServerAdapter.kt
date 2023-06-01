@@ -34,8 +34,8 @@ class ServerAdapter(
         tvZoneName.text = nodeBean.zone_name
         ivZoneIcon.setImageResource(
             when (nodeBean.zone_name) {
-                "America" -> R.mipmap.net_america;"Asia" -> R.mipmap.net_asia
-                "Europe" -> R.mipmap.net_europe;else -> R.mipmap.net_europe
+                "America", "america" -> R.mipmap.net_america;"Asia", "asia" -> R.mipmap.net_asia
+                "Europe", "europe" -> R.mipmap.net_europe;else -> R.mipmap.net_europe
             }
         )
         if (position == mSelectPosition) ivZoneState.setImageResource(R.mipmap.zone_select)

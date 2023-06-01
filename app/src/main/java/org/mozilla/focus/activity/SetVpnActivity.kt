@@ -84,17 +84,23 @@ class SetVpnActivity : AppCompatActivity() {
             ivState.setImageResource(R.mipmap.conn_unconnect)
             if (rotationAnim.isStarted) rotationAnim.cancel()
             ivState.rotation = 0f
+            tvConnState.text = getString(R.string.vpn_unprotected)
+            tvConnStateHint.text = getString(R.string.vpn_unprotected_hint)
         } else if (connectState == ConnectState.STATE_START) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_connected)
             ivConnBg.setImageResource(R.mipmap.bg_conn_connected)
             ivState.setImageResource(R.mipmap.conn_connected)
             if (rotationAnim.isStarted) rotationAnim.cancel()
             ivState.rotation = 0f
+            tvConnState.text = getString(R.string.vpn_protected)
+            tvConnStateHint.text = getString(R.string.vpn_protected_hint)
         } else {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
             ivState.setImageResource(R.mipmap.conn_connecting)
             rotationAnim.start()
+            tvConnState.text = getString(R.string.vpn_connecting)
+            tvConnStateHint.text = ""
         }
     }
 

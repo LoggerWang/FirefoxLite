@@ -1078,4 +1078,11 @@
 
     <string name="label_menu_vpn">VPN</string>
 
+    <string name="vpn_unprotected">Unprotected</string>
+    <string name="vpn_unprotected_hint">Enable for enhanced privacy</string>
+    <string name="vpn_protected">Protected</string>
+    <string name="vpn_protected_hint">Your browsing is secured</string>
+    <string name="vpn_connecting">Connecting</string>
+
+
 </resources>

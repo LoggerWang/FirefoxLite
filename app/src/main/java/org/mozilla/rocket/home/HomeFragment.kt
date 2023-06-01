@@ -7,12 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
-import android.view.GestureDetector
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -26,8 +21,15 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.snackbar.Snackbar
+import com.suke.widget.SwitchButton
 import dagger.Lazy
+import de.blinkt.openvpn.OpenVpnApi
+import de.blinkt.openvpn.model.ZoneBean
+import de.blinkt.openvpn.utils.ProxyModeEnum
+import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
+import org.mozilla.focus.activity.MainActivity
+import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
 import org.mozilla.focus.tabs.TabCounter
@@ -64,7 +66,10 @@ import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_UNREAD
 import org.mozilla.rocket.home.ui.MenuButton.Companion.DOWNLOAD_STATE_WARNING
 import org.mozilla.rocket.msrp.data.Mission
 import org.mozilla.rocket.msrp.ui.RewardActivity
-import org.mozilla.rocket.nightmode.themed.*
+import org.mozilla.rocket.nightmode.themed.ThemedImageView
+import org.mozilla.rocket.nightmode.themed.ThemedLinearLayout
+import org.mozilla.rocket.nightmode.themed.ThemedTextView
+import org.mozilla.rocket.nightmode.themed.ThemedView
 import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserHelper
 import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserPreferenceViewModel
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchActivity
@@ -78,12 +83,16 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     @Inject
     lateinit var homeViewModelCreator: Lazy<HomeViewModel>
+
     @Inject
     lateinit var chromeViewModelCreator: Lazy<ChromeViewModel>
+
     @Inject
     lateinit var downloadIndicatorViewModelCreator: Lazy<DownloadIndicatorViewModel>
+
     @Inject
     lateinit var defaultBrowserPreferenceViewModelCreator: Lazy<DefaultBrowserPreferenceViewModel>
+
     @Inject
     lateinit var appContext: Context
 
@@ -99,31 +108,33 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     private lateinit var menu_red_dot: ImageView
     private lateinit var account_layout: ThemedLinearLayout
-    private lateinit var arc_panel:ThemedLinearLayout
-    private lateinit var arc_view:ThemedImageView
-    private lateinit var content_hub:ContentHub
+    private lateinit var arc_panel: ThemedLinearLayout
+    private lateinit var arc_view: ThemedImageView
+    private lateinit var content_hub: ContentHub
     private lateinit var content_hub_layout: LinearLayout
     private lateinit var content_hub_title: ThemedTextView
     private lateinit var home_background: HomeScreenBackground
     private lateinit var home_fragment_fake_input: ThemedView
-    private lateinit var home_fragment_fake_input_icon:ThemedImageView
-    private lateinit var home_fragment_fake_input_text:ThemedTextView
+    private lateinit var home_fragment_fake_input_icon: ThemedImageView
+    private lateinit var home_fragment_fake_input_text: ThemedTextView
     private lateinit var home_fragment_menu_button: MenuButton
     private lateinit var home_fragment_tab_counter: TabCounter
     private lateinit var iv_home_history: ImageView
     private lateinit var iv_home_marks: ImageView
-    private lateinit var home_fragment_title:ImageView
-    private lateinit var logo_man_notification:LogoManNotification
+    private lateinit var vpnSwitchButton: SwitchButton
+    private lateinit var view_vpn: ThemedLinearLayout
+    private lateinit var home_fragment_title: ImageView
+    private lateinit var logo_man_notification: LogoManNotification
     private lateinit var main_list: ViewPager2
     private lateinit var page_indicator: PagerIndicator
-    private lateinit var private_mode_button:ThemedImageView
-    private lateinit var profile_button:ImageView
-    private lateinit var reward_button:ImageView
+    private lateinit var private_mode_button: ThemedImageView
+    private lateinit var profile_button: ImageView
+    private lateinit var reward_button: ImageView
     private lateinit var search_panel: ThemedLinearLayout
     private lateinit var shopping_button: ThemedImageView
 
     /** Home背景是否支持切换*/
-    private  var homeBackgroundChangeAble = false
+    private var homeBackgroundChangeAble = false
 
     private val topSitesPageChangeCallback = object : OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
@@ -140,10 +151,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         homeViewModel = getActivityViewModel(homeViewModelCreator)
         chromeViewModel = getActivityViewModel(chromeViewModelCreator)
         downloadIndicatorViewModel = getActivityViewModel(downloadIndicatorViewModelCreator)
-        defaultBrowserPreferenceViewModel = getActivityViewModel(defaultBrowserPreferenceViewModelCreator)
+        defaultBrowserPreferenceViewModel =
+            getActivityViewModel(defaultBrowserPreferenceViewModelCreator)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         var view = inflater.inflate(R.layout.fragment_home, container, false)
         shopping_button = view.findViewById(R.id.shopping_button)
         menu_red_dot = view.findViewById(R.id.menu_red_dot)
@@ -169,6 +185,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         search_panel = view.findViewById(R.id.search_panel)
         iv_home_history = view.findViewById(R.id.iv_home_history)
         iv_home_marks = view.findViewById(R.id.iv_home_marks)
+        vpnSwitchButton = view.findViewById(R.id.vpn_switch_button)
+        view_vpn = view.findViewById(R.id.view_vpn)
         return view
     }
 
@@ -191,6 +209,80 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             FirebaseHelper.retrieveTrace("coldStart")?.stopAndClose()
             false
         }
+        initVpn()
+    }
+
+
+    private lateinit var zoneList: ArrayList<ZoneBean>
+    private val settings by lazy { Settings(activity as MainActivity, "vpn_settings") }
+
+    private fun initVpn() {
+        val autoConnectVpn = settings.getBoolean("autoConnectVpn", false)
+        // connectZoneId  // 上次连接的zone_id, 如果是自动的, 则为空""
+
+        OpenVpnApi.setActivity(activity as MainActivity)
+        OpenVpnApi.setBaseUrl("https://test-api.cybervpn.pro/")
+        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
+        // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
+        OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
+        OpenVpnApi.mCustomPkgNameList.add((activity as MainActivity).packageName)
+        OpenVpnApi.zoneLiveData.observe(activity as MainActivity) {
+            zoneList = it
+            if (autoConnectVpn) {
+                vpnSwitchButton.isChecked = true
+            }
+        }
+
+        val map = HashMap<String, String>()
+        map.put("trace_id", "muccc")
+        map.put("app_id", "com.sailfishvpn.fastly.ios")
+        map.put("app_version", "4010079")
+        map.put("os_version", "29")
+        map.put("user_id", "a.5242925349028eb5")
+//            map.put("country","")
+//            map.put("gaid","")
+        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+//            map.put("ip","")
+//            map.put("device_id","")
+//            map.put("release_channel","")
+        OpenVpnApi.getZoneList(map)
+
+        vpnSwitchButton.setOnCheckedChangeListener { view, isChecked ->
+            if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
+            settings.setBoolean("autoConnectVpn", isChecked)
+        }
+
+        view_vpn.setOnLongClickListener {
+            if (this::zoneList.isInitialized) {
+                val intent = Intent(appContext, SetVpnActivity::class.java)
+                startActivity(intent)
+            } else {
+                OpenVpnApi.getZoneList(map)
+            }
+            true
+        }
+    }
+
+    private fun connectVpn() {
+        val map = HashMap<String, String>()
+        map.put("trace_id", "muccc")
+        map.put("app_id", "com.sailfishvpn.fastly.ios")
+        map.put("app_version", "4010079")
+        map.put("os_version", "29")
+        map.put("user_id", "a.5242925349028eb5")
+//            map.put("country","")
+//            map.put("gaid","")
+        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+//            map.put("ip","")
+//            map.put("device_id","")
+//            map.put("release_channel","")
+
+        val bean = zoneList.firstOrNull { zoneBean ->
+            val connectZoneId = settings.get("connectZoneId", "")
+            if (connectZoneId!!.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id
+        }
+        if (bean != null) OpenVpnApi.getZoneProfile(map, bean.zone_id)
+
     }
 
     private fun initSearchToolBar() {
@@ -248,9 +340,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         }.observe(viewLifecycleOwner, Observer {
             home_fragment_menu_button.apply {
                 when (it) {
-                    DownloadIndicatorViewModel.Status.DOWNLOADING -> setDownloadState(DOWNLOAD_STATE_DOWNLOADING)
-                    DownloadIndicatorViewModel.Status.UNREAD -> setDownloadState(DOWNLOAD_STATE_UNREAD)
-                    DownloadIndicatorViewModel.Status.WARNING -> setDownloadState(DOWNLOAD_STATE_WARNING)
+                    DownloadIndicatorViewModel.Status.DOWNLOADING -> setDownloadState(
+                        DOWNLOAD_STATE_DOWNLOADING
+                    )
+                    DownloadIndicatorViewModel.Status.UNREAD -> setDownloadState(
+                        DOWNLOAD_STATE_UNREAD
+                    )
+                    DownloadIndicatorViewModel.Status.WARNING -> setDownloadState(
+                        DOWNLOAD_STATE_WARNING
+                    )
                     else -> setDownloadState(DOWNLOAD_STATE_DEFAULT)
                 }
             }
@@ -262,19 +360,20 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     private fun initBackgroundView() {
         themeManager.subscribeThemeChange(home_background)
-        val backgroundGestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
-            override fun onDown(e: MotionEvent?): Boolean {
-                return true
-            }
+        val backgroundGestureDetector =
+            GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDown(e: MotionEvent?): Boolean {
+                    return true
+                }
 
-            override fun onDoubleTap(e: MotionEvent?): Boolean {
-                return homeViewModel.onBackgroundViewDoubleTap()
-            }
+                override fun onDoubleTap(e: MotionEvent?): Boolean {
+                    return homeViewModel.onBackgroundViewDoubleTap()
+                }
 
-            override fun onLongPress(e: MotionEvent?) {
-                homeViewModel.onBackgroundViewLongPress()
-            }
-        })
+                override fun onLongPress(e: MotionEvent?) {
+                    homeViewModel.onBackgroundViewLongPress()
+                }
+            })
         home_background.setOnTouchListener { _, event ->
             backgroundGestureDetector.onTouchEvent(event)
         }
@@ -288,15 +387,21 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             themeManager.resetDefaultTheme()
             TelemetryWrapper.resetThemeToDefault()
         })
-        homeViewModel.homeBackgroundColorThemeClicked.observe(viewLifecycleOwner, Observer { themeSet ->
-            themeManager.setCurrentTheme(themeSet)
-        })
+        homeViewModel.homeBackgroundColorThemeClicked.observe(
+            viewLifecycleOwner,
+            Observer { themeSet ->
+                themeManager.setCurrentTheme(themeSet)
+            })
     }
 
     private fun initTopSites() {
         topSitesAdapter = DelegateAdapter(
             AdapterDelegatesManager().apply {
-                add(SitePage::class, R.layout.item_top_site_page, SitePageAdapterDelegate(homeViewModel, chromeViewModel))
+                add(
+                    SitePage::class,
+                    R.layout.item_top_site_page,
+                    SitePageAdapterDelegate(homeViewModel, chromeViewModel)
+                )
             }
         )
         main_list.apply {
@@ -321,12 +426,14 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             })
             showTopSiteMenu.observe(viewLifecycleOwner, Observer { (site, position) ->
                 site as Site.UrlSite.RemovableSite
-                val anchorView = main_list.findViewWithTag<View>(TOP_SITE_LONG_CLICK_TARGET).apply { tag = null }
+                val anchorView =
+                    main_list.findViewWithTag<View>(TOP_SITE_LONG_CLICK_TARGET).apply { tag = null }
                 val allowToPin = !site.isPinned
                 showTopSiteMenu(anchorView, allowToPin, site, position)
             })
             showAddTopSiteMenu.observe(viewLifecycleOwner, Observer {
-                val anchorView = main_list.findViewWithTag<View>(TOP_SITE_LONG_CLICK_TARGET).apply { tag = null }
+                val anchorView =
+                    main_list.findViewWithTag<View>(TOP_SITE_LONG_CLICK_TARGET).apply { tag = null }
                 showAddTopSiteMenu(anchorView)
             })
         }
@@ -367,7 +474,11 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 val context = requireContext()
                 when (it) {
                     is ContentHub.Item.Travel -> startActivity(TravelActivity.getStartIntent(context))
-                    is ContentHub.Item.Shopping -> startActivity(ShoppingActivity.getStartIntent(context))
+                    is ContentHub.Item.Shopping -> startActivity(
+                        ShoppingActivity.getStartIntent(
+                            context
+                        )
+                    )
                     is ContentHub.Item.News -> startActivity(NewsActivity.getStartIntent(context))
                     is ContentHub.Item.Games -> startActivity(GameActivity.getStartIntent(context))
                 }
@@ -406,7 +517,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             account_layout.setDarkTheme(darkThemeEnable)
             shopping_button.setDarkTheme(darkThemeEnable)
             private_mode_button.setDarkTheme(darkThemeEnable)
-            content_hub_title.setOnClickListener(object : View.OnClickListener{
+            content_hub_title.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     BuriedPointUtil.addClick("cccc_bbbb")
                 }
@@ -464,37 +575,37 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     private fun showTopSiteMenu(anchorView: View, pinEnabled: Boolean, site: Site, position: Int) {
         PopupMenu(anchorView.context, anchorView, Gravity.CLIP_HORIZONTAL)
-                .apply {
-                    menuInflater.inflate(R.menu.menu_top_site_item, menu)
-                    menu.findItem(R.id.pin)?.apply {
-                        isVisible = pinEnabled
-                    }
-                    setOnMenuItemClickListener { item ->
-                        when (item.itemId) {
-                            R.id.pin -> homeViewModel.onPinTopSiteClicked(site, position)
-                            R.id.remove -> homeViewModel.onRemoveTopSiteClicked(site, position)
-                            else -> throw IllegalStateException("Unhandled menu item")
-                        }
-
-                        true
-                    }
+            .apply {
+                menuInflater.inflate(R.menu.menu_top_site_item, menu)
+                menu.findItem(R.id.pin)?.apply {
+                    isVisible = pinEnabled
                 }
-                .show()
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.pin -> homeViewModel.onPinTopSiteClicked(site, position)
+                        R.id.remove -> homeViewModel.onRemoveTopSiteClicked(site, position)
+                        else -> throw IllegalStateException("Unhandled menu item")
+                    }
+
+                    true
+                }
+            }
+            .show()
     }
 
     private fun showAddTopSiteMenu(anchorView: View) {
         PopupMenu(anchorView.context, anchorView, Gravity.CLIP_HORIZONTAL)
-                .apply {
-                    menuInflater.inflate(R.menu.menu_add_top_site_item, menu)
-                    setOnMenuItemClickListener { item ->
-                        when (item.itemId) {
-                            R.id.add_top_sites -> homeViewModel.onAddTopSiteContextMenuClicked()
-                            else -> throw IllegalStateException("Unhandled menu item")
-                        }
-                        true
+            .apply {
+                menuInflater.inflate(R.menu.menu_add_top_site_item, menu)
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.add_top_sites -> homeViewModel.onAddTopSiteContextMenuClicked()
+                        else -> throw IllegalStateException("Unhandled menu item")
                     }
+                    true
                 }
-                .show()
+            }
+            .show()
     }
 
     private fun setTabCount(count: Int, animationEnabled: Boolean = false) {
@@ -521,7 +632,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     private fun showAddNewTopSitesPage() {
         activity?.let {
-            it.startActivityForResult(AddNewTopSitesActivity.getStartIntent(it), AddNewTopSitesActivity.REQUEST_CODE_ADD_NEW_TOP_SITES)
+            it.startActivityForResult(
+                AddNewTopSitesActivity.getStartIntent(it),
+                AddNewTopSitesActivity.REQUEST_CODE_ADD_NEW_TOP_SITES
+            )
         }
     }
 
@@ -534,7 +648,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         homeViewModel.hideLogoManNotification.observe(viewLifecycleOwner, Observer {
             hideLogoManNotification()
         })
-        logo_man_notification.setNotificationActionListener(object : LogoManNotification.NotificationActionListener {
+        logo_man_notification.setNotificationActionListener(object :
+            LogoManNotification.NotificationActionListener {
             override fun onNotificationClick() {
                 homeViewModel.onLogoManNotificationClicked()
             }
@@ -545,7 +660,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         })
     }
 
-    private fun showLogoManNotification(notification: LogoManNotification.Notification, animate: Boolean) {
+    private fun showLogoManNotification(
+        notification: LogoManNotification.Notification,
+        animate: Boolean
+    ) {
         logo_man_notification.showNotification(notification, animate)
         homeViewModel.onLogoManShown()
     }

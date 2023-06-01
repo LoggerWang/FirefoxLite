@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
@@ -44,6 +45,7 @@ class SetVpnActivity : AppCompatActivity() {
 
         val zoneList = OpenVpnApi.zoneLiveData.value
         val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
+        rvZone.layoutManager = LinearLayoutManager(this)
         rvZone.adapter = ServerAdapter(zoneList, object : IOnItemClick {
             override fun iOnItemClick(position: Int, nodeBean: ZoneBean) {
                 if (autoPosition == position)

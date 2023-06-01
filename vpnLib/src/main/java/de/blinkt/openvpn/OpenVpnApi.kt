@@ -93,9 +93,7 @@ object OpenVpnApi {
     }
 
     // 查询区域列表
-    fun getZoneList(
-        map: HashMap<String, String>, connectZoneId: String, autoConnect: Boolean = false
-    ) {
+    fun getZoneList(map: HashMap<String, String>) {
         CoroutineScope(Dispatchers.IO).launch {
             mActivity.flowRequest {
                 getZoneList(map)
@@ -105,12 +103,6 @@ object OpenVpnApi {
                 it.data?.let { zoneModel ->
                     withContext(Dispatchers.Main) {
                         zoneLiveData.value = zoneModel.zones
-                    }
-                    if (autoConnect) {
-                        val bean = zoneModel.zones.firstOrNull { zoneBean ->
-                            if (connectZoneId.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id
-                        }
-                        if (bean != null) getZoneProfile(map, bean.zone_id)
                     }
                 }
             }
@@ -158,7 +150,8 @@ object OpenVpnApi {
         return serverStateLiveData.value ?: ConnectState.STATE_DISCONNECTED
     }
 
-     fun stopVpn(){
-         OpenVPNThread.stop()
-     }
+    fun stopVpn() {
+        if (serverStateLiveData.value == ConnectState.STATE_START)
+            OpenVPNThread.stop()
+    }
 }

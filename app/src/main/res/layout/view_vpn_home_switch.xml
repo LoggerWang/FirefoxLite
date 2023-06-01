@@ -8,6 +8,7 @@
     android:background="@drawable/bg_corner_12_white"
     android:orientation="horizontal">
     <ImageView
+        android:id="@+id/ivVpnProtect"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@drawable/vpn_thunder_off"/>

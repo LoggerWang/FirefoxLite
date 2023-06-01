@@ -151,7 +151,6 @@ object OpenVpnApi {
     }
 
     fun stopVpn() {
-        if (serverStateLiveData.value == ConnectState.STATE_START)
-            OpenVPNThread.stop()
+        VpnHelper.instance.stopVpn()
     }
 }

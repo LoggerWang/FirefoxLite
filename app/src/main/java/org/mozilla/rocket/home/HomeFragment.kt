@@ -25,6 +25,7 @@ import com.suke.widget.SwitchButton
 import dagger.Lazy
 import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
+import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.ProxyModeEnum
 import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
@@ -122,6 +123,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private lateinit var iv_home_history: ImageView
     private lateinit var iv_home_marks: ImageView
     private lateinit var vpnSwitchButton: SwitchButton
+    private lateinit var ivVpnProtect: ImageView
     private lateinit var view_vpn: ThemedLinearLayout
     private lateinit var home_fragment_title: ImageView
     private lateinit var logo_man_notification: LogoManNotification
@@ -186,6 +188,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         iv_home_history = view.findViewById(R.id.iv_home_history)
         iv_home_marks = view.findViewById(R.id.iv_home_marks)
         vpnSwitchButton = view.findViewById(R.id.vpn_switch_button)
+        ivVpnProtect = view.findViewById(R.id.ivVpnProtect)
         view_vpn = view.findViewById(R.id.view_vpn)
         return view
     }
@@ -215,6 +218,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     private lateinit var zoneList: ArrayList<ZoneBean>
     private val settings by lazy { Settings(activity as MainActivity, "vpn_settings") }
+    private var mIsStateChange = false
 
     private fun initVpn() {
         val autoConnectVpn = settings.getBoolean("autoConnectVpn", false)
@@ -230,6 +234,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             zoneList = it
             if (autoConnectVpn) {
                 vpnSwitchButton.isChecked = true
+            }
+        }
+        OpenVpnApi.serverStateLiveData.observe(activity as MainActivity) {
+            if (it == ConnectState.STATE_START) {
+                mIsStateChange = true
+                vpnSwitchButton.isChecked = true
+            } else if (it == ConnectState.STATE_DISCONNECTED) {
+                mIsStateChange = true
+                vpnSwitchButton.isChecked = false
             }
         }
 
@@ -248,8 +261,13 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         OpenVpnApi.getZoneList(map)
 
         vpnSwitchButton.setOnCheckedChangeListener { view, isChecked ->
-            if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
-            settings.setBoolean("autoConnectVpn", isChecked)
+            if (mIsStateChange) {
+                mIsStateChange = false
+            } else {
+                if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
+                settings.setBoolean("autoConnectVpn", isChecked)
+            }
+            ivVpnProtect.setImageResource(if (isChecked) R.drawable.vpn_thunder_open else R.drawable.vpn_thunder_off)
         }
 
         view_vpn.setOnLongClickListener {

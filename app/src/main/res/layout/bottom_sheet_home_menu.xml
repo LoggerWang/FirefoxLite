@@ -188,31 +188,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/menu_help"
-                    android:layout_width="74dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="71dp"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_bookmarks"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="top|center_horizontal"
-                        style="@style/MenuButtonText"
-                        android:layout_marginTop="-5dp"
-                        android:text="@string/menu_help"/>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/menu_setting"
                     android:layout_width="74dp"
                     android:layout_height="wrap_content"
@@ -236,6 +211,32 @@
                         android:text="@string/label_menu_settings"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/menu_help"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="71dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="52dp"-->
+<!--                        android:layout_height="52dp"-->
+<!--                        android:scaleType="centerInside"-->
+<!--                        android:src="@drawable/ic_bookmarks"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="top|center_horizontal"-->
+<!--                        style="@style/MenuButtonText"-->
+<!--                        android:layout_marginTop="-5dp"-->
+<!--                        android:text="@string/menu_help"/>-->
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="74dp"
                     android:layout_height="wrap_content"

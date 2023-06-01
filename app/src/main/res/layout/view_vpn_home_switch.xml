@@ -10,18 +10,20 @@
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@drawable/vpn_thunder_off"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:text="VPN"
-        android:textStyle="bold"/>
+        android:background="@drawable/vpn_thunder_off"/>
+    <ImageView
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/vpn_word"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="6dp"
+        android:textSize="15sp"
+        android:textColor="#3b3b3b"
         android:text="Protect your privacy"
         android:textStyle="bold"/>
     <com.suke.widget.SwitchButton
@@ -30,6 +32,6 @@
         android:layout_height="24dp"
         android:layout_marginEnd="15dp"
         android:layout_alignParentEnd="true"
-        app:sb_checked_color="#34e8a6"
+        app:sb_checked_color="#2e60ff"
         app:sb_show_indicator="false" />
 </org.mozilla.rocket.nightmode.themed.ThemedLinearLayout>

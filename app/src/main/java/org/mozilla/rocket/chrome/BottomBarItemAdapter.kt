@@ -16,6 +16,9 @@ import org.mozilla.rocket.content.view.BottomBar.BottomBarItem
 import org.mozilla.rocket.content.view.BottomBar.BottomBarItem.ImageItem
 import org.mozilla.rocket.nightmode.themed.ThemedImageButton
 
+/**
+ * 底部工具栏适配器
+ */
 class BottomBarItemAdapter(
     private val bottomBar: BottomBar,
     private val theme: Theme = Theme.Light

@@ -1,12 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/ic_add_bookmark_fill"
-        android:state_activated="true" />
-
-    <item
-        android:drawable="@drawable/ic_add_bookmark_outline" />
-</selector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="72"
+    android:viewportHeight="72">
+  <path
+      android:pathData="M23,16L50,16C52.209,16 54,17.791 54,20L54,50.478C54,52.687 52.209,54.478 50,54.478C49.576,54.478 49.156,54.411 48.753,54.279L36.5,50.259L24.247,54.279C22.148,54.967 19.888,53.824 19.199,51.725C19.067,51.322 19,50.902 19,50.478L19,20C19,17.791 20.791,16 23,16Z"
+      android:strokeWidth="4"
+      android:fillColor="#00000000"
+      android:strokeColor="#191919"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M37.13,38.194L32.969,40.382C32.48,40.639 31.876,40.451 31.619,39.962C31.516,39.767 31.481,39.544 31.518,39.328L32.313,34.695L28.947,31.414C28.551,31.028 28.543,30.395 28.929,30C29.082,29.842 29.283,29.74 29.501,29.708L34.153,29.032L36.233,24.817C36.477,24.322 37.077,24.118 37.572,24.363C37.769,24.46 37.929,24.62 38.026,24.817L40.107,29.032L44.758,29.708C45.305,29.787 45.684,30.295 45.604,30.841C45.573,31.059 45.47,31.26 45.313,31.414L41.947,34.695L42.741,39.328C42.835,39.872 42.469,40.389 41.925,40.482C41.708,40.519 41.485,40.484 41.29,40.382L37.13,38.194Z"
+      android:strokeWidth="1"
+      android:fillColor="#191919"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+</vector>

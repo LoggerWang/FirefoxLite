@@ -38,6 +38,7 @@
         android:layout_height="2dp"
         android:layout_below="@id/counter_root"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:layout_marginTop="1dp"
         android:src="@drawable/tab_counter_bar" />
 

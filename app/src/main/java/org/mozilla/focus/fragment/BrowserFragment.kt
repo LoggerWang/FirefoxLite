@@ -479,6 +479,10 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                         chromeViewModel.goNext.call()
                         TelemetryWrapper.clickToolbarForward(Extra_Value.WEBVIEW, position)
                     }
+                    BottomBarItemAdapter.TYPE_BACK -> {
+                        chromeViewModel.goBack.call()
+                        TelemetryWrapper.clickToolbarBack(position)
+                    }
                     else -> throw IllegalArgumentException("Unhandled bottom bar item, type: $type")
                 }
             }

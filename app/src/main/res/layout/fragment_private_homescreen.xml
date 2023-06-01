@@ -96,7 +96,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/ic_search_private_gray"/>
+            android:background="@drawable/private_browsing_mask_night_inactive"/>
 
         <TextView
             android:id="@+id/pm_home_fake_input"

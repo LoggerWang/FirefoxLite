@@ -47,6 +47,19 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
             val debuggingCategory = findPreference(getString(R.string.pref_key_category_debug))
             rootPreferences?.removePreference(debuggingCategory)
         }
+        val saveDownloadToCategory = findPreference(getString(R.string.pref_key_storage_save_downloads_to))
+        rootPreferences?.removePreference(saveDownloadToCategory)
+        val nightModeBrightnessCategory = findPreference(getString(R.string.pref_key_night_mode_brightness))
+        rootPreferences?.removePreference(nightModeBrightnessCategory)
+        val turboModeCategory = findPreference(getString(R.string.pref_key_turbo_mode))
+        rootPreferences?.removePreference(turboModeCategory)
+        val privateShortCutCategory = findPreference(getString(R.string.pref_key_private_mode_shortcut))
+        rootPreferences?.removePreference(privateShortCutCategory)
+        val categoryExperimentCategory = findPreference(getString(R.string.pref_key_category_experiment))
+        rootPreferences?.removePreference(categoryExperimentCategory)
+        val categoryDebugCategory = findPreference(getString(R.string.pref_key_category_debug))
+        rootPreferences?.removePreference(categoryDebugCategory)
+
         val preferenceNightMode = findPreference(getString(R.string.pref_key_night_mode_brightness))
         preferenceNightMode?.isEnabled = Settings.getInstance(activity).isNightModeEnable
 

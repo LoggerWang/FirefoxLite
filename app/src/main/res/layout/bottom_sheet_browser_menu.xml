@@ -218,7 +218,7 @@
                             android:layout_width="52dp"
                             android:layout_height="52dp"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_bookmarks"/>
+                            android:src="@drawable/action_settings"/>
 
                         <TextView
                             android:layout_width="wrap_content"

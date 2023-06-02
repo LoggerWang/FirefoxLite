@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!-- START xml_defaults -->
+<defaultsMap>
+    <!--
+        注意:
+        配置本地的xml的默认控制值, 需要同步配置网络值
+        只有当本地sp中没有缓存数据的时候, 才取xml中的默认值
+    -->
+    <entry>
+        <key>prop_consume_voh_coins</key>
+        <value>5</value>
+    </entry>
+    <entry>
+        <key>prop_consume_sot_coins</key>
+        <value>5</value>
+    </entry>
+</defaultsMap><!-- END xml_defaults -->

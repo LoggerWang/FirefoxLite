@@ -83,6 +83,14 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
 
+   /* api platform('com.google.firebase:firebase-bom:29.0.0')
+    api 'com.google.firebase:firebase-core'
+    api 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+//    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    implementation "com.google.firebase:firebase-iid:21.1.0"*/
+
     implementation "com.google.firebase:firebase-analytics:${Versions.analytics}"
     implementation "com.google.firebase:firebase-config:${Versions.firebase_config}"
     api "com.google.firebase:firebase-messaging:${Versions.fcm}"

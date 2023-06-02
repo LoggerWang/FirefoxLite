@@ -48,7 +48,7 @@ object Versions {
     const val uiautomator = "2.2.0"
     const val mockwebserver = "3.7.0"
     const val analytics = "17.4.3"
-    const val firebase_config = "19.0.3"
+    const val firebase_config = "21.0.1"
     const val firebase_auth = "19.2.0"
     const val firebase_iam = "19.0.3"
     const val fcm = "20.2.0"

@@ -32,7 +32,11 @@ public class RemoteConfigHelper {
         return RemoteConfigController.getFirebaseString("key_update_title");
     }
 
-    public static int getUpdateVersion(){
-        return RemoteConfigController.getFirebaseInt("key_update_vertion");
+    public static long getUpdateVersion(){
+        return RemoteConfigController.getFirebaseLong("key_update_vertion");
+    }
+
+    public static String getUpdateVersionName(){
+        return RemoteConfigController.getFirebaseString("key_update_version_name");
     }
 }

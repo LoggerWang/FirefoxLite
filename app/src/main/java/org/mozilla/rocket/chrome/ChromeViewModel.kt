@@ -67,6 +67,7 @@ class ChromeViewModel(
                     if (!shouldShow) {
                         newFeatureNotice.setLiteUpdateDidShow()
                     }
+                    false
                 }
 
     val showToast = SingleLiveEvent<ToastMessage>()

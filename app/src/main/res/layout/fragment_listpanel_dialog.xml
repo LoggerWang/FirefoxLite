@@ -34,6 +34,7 @@
                     android:id="@+id/screenshots"
                     android:layout_width="74dp"
                     android:layout_height="52dp"
+                    android:visibility="gone"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
                     <View

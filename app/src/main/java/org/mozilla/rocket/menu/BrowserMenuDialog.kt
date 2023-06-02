@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import dagger.Lazy
@@ -59,6 +60,9 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
     private lateinit var menu_preferences: LinearLayout
     private lateinit var menu_delete: LinearLayout
     private lateinit var menu_exit: LinearLayout
+    private lateinit var menu_vpn: LinearLayout
+    private lateinit var menu_add_mark: LinearLayout
+    private lateinit var iv_add_to_mark: ImageView
 
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -116,6 +120,9 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
         menu_delete = rootView.findViewById(R.id.menu_delete)
         menu_exit = rootView.findViewById(R.id.menu_exit)
         menu_history = rootView.findViewById(R.id.menu_history)
+        menu_vpn = rootView.findViewById(R.id.menu_vpn)
+        menu_add_mark = rootView.findViewById(R.id.menu_add_mark)
+        iv_add_to_mark = rootView.findViewById(R.id.iv_add_to_mark)
         initMenuTabs(rootView)
         initMenuItems(rootView)
         initBottomBar()
@@ -154,6 +161,21 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     chromeViewModel.showDownloadPanel.call()
                     TelemetryWrapper.clickMenuDownload()
                 }
+            }
+            menu_vpn.setOnClickListener {
+                postDelayClickEvent {
+                    cancel()
+
+                }
+            }
+            menu_add_mark.setOnClickListener {
+                postDelayClickEvent {
+                    cancel()
+                    val isActivated = bottomBarItemAdapter.getItem(BottomBarItemAdapter.TYPE_BOOKMARK)?.view?.isActivated == true
+                    TelemetryWrapper.clickToolbarBookmark(!isActivated, TelemetryWrapper.Extra_Value.MENU, 0)
+                    chromeViewModel.toggleBookmark()
+                }
+
             }
         }
     }
@@ -247,6 +269,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
     }
 
     private fun initBottomBar() {
+        //底部功能按钮 已隐藏
         val bottomBar = rootView.findViewById<BottomBar>(R.id.menu_bottom_bar)
         bottomBar.setOnItemClickListener(object : BottomBar.OnItemClickListener {
             override fun onItemClick(type: Int, position: Int) {
@@ -313,7 +336,11 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
         chromeViewModel.canGoBack.switchFrom(menuViewModel.bottomItems)
                 .observe(this, Observer { bottomBarItemAdapter.setCanGoBack(it == true) })
         chromeViewModel.isCurrentUrlBookmarked.switchFrom(menuViewModel.bottomItems)
-                .observe(this, Observer { bottomBarItemAdapter.setBookmark(it == true) })
+                .observe(this, Observer {
+                    bottomBarItemAdapter.setBookmark(it == true)
+                    //添加到书签
+                    DrawableCompat.setTint(iv_add_to_mark.drawable, context.resources.getColor(if (it)R.color.paletteDarkBlueC100 else R.color.paletteBlack100))
+                })
     }
 
     private fun hidePinShortcutButtonIfNotSupported() {

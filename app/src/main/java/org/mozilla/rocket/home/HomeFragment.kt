@@ -304,7 +304,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     }
 
     private fun initSearchToolBar() {
-        home_fragment_fake_input.setOnClickListener {
+        home_fragment_fake_input_text.setOnClickListener {
             chromeViewModel.showUrlInput.call()
             TelemetryWrapper.showSearchBarHome()
         }

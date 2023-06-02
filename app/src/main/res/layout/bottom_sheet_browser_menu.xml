@@ -7,15 +7,12 @@
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/menu_bottom_margin"
-    android:paddingStart="@dimen/menu_horizontal_margin"
-    android:paddingEnd="@dimen/menu_horizontal_margin"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <LinearLayout
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_height"
+        android:layout_height="170dp"
         android:orientation="vertical"
         android:background="@color/colorMenuBackground">
 
@@ -31,9 +28,11 @@
                 android:orientation="vertical"
                 android:paddingBottom="8dp">
 
-                <org.mozilla.focus.widget.EqualDistributeGrid
+<!--                <org.mozilla.focus.widget.EqualDistributeGrid-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp">
 
@@ -42,6 +41,7 @@
                         android:layout_width="74dp"
                         android:layout_height="wrap_content"
                         android:minHeight="71dp"
+                        android:visibility="gone"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:background="?android:attr/selectableItemBackgroundBorderless">
@@ -65,8 +65,9 @@
 
                     <LinearLayout
                         android:id="@+id/menu_bookmark"
-                        android:layout_width="74dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:minHeight="71dp"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
@@ -90,8 +91,9 @@
 
                     <LinearLayout
                         android:id="@+id/menu_history"
-                        android:layout_width="74dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:minHeight="71dp"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
@@ -115,8 +117,9 @@
 
                     <LinearLayout
                         android:id="@+id/menu_download"
-                        android:layout_width="74dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:minHeight="71dp"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
@@ -138,23 +141,168 @@
 
                     </LinearLayout>
 
-                </org.mozilla.focus.widget.EqualDistributeGrid>
+                    <LinearLayout
+                        android:id="@+id/menu_vpn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="71dp"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                        <ImageView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_pvn_black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="top|center_horizontal"
+                            style="@style/MenuButtonText"
+                            android:layout_marginTop="-5dp"
+                            android:text="@string/label_menu_vpn"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+<!-- <org.mozilla.focus.widget.EqualDistributeGrid-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/menu_delete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="visible"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                        <ImageView
+                            android:id="@+id/img_delete"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/menu_delete"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="top|center_horizontal"
+                            style="@style/MenuButtonText"
+                            android:layout_marginTop="-5dp"
+                            android:text="@string/label_menu_clear_cache"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_preferences"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                        <ImageView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/action_settings"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="top|center_horizontal"
+                            style="@style/MenuButtonText"
+                            android:layout_marginTop="-5dp"
+                            android:text="@string/label_menu_settings"/>
+
+                    </LinearLayout>
+                     <LinearLayout
+                         android:id="@+id/menu_add_mark"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1"
+                         android:orientation="vertical"
+                         android:gravity="center_horizontal"
+                         android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                         <ImageView
+                             android:id="@+id/iv_add_to_mark"
+                             android:layout_width="52dp"
+                             android:layout_height="52dp"
+                             android:scaleType="centerInside"
+                             android:src="@drawable/ic_add_bookmark"/>
+
+                         <TextView
+                             android:layout_width="100dp"
+                             android:layout_height="wrap_content"
+                             android:gravity="center"
+                             android:layout_marginTop="-5dp"
+                             style="@style/MenuButtonText"
+                             android:paddingStart="0dp"
+                             android:paddingEnd="0dp"
+                             android:text="Add to \n favorites"/>
+
+                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/menu_find_in_page"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                        <ImageView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/menu_history"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="top|center_horizontal"
+                            style="@style/MenuButtonText"
+                            android:layout_marginTop="-5dp"
+                            android:text="@string/label_menu_find_in_page"/>
+
+                    </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/paletteLightGreyA100"
+                    android:visibility="gone"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="7dp"/>
-
+                <!--夜间模式-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
                     android:paddingEnd="24dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
-
                     <LinearLayout
                         android:id="@+id/menu_night_mode"
                         android:layout_width="0dp"
@@ -162,6 +310,7 @@
                         android:layout_weight="1"
                         android:paddingStart="18dp"
                         android:paddingEnd="0dp"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:background="?android:attr/selectableItemBackground">
@@ -197,12 +346,14 @@
 
                 </LinearLayout>
 
+                <!--Trubo mode-->
                 <LinearLayout
                     android:id="@+id/menu_turbomode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
                     android:paddingEnd="24dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:background="?android:attr/selectableItemBackground">
@@ -242,12 +393,14 @@
 
                 </LinearLayout>
 
+                <!--Block iamges 不加载图片-->
                 <LinearLayout
                     android:id="@+id/menu_blockimg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
                     android:paddingEnd="24dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:background="?android:attr/selectableItemBackground">
@@ -291,43 +444,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/paletteLightGreyA100"
+                    android:visibility="gone"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"/>
 
-                <LinearLayout
-                    android:id="@+id/menu_find_in_page"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="24dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="?android:attr/selectableItemBackground">
-
-                    <ImageView
-                        android:layout_width="@dimen/menu_item_size"
-                        android:layout_height="@dimen/menu_item_size"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/action_search"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/paletteLightBlack100"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/label_menu_find_in_page"/>
-
-                </LinearLayout>
-
+<!--                添加到主页屏幕 Add to home screen-->
                 <LinearLayout
                     android:id="@+id/menu_pin_shortcut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="18dp"
                     android:paddingEnd="24dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:background="?android:attr/selectableItemBackground">
@@ -353,79 +481,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:visibility="gone"
                     android:background="@color/paletteLightGreyA100"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"/>
 
 
-                <LinearLayout
-                    android:id="@+id/menu_preferences"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="24dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="?android:attr/selectableItemBackground">
 
-                    <ImageView
-                        android:layout_width="@dimen/menu_item_size"
-                        android:layout_height="@dimen/menu_item_size"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/menu_settings"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/paletteLightBlack100"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/label_menu_settings"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_arrow_right"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/menu_delete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="24dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="?android:attr/selectableItemBackground">
-
-                    <ImageView
-                        android:layout_width="@dimen/menu_item_size"
-                        android:layout_height="@dimen/menu_item_size"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/menu_delete"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/paletteLightBlack100"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/label_menu_clear_cache"/>
-
-                </LinearLayout>
-
+<!--                退出应用-->
                 <LinearLayout
                     android:id="@+id/menu_exit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="18dp"
                     android:paddingEnd="24dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:background="?android:attr/selectableItemBackground">
@@ -457,6 +527,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             app:dividerColor="@color/paletteLightGreyA100"
+            android:visibility="gone"
             android:paddingStart="21dp"
             android:paddingEnd="21dp"/>
 

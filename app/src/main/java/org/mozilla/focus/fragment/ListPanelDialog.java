@@ -243,6 +243,7 @@ public class ListPanelDialog extends DialogFragment {
     }
 
     private void showPanelFragment(PanelFragment panelFragment) {
+        scrollView.removeAllViews();
         getChildFragmentManager().beginTransaction().replace(R.id.main_content, panelFragment).commit();
     }
 

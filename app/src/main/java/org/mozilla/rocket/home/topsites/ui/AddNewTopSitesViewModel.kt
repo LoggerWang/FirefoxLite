@@ -22,7 +22,7 @@ class AddNewTopSitesViewModel(
     private val _recommendedSitesResult = MutableLiveData<RecommendedSitesUiResult>()
     val recommendedSitesItems: LiveData<RecommendedSitesUiResult> = _recommendedSitesResult
 
-    val pinTopSiteResult = SingleLiveEvent<PinTopSiteResult>()
+    val pinTopSiteResult = SingleLiveEvent<PinTopSiteResult?>()
 
     init {
         getRecommendedSitesList()

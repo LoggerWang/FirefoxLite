@@ -1,6 +1,7 @@
 package org.mozilla.rocket.menu
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Outline
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,7 @@ import androidx.lifecycle.Observer
 import dagger.Lazy
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
+import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
 import org.mozilla.rocket.chrome.ChromeViewModel
@@ -62,6 +64,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
     private lateinit var menu_exit: LinearLayout
     private lateinit var menu_setting: LinearLayout
     private lateinit var menu_clean: LinearLayout
+    private lateinit var menu_vpn: LinearLayout
 
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -123,6 +126,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
         menu_history = rootView.findViewById(R.id.menu_history)
         menu_setting = rootView.findViewById(R.id.menu_setting)
         menu_clean = rootView.findViewById(R.id.menu_clean)
+        menu_vpn = rootView.findViewById(R.id.menu_vpn)
         scroll_view.apply {
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
@@ -182,6 +186,13 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     onDeleteClicked()
                     TelemetryWrapper.clickMenuClearCache()
+                }
+            }
+            menu_vpn.setOnClickListener {
+                postDelayClickEvent {
+                    cancel()
+                    val intent = Intent(context, SetVpnActivity::class.java)
+                    context.startActivity(intent)
                 }
             }
         }

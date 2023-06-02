@@ -189,6 +189,9 @@ android {
 //        experimental = true
 //        defaultCacheImplementation = "SPARSE_ARRAY"
 //    }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 repositories {

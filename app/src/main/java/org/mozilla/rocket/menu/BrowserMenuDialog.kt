@@ -1,6 +1,7 @@
 package org.mozilla.rocket.menu
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Outline
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer
 import dagger.Lazy
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
+import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
 import org.mozilla.rocket.chrome.BottomBarItemAdapter
@@ -165,7 +167,8 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
             menu_vpn.setOnClickListener {
                 postDelayClickEvent {
                     cancel()
-
+                    val intent = Intent(context, SetVpnActivity::class.java)
+                    context.startActivity(intent)
                 }
             }
             menu_add_mark.setOnClickListener {

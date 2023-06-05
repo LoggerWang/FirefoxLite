@@ -1,11 +1,13 @@
 package org.mozilla.focus.settings;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ public class AboutFragment extends Fragment {
     private LinearLayout itemContainer;
     private ImageView about_icon;
     private final int[] titleArrays = {R.string.me_update, R.string.me_privacy, R.string.me_terms_of_service};
+    private TextView aboutVersion;
 
     public AboutFragment() {
     }
@@ -52,6 +55,7 @@ public class AboutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
         itemContainer = rootView.findViewById(R.id.ll_item_container);
         about_icon = rootView.findViewById(R.id.about_icon);
+        aboutVersion = rootView.findViewById(R.id.about_version);
         return rootView;
     }
 
@@ -64,6 +68,11 @@ public class AboutFragment extends Fragment {
                 gotoBackDoor();
             }
         });
+        try {
+            aboutVersion.setText("V"+getActivity().getApplication().getPackageManager().getPackageInfo(getActivity().getApplication().getPackageName(),0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         for (int i = 0; i < titleArrays.length; i++) {
             AboutItemView aboutItemView = new AboutItemView(requireContext());
             aboutItemView.setContent(0, titleArrays[i]);
@@ -86,6 +95,12 @@ public class AboutFragment extends Fragment {
         switch (pos) {
             case 0:
                 updateApk();
+                break;
+            case 1:
+                BrowserActivity.launch(getActivity(), "http://truth-storage.anonymoussocial.network/legals/privacy.html");
+                break;
+            case 2:
+                BrowserActivity.launch(getActivity(), "http://truth-storage.anonymoussocial.network/legals/terms.html");
                 break;
         }
     }

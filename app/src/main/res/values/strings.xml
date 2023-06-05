@@ -1095,5 +1095,6 @@
     <string name="me_privacy" translatable="false">Privacy Policy</string>
     <string name="me_terms_of_service" translatable="false">Terms of Service</string>
     <string name="setting_no_new_version" translatable="false">No new version</string>
+    <string name="common_content_no_net_work">Please check the network</string>
 
 </resources>

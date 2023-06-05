@@ -17,7 +17,7 @@ open class LifecycleBottomSheetDialog : BottomSheetDialog, LifecycleOwner, Lifec
     constructor(context: Context) : super(context)
     constructor(context: Context, @StyleRes theme: Int) : super(context, theme)
 
-    override fun getLifecycle(): Lifecycle = lifecycleRegistry
+//    override fun getLifecycle(): Lifecycle = lifecycleRegistry
 
     // Needs to be called when the dialog no longer needed
     fun release() {

@@ -503,23 +503,26 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
     }
 
     private fun setupTapBackgroundToExpand() {
-        val detector = GestureDetectorCompat(context,
-            object : SimpleOnGestureListener() {
-                override fun onSingleTapUp(e: MotionEvent): Boolean {
-                    bottomSheetState = BottomSheetBehavior.STATE_EXPANDED
-                    return true
-                }
+        val detector = context?.let {
+            GestureDetectorCompat(
+                it,
+                object : SimpleOnGestureListener() {
+                    override fun onSingleTapUp(e: MotionEvent): Boolean {
+                        bottomSheetState = BottomSheetBehavior.STATE_EXPANDED
+                        return true
+                    }
 
-                override fun onDown(e: MotionEvent): Boolean {
-                    return true
-                }
-            })
+                    override fun onDown(e: MotionEvent): Boolean {
+                        return true
+                    }
+                })
+        }
         root_layout?.setOnTouchListener { v: View, event: MotionEvent? ->
-            val result = detector.onTouchEvent(event)
-            if (result) {
+            val result = event?.let { detector?.onTouchEvent(it) }
+            if (result == true) {
                 v.performClick()
             }
-            result
+            result!!
         }
     }
 

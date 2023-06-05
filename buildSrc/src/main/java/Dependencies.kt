@@ -8,7 +8,7 @@ object Versions {
     const val android_gradle_plugin = "7.4.2"
     const val gms_oss_licenses_plugin = "0.10.6"
     const val support = "1.0.0"
-    const val appcompat = "1.2.0"
+    const val appcompat = "1.5.0"
     const val material = "1.1.0-alpha05"
     const val cardview = "1.0.0"
     const val recyclerview = "1.1.0"

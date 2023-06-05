@@ -99,7 +99,7 @@ open class FirebaseImp(fromResourceString: HashMap<String, Any>) : FirebaseContr
     // This need to be run in worker thread since FirebaseRemoteConfigSettings has IO access
     override fun enableRemoteConfig(context: Context, callback: Callback) {
 
-        remoteConfig = FirebaseRemoteConfig.getInstance()
+        /*remoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(developerMode).build()
         remoteConfig.setConfigSettings(configSettings)
         if (remoteConfigDefault.size > 0) {
@@ -119,7 +119,7 @@ open class FirebaseImp(fromResourceString: HashMap<String, Any>) : FirebaseContr
             } else {
                 Log.d(TAG, "Firebase RemoteConfig Fetch Failed: ${task.exception}")
             }
-        }
+        }*/
     }
 
     override fun setDeveloperModeEnabled(enable: Boolean) {
@@ -211,7 +211,7 @@ open class FirebaseImp(fromResourceString: HashMap<String, Any>) : FirebaseContr
     }
 
     override fun refreshRemoteConfig(callback: (Boolean, e: Exception?) -> Unit) {
-        remoteConfig.fetch(0).addOnCompleteListener { task ->
+        /*remoteConfig.fetch(0).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "Firebase RemoteConfig Fetch Successfully ")
                 callback(true, null)
@@ -220,7 +220,7 @@ open class FirebaseImp(fromResourceString: HashMap<String, Any>) : FirebaseContr
                 Log.d(TAG, "Firebase RemoteConfig Fetch Failed: ${task.exception}")
                 callback(false, task.exception)
             }
-        }
+        }*/
     }
 
     override fun enableCrashlytics(applicationContext: Context, enabled: Boolean) {

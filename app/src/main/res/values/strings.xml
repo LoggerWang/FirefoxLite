@@ -1085,4 +1085,11 @@
     <string name="vpn_connecting">Connecting</string>
 
 
+    <string name="update_cancel">Cancel</string>
+    <string name="update_confirm">Confirm</string>
+    <string name="update_no_force_title">New Version Found v1.0.18</string>
+    <string name="update_force_title">Update Required</string>
+    <string name="update_no_force_msg">Known bugs are fixed, and the anonymous experience is better.@@New gameplays have been added，update and paly with friends.</string>
+    <string name="update_force_msg">You must update your app to continue using Real.</string>
+
 </resources>

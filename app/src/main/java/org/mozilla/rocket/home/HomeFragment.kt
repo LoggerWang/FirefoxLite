@@ -44,6 +44,7 @@ import org.mozilla.rocket.adapter.DelegateAdapter
 import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.component.RocketLauncherActivity
+import org.mozilla.rocket.config.RemoteConfigHelper
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.ecommerce.ui.ShoppingActivity
 import org.mozilla.rocket.content.game.ui.GameActivity
@@ -537,7 +538,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             private_mode_button.setDarkTheme(darkThemeEnable)
             content_hub_title.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    BuriedPointUtil.addClick("cccc_bbbb")
+                    //BuriedPointUtil.addClick("cccc_bbbb")
+                    var aa = RemoteConfigHelper.getUpdateVersion()
+                    var bb = RemoteConfigHelper.getUpdateDialogMessage()
                 }
 
             })

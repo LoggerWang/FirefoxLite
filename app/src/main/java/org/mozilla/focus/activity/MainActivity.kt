@@ -13,6 +13,7 @@ import android.content.res.Resources
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -29,6 +30,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.anysitebrowser.taskdispatcher.TaskManager
+import com.anysitebrowser.tools.core.utils.AppStarter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.Lazy
@@ -56,6 +58,7 @@ import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.ChromeViewModel.OpenUrlAction
 import org.mozilla.rocket.component.LaunchIntentDispatcher
 import org.mozilla.rocket.component.PrivateSessionNotificationService
+import org.mozilla.rocket.config.RemoteConfigHelper
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.getViewModel
 import org.mozilla.rocket.download.DownloadIndicatorViewModel
@@ -80,6 +83,8 @@ import org.mozilla.rocket.tabs.TabView
 import org.mozilla.rocket.tabs.TabViewProvider
 import org.mozilla.rocket.tabs.TabsSessionProvider
 import org.mozilla.rocket.theme.ThemeManager
+import org.mozilla.rocket.update.UpdateDialog
+import org.mozilla.rocket.util.APKVersionInfoUtils
 import org.mozilla.rocket.widget.enqueue
 import java.net.URISyntaxException
 import java.util.*
@@ -204,9 +209,10 @@ class MainActivity : BaseActivity(),
 
         appUpdateController.onReceiveIntent(getIntent())
 
-    // 任务调度器
-    TaskManager.getInstance()
-        .start()
+        // 任务调度器
+        TaskManager.getInstance()
+            .start()
+        checkVersionUpdate()
     }
 
     private fun initViews() {
@@ -879,5 +885,40 @@ class MainActivity : BaseActivity(),
 
         @JvmField
         var shouldRunPromotion = true
+    }
+
+    private fun checkVersionUpdate() {
+        val forceUpdate: Boolean = RemoteConfigHelper.isForceUpdateApk()
+        val remoteVersionCode: Long = RemoteConfigHelper.getUpdateVersion()
+        val localVersionCode: Int = APKVersionInfoUtils.getVersionCode(this)
+        var updateTitle: String = RemoteConfigHelper.getUpdateDialogTitle()
+        var updateMsg: String = RemoteConfigHelper.getUpdateDialogMessage()
+        var updateVersionName = RemoteConfigHelper.getUpdateVersionName()
+        if (TextUtils.isEmpty(updateTitle)) {
+            updateTitle =
+                if (forceUpdate) resources.getString(R.string.update_force_title) else resources.getString(
+                    R.string.update_no_force_title
+                )
+        }
+        if (TextUtils.isEmpty(updateMsg)) {
+            updateMsg =
+                if (forceUpdate) resources.getString(R.string.update_force_msg) else resources.getString(
+                    R.string.update_no_force_msg
+                )
+        }
+        if (remoteVersionCode > 0 && remoteVersionCode > localVersionCode) {
+            val updateDialog =
+                UpdateDialog(this, updateTitle, updateVersionName, updateMsg, object : UpdateDialog.OnClickedListener {
+                    override fun onConfirm() {
+                        AppStarter.startAppMarket(
+                            this@MainActivity, this@MainActivity.applicationInfo.packageName,
+                            "", "update_user_check", false
+                        )
+                    }
+
+                    override fun onCancel() {}
+                }, forceUpdate)
+            updateDialog.show()
+        }
     }
 }

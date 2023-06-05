@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply from: '../buildSrc/pmd.gradle'
 apply from: '../buildSrc/checkstyle.gradle'
@@ -10,6 +11,7 @@ apply from: '../buildSrc/checkstyle.gradle'
 apply from: 'buildscripts/l10n.gradle'
 //apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion Versions.compile_sdk
@@ -95,9 +97,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            def userName = System.getenv("USER")
-            applicationIdSuffix ".debug"
-            versionNameSuffix applicationIdSuffix
+            //def userName = System.getenv("USER")
+            //applicationIdSuffix ".debug"
+            //versionNameSuffix applicationIdSuffix
         }
         // Use a separate buildType for coverage: testCoverageEnabled produces slower code (4-5x slower
         // in places that I've benchmarked), and more importantly seems to break debugging with Android Studio
@@ -327,6 +329,10 @@ dependencies {
     implementation zeus.modules.middleground.SDKBaseCore
     implementation zeus.modules.middleground.SDKToolsKit
     implementation zeus.modules.middleground.TaskManager
+
+    implementation 'com.google.firebase:firebase-analytics:21.1.1'
+    implementation 'com.google.firebase:firebase-config:21.0.1'
+    //
 }
 
 // There is a issue with Appcompat 1.1.0 which has the WebView crash on Android 5 devices.

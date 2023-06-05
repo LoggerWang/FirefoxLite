@@ -196,5 +196,6 @@
     <color name="themeButton04GradientStart">#8595F0</color>
     <color name="themeButton04GradientEnd">#CCAFFC</color>
     <color name="darkThemeIconSelectedColor">#FFC400</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

@@ -24,6 +24,8 @@ import com.anysitebrowser.taskdispatcher.TaskManager
 import com.anysitebrowser.taskdispatcher.initconfig.TaskManagerConfig
 import com.anysitebrowser.tools.core.utils.WWUtils
 import com.anysitebrowser.tools.core.utils.device.ProcessUtils
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
 import mozilla.components.browser.engine.system.SystemEngine
 import mozilla.components.browser.session.SessionManager
 import mozilla.components.concept.engine.DefaultSettings
@@ -41,6 +43,7 @@ import org.mozilla.focus.utils.Settings
 import org.mozilla.focus.web.WebViewProvider
 import org.mozilla.rocket.abtesting.LocalAbTesting
 import org.mozilla.rocket.buriedpoint.SDKBeylaAttachBaseContextMainTask
+import org.mozilla.rocket.config.RemoteConfigController
 import org.mozilla.rocket.di.AppComponent
 import org.mozilla.rocket.di.AppModule
 import org.mozilla.rocket.di.DaggerAppComponent
@@ -140,7 +143,6 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
 
     override fun onCreate() {
         // 任务调度器
-        // 任务调度器
         TaskManager.getInstance()
             .start()
 
@@ -173,12 +175,12 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
         monitorPrivateProcess()
 
         registerCustomInAppMessagingListener()
-
     }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         initZeusConfig()
+        initFireBase()
     }
 
     fun initZeusConfig(){
@@ -207,6 +209,19 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
         TaskManager.getInstance()
             .add(SDKBeylaAttachBaseContextMainTask())
             .start()
+    }
+
+    fun initFireBase(){
+        //FireBase初始化
+        FirebaseApp.initializeApp(this)
+        RemoteConfigController.acquireRemoteConfig()
+        //val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
+       // mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
 
     /**
@@ -326,5 +341,9 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
 
     companion object {
         private const val TAG = "FocusApplication"
+    }
+
+    override fun getApplicationContext(): Context? {
+        return this
     }
 }

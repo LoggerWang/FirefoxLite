@@ -161,7 +161,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     }
 
     private fun showFakeInput() {
-        logoMan.visibility = View.VISIBLE
+//        logoMan.visibility = View.VISIBLE
         fakeInput.visibility = View.VISIBLE
     }
 
@@ -182,7 +182,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
-                    animatePrivateHome()
+//                    animatePrivateHome()
                 }
             })
 

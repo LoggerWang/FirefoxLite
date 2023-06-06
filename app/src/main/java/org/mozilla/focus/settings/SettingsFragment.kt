@@ -25,6 +25,7 @@ import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.AppConstants
 import org.mozilla.focus.utils.DialogUtils.createRateAppDialog
 import org.mozilla.focus.utils.DialogUtils.createShareAppDialog
+import org.mozilla.focus.utils.DialogUtils.realShare
 import org.mozilla.focus.utils.FirebaseHelper.getFirebase
 import org.mozilla.focus.utils.Settings
 import org.mozilla.focus.widget.DefaultBrowserPreference
@@ -77,9 +78,10 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
                 createRateAppDialog(preference.context).show()
             }
             resources.getString(R.string.pref_key_share_with_friends) -> {
-                if (!debuggingFirebase()) {
-                    createShareAppDialog(preference.context).show()
-                }
+//                if (!debuggingFirebase()) {
+//                    createShareAppDialog(preference.context).show()
+//                }
+                realShare(preference.context)
             }
             resources.getString(R.string.pref_key_about) -> {
                 /*val intent = InfoActivity.getAboutIntent(preference.context)

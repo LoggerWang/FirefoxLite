@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.anysitebrowser.base.core.log.Logger
 import com.bumptech.glide.Glide
+import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
+import de.blinkt.openvpn.utils.ConnectState
 import org.mozilla.focus.R
 import org.mozilla.focus.glide.GlideApp
 
@@ -42,8 +45,14 @@ class ServerAdapter(
         else ivZoneState.setImageResource(R.mipmap.zone_unselect)
 
         holder.itemView.setOnClickListener {
-            iOnItemClick.iOnItemClick(position, nodeBean)
-            setSelectPosition(position)
+            if (OpenVpnApi.serverStateLiveData.value== ConnectState.STATE_PREPARE
+                || OpenVpnApi.serverStateLiveData.value== ConnectState.STATE_CONNECTING) {
+                Logger.d("legend","===ServerAdapter==iOnItemClick=时候，正在连接===${OpenVpnApi.serverStateLiveData.value}")
+            }else{
+                iOnItemClick.iOnItemClick(position, nodeBean)
+                setSelectPosition(position)
+            }
+
         }
     }
 

@@ -18,4 +18,5 @@
 
 
 -keep class com.github.mikephil.charting.** { *; }
+-keep class de.blinkt.openvpn.model.** { *; }
 -dontwarn io.realm.**

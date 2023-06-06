@@ -26,9 +26,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.anysitebrowser.base.core.log.Logger
 import com.anysitebrowser.taskdispatcher.TaskManager
 import com.anysitebrowser.tools.core.utils.AppStarter
 import com.google.android.material.snackbar.Snackbar
@@ -51,6 +53,7 @@ import org.mozilla.focus.utils.*
 import org.mozilla.focus.utils.FirebaseHelper.FIREBASE_READY
 import org.mozilla.focus.web.GeoPermissionCache
 import org.mozilla.focus.web.WebViewProvider
+import org.mozilla.focus.widget.StartView
 import org.mozilla.rocket.appupdate.InAppUpdateController
 import org.mozilla.rocket.appupdate.InAppUpdateIntro
 import org.mozilla.rocket.buriedpoint.SDKBeylaOnDestroyAsyncTask
@@ -223,6 +226,8 @@ class MainActivity : BaseActivity(),
         visibility = visibility or (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.decorView.systemUiVisibility = visibility
         setUpMenu()
+        var startView = findViewById<StartView>(R.id.startView)
+        startView.startShow()
     }
 
     private fun setUpMenu() {
@@ -523,6 +528,13 @@ class MainActivity : BaseActivity(),
                     fragment.notifyAddNewTopSiteResult(data.getParcelableExtra(AddNewTopSitesActivity.ADD_NEW_TOP_SITES_EXTRA))
                 }
             }
+        }else if(requestCode == 998){
+            val homefragment = supportFragmentManager.findFragmentByTag(ScreenNavigator.HOME_FRAGMENT_TAG)
+                if (homefragment!=null && homefragment is HomeFragment){
+                    Logger.d("legend","===onActivityResult===requestCode==$requestCode ===resultCode==$resultCode")
+                    homefragment.onActivityResult(requestCode, resultCode, data)
+                }
+
         }
 
         appUpdateController.onActivityResult(requestCode, resultCode)

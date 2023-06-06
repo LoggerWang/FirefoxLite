@@ -91,8 +91,8 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
     implementation "com.google.firebase:firebase-iid:21.1.0"*/
 
-    implementation "com.google.firebase:firebase-analytics:${Versions.analytics}"
-    implementation "com.google.firebase:firebase-config:${Versions.firebase_config}"
+    api "com.google.firebase:firebase-analytics:${Versions.analytics}"
+    api "com.google.firebase:firebase-config:${Versions.firebase_config}"
     api "com.google.firebase:firebase-messaging:${Versions.fcm}"
     implementation "com.google.firebase:firebase-crashlytics:${Versions.crashlytics}"
     implementation "com.google.firebase:firebase-auth:${Versions.firebase_auth}"

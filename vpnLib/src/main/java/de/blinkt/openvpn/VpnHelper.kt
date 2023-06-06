@@ -95,6 +95,7 @@ class VpnHelper {
 
         if (!netCheck(OpenVpnApi.mActivity)) {
             showToast(OpenVpnApi.mActivity.getString(R.string.net_unavailable_content))
+            Log.d("legend", ("===Error==checkFileConnect==" ) )
             OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             return
         }
@@ -102,7 +103,7 @@ class VpnHelper {
     }
 
     private fun checkVpnFileMsg() {
-        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_PREPARE
+//        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_PREPARE
         getVpnFileMsg()
     }
 
@@ -142,10 +143,12 @@ class VpnHelper {
                 getNodeFileMsg(map)
             }.catchError {
                 Log.e("muccc_e", this.message ?: "--")
+                Log.d("legend", ("===Error==getVpnFileMsg==" ) )
                 OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                 showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))
             }.collect {
                 if (it.data.isNullOrEmpty()) {
+                    Log.d("legend", ("===Error==getVpnFileMsg==data is null===" ) )
                     OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                     showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))
                 } else {
@@ -156,7 +159,7 @@ class VpnHelper {
     }
 
     fun checkDownUrl() {
-        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_PREPARE
+//        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_PREPARE
         downloadVpnFile(mSelectServerNode!!.downloadUrl)
     }
 
@@ -165,6 +168,8 @@ class VpnHelper {
             OpenVpnApi.mActivity.flowRequestDown {
                 downloadVpnFile(fileUrl)
             }.catchError {
+                Log.d("legend", ("===Error==downloadVpnFile=====" ) )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                 onSaveFailed(this.message ?: "---")
             }.collect {
                 mSelectServerNode!!.vpnFileStr = it.string()
@@ -174,6 +179,7 @@ class VpnHelper {
     }
 
     private fun onSaveFailed(failed: String) {
+        Log.d("legend", ("===Error==onSaveFailed=====" ) )
         OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
         showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))
     }
@@ -235,22 +241,26 @@ class VpnHelper {
                 if (intent != null) OpenVpnApi.mActivity.startActivityForResult(intent, 998)
                 else toStartVpn()    //have already permission
             } else {
+                Log.d("legend", ("===Error==prepareVpn=====当前==STATE_PREPARE" ) )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                 // No internet connection available
                 showToast(OpenVpnApi.mActivity.getString(R.string.net_unavailable_content))
             }
         } else if (OpenVpnApi.serverStateLiveData.value == ConnectState.STATE_START) {
             // VPN is stopped, show a Toast message.
             stopVpn()
+            Log.d("legend", ("===Error==prepareVpn=====当前==STATE_START" ) )
             OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
         }
     }
 
-    private fun toStartVpn() {
+     fun toStartVpn() {
         var fileStr = mSelectServerNode?.vpnFileStr
         val regionName = mSelectServerNode?.regionName
         fileStr = VpnEncryptUtil.Decrypt(
             fileStr, mSelectServerNode!!.salt, mSelectServerNode!!.downloadUrl
         )
+         Log.d("legend", ("===VpnHelper==toStartVpn=====fileStr==$fileStr ==regionName==$regionName" ) )
         try {
             if (OpenVpnApi.mCurrentProxyMode == ProxyModeEnum.PROXY_SMART) {
                 startVpnInternalSmart(
@@ -265,8 +275,10 @@ class VpnHelper {
             }
             OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_CONNECTING
         } catch (e: IOException) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             e.printStackTrace()
         } catch (e: RemoteException) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             e.printStackTrace()
         }
     }
@@ -322,8 +334,10 @@ class VpnHelper {
             ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
             VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
         } catch (e: IOException) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             throw RemoteException(e.message)
         } catch (e: ConfigParser.ConfigParseError) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             throw RemoteException(e.message)
         }
     }
@@ -353,8 +367,10 @@ class VpnHelper {
             ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
             VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
         } catch (e: IOException) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             throw RemoteException(e.message)
         } catch (e: ConfigParser.ConfigParseError) {
+            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             throw RemoteException(e.message)
         }
     }

@@ -132,12 +132,7 @@ object DialogUtils {
         data.showCloseButton = true
         return PromotionDialog(context, data)
                 .onPositive {
-                    val sendIntent = Intent(Intent.ACTION_SEND)
-                    sendIntent.type = "text/plain"
-                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.app_name))
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, AppConfigWrapper.getShareAppMessage())
-                    context.startActivity(Intent.createChooser(sendIntent, null))
-                    telemetryShareApp(context, TelemetryWrapper.Value.SHARE)
+                    realShare(context)
                 }
                 .onClose {
                     telemetryShareApp(context, TelemetryWrapper.Value.DISMISS)
@@ -149,6 +144,15 @@ object DialogUtils {
                     Settings.getInstance(context).setShareAppDialogDidShow()
                 }
                 .setCancellable(true)
+    }
+    @JvmStatic
+    fun realShare(context: Context) {
+        val sendIntent = Intent(Intent.ACTION_SEND)
+        sendIntent.type = "text/plain"
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.app_name))
+        sendIntent.putExtra(Intent.EXTRA_TEXT, AppConfigWrapper.getShareAppMessage())
+        context.startActivity(Intent.createChooser(sendIntent, null))
+        telemetryShareApp(context, TelemetryWrapper.Value.SHARE)
     }
 
     private fun telemetryShareApp(context: Context, value: String) {

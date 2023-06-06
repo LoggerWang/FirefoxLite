@@ -62,13 +62,13 @@ class ChromeViewModel(
     val isPrivateBrowsingActive = MutableLiveData<Boolean>()
 
     val shouldShowFirstrun: Boolean
-        get() = newFeatureNotice.shouldShowLiteUpdate()
-                .also { shouldShow ->
-                    if (!shouldShow) {
-                        newFeatureNotice.setLiteUpdateDidShow()
-                    }
-                    false
-                }
+//        get() = newFeatureNotice.shouldShowLiteUpdate()
+//                .also { shouldShow ->
+//                    if (!shouldShow) {
+//                        newFeatureNotice.setLiteUpdateDidShow()
+//                    }
+//                }
+            get() = false
 
     val showToast = SingleLiveEvent<ToastMessage>()
     val openUrl = SingleLiveEvent<OpenUrlAction>()

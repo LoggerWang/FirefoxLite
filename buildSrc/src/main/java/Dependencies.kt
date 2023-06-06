@@ -3,8 +3,8 @@ object Versions {
     const val target_sdk = 32
     const val compile_sdk = 32
     const val build_tools = "30.0.3"
-    const val version_code = 1
-    const val version_name = "2.5.2"
+    const val version_code = 4010008
+    const val version_name = "1.0.8"
     const val android_gradle_plugin = "7.4.2"
     const val gms_oss_licenses_plugin = "0.10.6"
     const val support = "1.0.0"
@@ -47,8 +47,8 @@ object Versions {
     const val test_runner = "1.2.0"
     const val uiautomator = "2.2.0"
     const val mockwebserver = "3.7.0"
-    const val analytics = "17.4.3"
-    const val firebase_config = "21.0.1"
+    const val analytics = "21.1.1"
+    const val firebase_config = "19.0.3"
     const val firebase_auth = "19.2.0"
     const val firebase_iam = "19.0.3"
     const val fcm = "20.2.0"

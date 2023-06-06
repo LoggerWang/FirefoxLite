@@ -18,5 +18,9 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <org.mozilla.focus.widget.StartView
+        android:id="@+id/startView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>
 

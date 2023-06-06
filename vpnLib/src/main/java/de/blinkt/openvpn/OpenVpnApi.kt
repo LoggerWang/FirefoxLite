@@ -24,6 +24,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.StringReader
+import java.lang.Exception
+import java.util.logging.Logger
 
 object OpenVpnApi {
     var appId = ""
@@ -111,17 +113,29 @@ object OpenVpnApi {
 
     // 获取配置
     fun getZoneProfile(map: HashMap<String, String>, zoneId: String) {
+        serverStateLiveData.value = ConnectState.STATE_PREPARE
         CoroutineScope(Dispatchers.IO).launch {
             mActivity.flowRequest {
                 map.put("zone_id", zoneId)
                 getZoneProfile(map)
             }.catchError {
                 Log.e("muccc_e", this.message ?: "--")
+                mActivity.runOnUiThread {
+                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+                    serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                }
+
             }.collect {
                 it.data?.let { profileModel ->
                     val profile = profileModel.profile
+                    System.out.println("===getZoneProfile===${profile.toString()}")
                     withContext(Dispatchers.Main) {
-                        checkDownloadUrl(profile.server_code, profile.salt, profile.link)
+                        try {
+                            checkDownloadUrl(profile.server_code, profile.salt, profile.link)
+                        }catch (e:Exception){
+                            Log.d("legend", ("===Error==getZoneProfile==Exception==" + e) )
+                        }
+
                     }
                 }
             }

@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.view.*
@@ -20,10 +21,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.anysitebrowser.base.core.log.Logger
+import com.anysitebrowser.base.core.utils.app.AppDist
+import com.anysitebrowser.base.core.utils.device.DeviceHelper
+import com.anysitebrowser.base.core.utils.lang.ObjectStore
+import com.anysitebrowser.tools.core.utils.Utils
 import com.google.android.material.snackbar.Snackbar
 import com.suke.widget.SwitchButton
 import dagger.Lazy
 import de.blinkt.openvpn.OpenVpnApi
+import de.blinkt.openvpn.VpnHelper
 import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.ProxyModeEnum
@@ -76,6 +83,7 @@ import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserHelper
 import org.mozilla.rocket.settings.defaultbrowser.ui.DefaultBrowserPreferenceViewModel
 import org.mozilla.rocket.shopping.search.ui.ShoppingSearchActivity
 import org.mozilla.rocket.theme.ThemeManager
+import org.mozilla.rocket.update.UpdateDialog.OnClickedListener
 import org.mozilla.rocket.util.ResourceUtils.getVisibility
 import org.mozilla.rocket.util.ToastMessage
 import org.mozilla.rocket.util.setCurrentItem
@@ -222,28 +230,42 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private var mIsStateChange = false
 
     private fun initVpn() {
+        Logger.d("legend", "===initVpn===")
         val autoConnectVpn = settings.getBoolean("autoConnectVpn", false)
         // connectZoneId  // 上次连接的zone_id, 如果是自动的, 则为空""
 
         OpenVpnApi.setActivity(activity as MainActivity)
         OpenVpnApi.setBaseUrl("https://test-api.cybervpn.pro/")
         OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
+//        OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(activity))
         // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
         OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
+        //白名单
         OpenVpnApi.mCustomPkgNameList.add((activity as MainActivity).packageName)
         OpenVpnApi.zoneLiveData.observe(activity as MainActivity) {
             zoneList = it
-            if (autoConnectVpn) {
-                vpnSwitchButton.isChecked = true
-            }
+//            if (autoConnectVpn) {
+//                vpnSwitchButton.isChecked = true
+//            }
         }
         OpenVpnApi.serverStateLiveData.observe(activity as MainActivity) {
-            if (it == ConnectState.STATE_START) {
-                mIsStateChange = true
-                vpnSwitchButton.isChecked = true
-            } else if (it == ConnectState.STATE_DISCONNECTED) {
-                mIsStateChange = true
-                vpnSwitchButton.isChecked = false
+            Logger.d("legend", "===serverStateLiveData===$it")
+            when (it) {
+                ConnectState.STATE_PREPARE -> {
+                    vpnSwitchButton.isEnabled = false
+                }
+                ConnectState.STATE_START -> {
+                    mIsStateChange = true
+                    vpnSwitchButton.isChecked = true
+                    vpnSwitchButton.isEnabled = true
+                }
+                ConnectState.STATE_DISCONNECTED -> {
+                    mIsStateChange = true
+                    vpnSwitchButton.isChecked = false
+                    vpnSwitchButton.isEnabled = true
+                }
+
+                else -> {}
             }
         }
 
@@ -253,21 +275,35 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         map.put("app_version", "4010079")
         map.put("os_version", "29")
         map.put("user_id", "a.5242925349028eb5")
-//            map.put("country","")
-//            map.put("gaid","")
         map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
-//            map.put("ip","")
-//            map.put("device_id","")
-//            map.put("release_channel","")
+
+//        map.put("trace_id", Utils.createUniqueId())
+//        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
+//        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
+//        map.put("os_version", Build.VERSION.SDK_INT.toString())
+//        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
+////            map.put("country","")
+////            map.put("gaid","")
+//        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
+
         OpenVpnApi.getZoneList(map)
+//        vpnSwitchButton.setOnClickListener(object :View.OnClickListener{
+//            override fun onClick(p0: View?) {
+//                Logger.d("legend","===HomeFragment== vpnSwitchButton.setOnClickListener====")
+//            }
+//
+//        })
+
 
         vpnSwitchButton.setOnCheckedChangeListener { view, isChecked ->
             if (mIsStateChange) {
                 mIsStateChange = false
             } else {
-                if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
-                settings.setBoolean("autoConnectVpn", isChecked)
+
             }
+            Logger.d("legend","===HomeFragment==setOnCheckedChangeListener==isChecked==$isChecked")
+            if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
+//            settings.setBoolean("autoConnectVpn", isChecked)
             ivVpnProtect.setImageResource(if (isChecked) R.drawable.vpn_thunder_open else R.drawable.vpn_thunder_off)
         }
 
@@ -283,6 +319,12 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     }
 
     private fun connectVpn() {
+        if (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_PREPARE
+            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_CONNECTING
+            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_START) {
+            Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
+            return
+        }
         val map = HashMap<String, String>()
         map.put("trace_id", "muccc")
         map.put("app_id", "com.sailfishvpn.fastly.ios")
@@ -300,6 +342,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             val connectZoneId = settings.get("connectZoneId", "")
             if (connectZoneId!!.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id
         }
+        Logger.d("legend","===HomeFragment==getZoneProfile==")
         if (bean != null) OpenVpnApi.getZoneProfile(map, bean.zone_id)
 
     }
@@ -868,5 +911,16 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     companion object {
         private const val TITLE_VERTICAL_BIAS = 0.45f
         private const val TITLE_VERTICAL_BIAS_WITH_CONTENT_HUB = 0.26f
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Logger.d("legend","===HomeFragment==onActivityResult===requestCode==$requestCode ===resultCode==$resultCode")
+        if (requestCode==998) {
+            if (resultCode == -1){
+                VpnHelper.instance.toStartVpn()
+            }else{
+                //用户拒绝了vpn权限
+            }
+        }
+
     }
 }

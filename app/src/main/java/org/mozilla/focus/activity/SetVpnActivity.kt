@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.anysitebrowser.base.core.log.Logger
 import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
@@ -45,23 +46,30 @@ class SetVpnActivity : AppCompatActivity() {
 
         val zoneList = OpenVpnApi.zoneLiveData.value
         val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
+        var connectPos = settings.getInt("connect_pos",0)
+        settings.set("connectZoneId", zoneList[connectPos].zone_id)
         rvZone.layoutManager = LinearLayoutManager(this)
         rvZone.adapter = ServerAdapter(zoneList, object : IOnItemClick {
             override fun iOnItemClick(position: Int, nodeBean: ZoneBean) {
-                if (autoPosition == position)
-                    settings.set("connectZoneId", "") // 上次连接的zone_id, 如果是自动的, 则为空""
-                else
+//                if (autoPosition == position)
+//                    settings.set("connectZoneId", "") // 上次连接的zone_id, 如果是自动的, 则为空""
+//                else
                     settings.set("connectZoneId", nodeBean.zone_id)
+                    settings.setInt("connect_pos", position)
+                    OpenVpnApi.stopVpn()
+                    rvZone.postDelayed({ connectVpn() },500)
             }
-        }, autoPosition)
+        }, connectPos)
 
         rotationAnim = ObjectAnimator.ofFloat(ivState, "rotation", 0f, 360f)
         rotationAnim.repeatCount = ValueAnimator.INFINITE
 
         val connectState = OpenVpnApi.serverStateLiveData.value
         setConnectState(connectState)
+        Logger.d("legend","===SetVpnActivity==connectState==$connectState")
 
         OpenVpnApi.serverStateLiveData.observe(this) {
+            Logger.d("legend","===SetVpnActivity==OpenVpnApi.serverStateLiveData.observe==$it")
             setConnectState(it)
         }
 
@@ -86,6 +94,9 @@ class SetVpnActivity : AppCompatActivity() {
             ivState.rotation = 0f
             tvConnState.text = getString(R.string.vpn_unprotected)
             tvConnStateHint.text = getString(R.string.vpn_unprotected_hint)
+            ivConnBg.isClickable = true
+            rvZone.isEnabled = true
+            rvZone.isClickable = true
         } else if (connectState == ConnectState.STATE_START) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_connected)
             ivConnBg.setImageResource(R.mipmap.bg_conn_connected)
@@ -94,6 +105,9 @@ class SetVpnActivity : AppCompatActivity() {
             ivState.rotation = 0f
             tvConnState.text = getString(R.string.vpn_protected)
             tvConnStateHint.text = getString(R.string.vpn_protected_hint)
+            ivConnBg.isClickable = true
+            rvZone.isEnabled = true
+            rvZone.isClickable = true
         } else {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
@@ -101,6 +115,11 @@ class SetVpnActivity : AppCompatActivity() {
             rotationAnim.start()
             tvConnState.text = getString(R.string.vpn_connecting)
             tvConnStateHint.text = ""
+            if (connectState == ConnectState.STATE_PREPARE || connectState == ConnectState.STATE_CONNECTING){
+                ivConnBg.isClickable = false
+                rvZone.isEnabled = false
+                rvZone.isClickable = false
+            }
         }
     }
 
@@ -118,11 +137,14 @@ class SetVpnActivity : AppCompatActivity() {
 //            map.put("device_id","")
 //            map.put("release_channel","")
         var zoneId = settings.get("connectZoneId", "")
-        if (zoneId.isNullOrEmpty()) {
-            zoneId =
-                OpenVpnApi.zoneLiveData.value!!.firstOrNull { zoneBean -> zoneBean.auto == 1 }!!.zone_id
+//        if (zoneId.isNullOrEmpty()) {
+//            zoneId =
+//                OpenVpnApi.zoneLiveData.value!!.firstOrNull { zoneBean -> zoneBean.auto == 1 }!!.zone_id
+//        }
+        if (zoneId != null) {
+            Logger.d("legend","===SetVanActivity==getZoneProfile==")
+            OpenVpnApi.getZoneProfile(map, zoneId)
         }
-        OpenVpnApi.getZoneProfile(map, zoneId)
     }
 
 }

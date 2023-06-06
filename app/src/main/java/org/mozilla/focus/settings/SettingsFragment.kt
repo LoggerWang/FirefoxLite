@@ -82,8 +82,9 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
                 }
             }
             resources.getString(R.string.pref_key_about) -> {
-                val intent = InfoActivity.getAboutIntent(preference.context)
-                startActivity(intent)
+                /*val intent = InfoActivity.getAboutIntent(preference.context)
+                startActivity(intent)*/
+                AboutActivity.launch(activity, "settings/x/x")
             }
             resources.getString(R.string.pref_key_night_mode_brightness) -> {
                 startActivity(getStartIntentFromSetting(preference.context))

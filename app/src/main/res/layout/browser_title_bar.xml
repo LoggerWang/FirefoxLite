@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/common_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:clipChildren="false">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ImageView
+            android:id="@+id/return_view"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_page_back"
+            android:layout_marginStart="12dp" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="64dp"
+            android:layout_marginEnd="48dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#191919"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="64dp"
+            android:layout_marginRight="46dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center_vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:indeterminateDrawable="@drawable/white_2_progressbar"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_right_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="end|center_vertical"
+                android:visibility="gone"
+                android:layout_marginRight="16dp" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E8E8E8"
+        android:layout_gravity="bottom"/>
+</FrameLayout>

@@ -2,6 +2,7 @@ package org.mozilla.rocket.home.topsites.domain
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.mozilla.rocket.config.RemoteConfigHelper
 import org.mozilla.rocket.home.data.ContentPrefRepo
 import org.mozilla.rocket.home.topsites.data.TopSitesRepo
 import org.mozilla.rocket.home.topsites.ui.Site
@@ -19,10 +20,23 @@ open class GetTopSitesUseCase(
 
     open suspend operator fun invoke(): List<Site> = withContext(Dispatchers.IO) {
         val pinnedSites = topSitesRepo.getPinnedSites()
-        val defaultSites = topSitesRepo.getChangedDefaultSites()
+        var aa = topSitesRepo.getChangedDefaultSites()
+        var bb = topSitesRepo.getConfiguredDefaultSiteGroups()
+        var cc = topSitesRepo.getDefaultSites(contentPrefRepo.getContentPref().topSitesResId)
+        var defaultSites : List<org.mozilla.focus.history.model.Site>
+
+        if(RemoteConfigHelper.isShowHotSites()){
+            defaultSites = RemoteConfigHelper.getHomeHotSites()
+            if(RemoteConfigHelper.isShowHomeWatchSites()){
+                defaultSites.addAll(RemoteConfigHelper.getHomeWatchSites())
+            }
+        } else {
+            defaultSites = topSitesRepo.getChangedDefaultSites()
                 ?: topSitesRepo.getConfiguredDefaultSiteGroups()?.find { it.groupId == contentPrefRepo.getContentPref().id }?.sites
                 ?: topSitesRepo.getDefaultSites(contentPrefRepo.getContentPref().topSitesResId)
                 ?: emptyList()
+        }
+
         val historySites = topSitesRepo.getHistorySites()
 
         composeTopSites(
@@ -39,13 +53,19 @@ open class GetTopSitesUseCase(
         defaultSites: List<org.mozilla.focus.history.model.Site>,
         historySites: List<org.mozilla.focus.history.model.Site>
     ): List<Site> {
+        var aa = fixedSites.toFixedSite();
+        var bb = pinnedSites.toRemovableSite(isPinned = true)
+        var cc = mergeHistoryAndDefaultSites(defaultSites, historySites)
+        var dd = cc.toRemovableSite(isPinned = true)
         val result = fixedSites.toFixedSite() +
                 pinnedSites.toRemovableSite(isPinned = true) +
-                mergeHistoryAndDefaultSites(defaultSites, historySites).toRemovableSite(isPinned = false)
+                defaultSites.toRemovableSite(isPinned = false)
+                //mergeHistoryAndDefaultSites(defaultSites, historySites).toRemovableSite(isPinned = false)
 
-        return result.distinctBy { it.url.removeUrlPostSlash().toLowerCase(Locale.getDefault()) }
+        return result
+        /*return result.distinctBy { it.url.removeUrlPostSlash().toLowerCase(Locale.getDefault()) }
                 .also { removeOutboundDefaultSites(it) }
-                .take(TOP_SITES_SIZE)
+                .take(TOP_SITES_SIZE)*/
     }
 
     private fun mergeHistoryAndDefaultSites(

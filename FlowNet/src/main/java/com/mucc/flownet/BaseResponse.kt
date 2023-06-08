@@ -1,6 +1,8 @@
 package com.mucc.flownet
 
-class BaseResponse<T> {
+import java.io.Serializable
+
+class BaseResponse<T>  : Serializable {
     val data: T? = null;
     val errorCode: Int? = null;
     val errorMsg: String? = null;

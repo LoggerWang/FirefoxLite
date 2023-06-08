@@ -1,9 +1,10 @@
 package de.blinkt.openvpn.model
 
 import com.mucc.flownet.ApiException
+import java.io.Serializable
 
 
-class BaseResponse<T> {
+class BaseResponse<T> : Serializable {
     val data: T? = null;
     val result_code: Int? = null;
     val message = "";

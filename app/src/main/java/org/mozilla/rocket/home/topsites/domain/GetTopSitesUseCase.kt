@@ -30,6 +30,8 @@ open class GetTopSitesUseCase(
             if(RemoteConfigHelper.isShowHomeWatchSites()){
                 defaultSites.addAll(RemoteConfigHelper.getHomeWatchSites())
             }
+        } else if(RemoteConfigHelper.isShowHomeWatchSites()){
+            defaultSites = RemoteConfigHelper.getHomeWatchSites()
         } else {
             defaultSites = topSitesRepo.getChangedDefaultSites()
                 ?: topSitesRepo.getConfiguredDefaultSiteGroups()?.find { it.groupId == contentPrefRepo.getContentPref().id }?.sites

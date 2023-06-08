@@ -6,14 +6,17 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.StrictMode
+import android.text.TextUtils
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import com.airbnb.lottie.LottieAnimationView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import org.mozilla.focus.R
 import org.mozilla.focus.utils.DimenUtils
 import org.mozilla.icon.FavIconUtils
@@ -54,13 +57,29 @@ class SiteViewHolder(
                 // Tried AsyncTask and other simple offloading, the performance drops significantly.
                 // FIXME: 9/21/18 by saving bitmap color, cause FaviconUtils.getDominantColor runs slow.
                 // Favicon
-                val favicon = StrictModeViolation.tempGrant(
-                        { obj: StrictMode.ThreadPolicy.Builder -> obj.permitDiskReads() },
-                        { getFavicon(itemView.context, site) }
-                )
                 content_image.visibility = View.VISIBLE
                 content_image.imageTintList = null
-                content_image.setImageBitmap(favicon)
+                var favicon: Bitmap? = null
+                if(!TextUtils.isEmpty(site.iconUri) && site.iconUri!!.contains("http")){
+                    Glide.with(content_image.getContext())
+                        .asBitmap()
+                        .load(site.iconUri)
+                        .into(object : SimpleTarget<Bitmap?>() {
+                            override fun onResourceReady(
+                                resource: Bitmap?,
+                                transition: Transition<in Bitmap?>?
+                            ) {
+                                favicon = resource
+                                content_image.setImageBitmap(resource)
+                            }
+                        })
+                } else {
+                    favicon = StrictModeViolation.tempGrant(
+                        { obj: StrictMode.ThreadPolicy.Builder -> obj.permitDiskReads() },
+                        { getFavicon(itemView.context, site) }
+                    )
+                    content_image.setImageBitmap(favicon)
+                }
 
                 // Pin
                 PinViewWrapper(pin_indicator).run {
@@ -68,7 +87,7 @@ class SiteViewHolder(
                         is Site.UrlSite.FixedSite -> View.GONE
                         is Site.UrlSite.RemovableSite -> if (site.isPinned) View.VISIBLE else View.GONE
                     }
-                    setPinColor(getBackgroundColor(favicon))
+                    favicon?.let { getBackgroundColor(it) }?.let { setPinColor(it) }
                 }
 
                 itemView.setOnClickListener { topSiteClickListener.onTopSiteClicked(site, adapterPosition) }

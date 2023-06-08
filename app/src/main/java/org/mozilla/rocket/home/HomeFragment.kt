@@ -593,14 +593,6 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             account_layout.setDarkTheme(darkThemeEnable)
             shopping_button.setDarkTheme(darkThemeEnable)
             private_mode_button.setDarkTheme(darkThemeEnable)
-            content_hub_title.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(p0: View?) {
-                    //BuriedPointUtil.addClick("cccc_bbbb")
-                    var aa = RemoteConfigHelper.getUpdateVersion()
-                    var bb = RemoteConfigHelper.getUpdateDialogMessage()
-                }
-
-            })
         })
     }
 

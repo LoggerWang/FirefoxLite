@@ -48,7 +48,7 @@ class PrivateSessionNotificationService : Service() {
         val builder = NotificationUtil.baseBuilder(applicationContext, NotificationUtil.Channel.PRIVATE)
                 .setContentTitle(getString(R.string.private_browsing_erase_message))
                 .setContentIntent(buildPendingIntent(true))
-                .addAction(R.drawable.private_browsing_mask_night_inactive, getString(R.string.private_browsing_open_action), buildPendingIntent(false))
+                .addAction(R.drawable.ic_pb_launcher_foreground, getString(R.string.private_browsing_open_action), buildPendingIntent(false))
 
         startForeground(NotificationId.PRIVATE_MODE, builder.build())
     }

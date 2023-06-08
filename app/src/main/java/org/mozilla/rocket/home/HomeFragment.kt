@@ -237,7 +237,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         OpenVpnApi.setActivity(activity as MainActivity)
 //        OpenVpnApi.setBaseUrl("http://test-api.cybervpn.pro/")
 //        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
-        OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(activity))
+        OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(requireContext()))
         // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
         OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
         //白名单
@@ -284,10 +284,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
         map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
         map.put("os_version", Build.VERSION.SDK_INT.toString())
-        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
+        map.put("user_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
 //            map.put("country","")
 //            map.put("gaid","")
-        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
+        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
 
         OpenVpnApi.getZoneList(map)
 //        vpnSwitchButton.setOnClickListener(object :View.OnClickListener{
@@ -346,10 +346,10 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
         map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
         map.put("os_version", Build.VERSION.SDK_INT.toString())
-        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
+        map.put("user_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
 //            map.put("country","")
 //            map.put("gaid","")
-        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
+        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
 
 
         val bean = zoneList.firstOrNull { zoneBean ->

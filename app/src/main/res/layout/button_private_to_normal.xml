@@ -6,11 +6,17 @@
     android:clickable="true"
     android:focusable="true">
 
-    <com.airbnb.lottie.LottieAnimationView
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/pm_home_mask"-->
+<!--        style="@style/MainMenuButton"-->
+<!--        app:lottie_autoPlay="false"-->
+<!--        app:lottie_fileName="mask.json"-->
+<!--        app:lottie_loop="false"-->
+<!--        android:layout_gravity="center"/>-->
+    <ImageView
         android:id="@+id/pm_home_mask"
         style="@style/MainMenuButton"
-        app:lottie_autoPlay="false"
-        app:lottie_fileName="mask.json"
-        app:lottie_loop="false"
+        android:padding="5dp"
+        android:src="@drawable/private_browsing_mask_night_inactive_png"
         android:layout_gravity="center"/>
 </FrameLayout>

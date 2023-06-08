@@ -99,7 +99,7 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
     var badge_in_private_mode:ImageView ?=null
     var bottom_divider: ThemedView ?=null
     var close_all_tabs_btn: TextView ?=null
-    var logo_man:ImageView ?=null
+//    var logo_man:ImageView ?=null
     var new_tab_button: ThemedRelativeLayout ?=null
     var plus_sign: ThemedImageView ?=null
     var private_browsing_btn: RelativeLayout ?=null
@@ -126,7 +126,7 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
         badge_in_private_mode = contentView.findViewById(R.id.badge_in_private_mode)
         bottom_divider = contentView.findViewById(R.id.bottom_divider)
         close_all_tabs_btn = contentView.findViewById(R.id.close_all_tabs_btn)
-        logo_man = contentView.findViewById(R.id.logo_man)
+//        logo_man = contentView.findViewById(R.id.logo_man)
         new_tab_button = contentView.findViewById(R.id.new_tab_button)
         plus_sign = contentView.findViewById(R.id.plus_sign)
         private_browsing_btn = contentView.findViewById(R.id.private_browsing_btn)
@@ -421,7 +421,7 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
 
         // update logo-man and background alpha state
         slideCoordinator.onSlide(-1f)
-        logo_man?.visibility = View.INVISIBLE
+//        logo_man?.visibility = View.INVISIBLE
     }
 
     private fun startExpandAnimation() {
@@ -432,7 +432,7 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
             if (isVisible) {
                 if (shouldExpand) {
                     bottomSheetState = BottomSheetBehavior.STATE_COLLAPSED
-                    logo_man?.visibility = View.VISIBLE
+//                    logo_man?.visibility = View.VISIBLE
                     setIntercept(false)
                 } else {
                     bottomSheetState = BottomSheetBehavior.STATE_EXPANDED
@@ -600,7 +600,7 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
 
     private fun onTranslateToHidden(translationY: Float) {
         new_tab_button?.translationY = translationY
-        logo_man?.translationY = translationY
+//        logo_man?.translationY = translationY
     }
 
     private fun updateWindowBackground(backgroundAlpha: Float) {
@@ -613,12 +613,12 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
     }
 
     private fun onFullyExpanded() {
-        if (logo_man?.visibility != View.VISIBLE) {
-            // We don't want to show logo-man during fully expand animation (too complex visually).
-            // In this case, we hide logo-man at first, and make sure it become visible after tab
-            // tray is fully expanded (slideOffset >= 1). See prepareExpandAnimation()
-            logo_man?.visibility = View.VISIBLE
-        }
+//        if (logo_man?.visibility != View.VISIBLE) {
+//            // We don't want to show logo-man during fully expand animation (too complex visually).
+//            // In this case, we hide logo-man at first, and make sure it become visible after tab
+//            // tray is fully expanded (slideOffset >= 1). See prepareExpandAnimation()
+//            logo_man?.visibility = View.VISIBLE
+//        }
         setIntercept(false)
     }
 

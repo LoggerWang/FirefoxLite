@@ -10,7 +10,7 @@
       android:top="5dp"
       android:bottom="5dp">
 
-    <bitmap android:src="@drawable/private_browsing_mask" android:tint="@color/paletteLightBlack100"   />
+    <bitmap android:src="@drawable/private_browsing_mask_night_inactive_png" android:tint="@color/paletteLightBlack100"   />
 
   </item>
 

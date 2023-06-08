@@ -70,7 +70,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         chromeViewModel.isHomePageUrlInputShowing.observe(viewLifecycleOwner, Observer { isShowing ->
             if (isShowing == true) hideFakeInput() else showFakeInput()
         })
-        privateModeBtn = view.findViewById(R.id.pm_home_private_mode_btn)
+        privateModeBtn = view.findViewById(R.id.iv_home_mask)
         privateModeBtn.setOnClickListener {
             chromeViewModel.togglePrivateMode.call()
             TelemetryWrapper.togglePrivateMode(false)
@@ -95,30 +95,30 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     private fun observeViewModel() {
         activity?.apply {
             val shortcutViewModel = ViewModelProvider(this).get(ShortcutViewModel::class.java)
-//            monitorShortcutPromotion(this, shortcutViewModel)
-//            monitorShortcutMessage(this, shortcutViewModel)
-//            monitorShortcutCreation(this, shortcutViewModel)
+            monitorShortcutPromotion(this, shortcutViewModel)
+            monitorShortcutMessage(this, shortcutViewModel)
+            monitorShortcutCreation(this, shortcutViewModel)
         }
     }
 
     private fun monitorShortcutPromotion(context: Context, model: ShortcutViewModel) {
         model.eventPromoteShortcut.observe(viewLifecycleOwner, Observer { callback ->
-            val data = CustomViewDialogData().apply {
-                this.drawable = VectorDrawableCompat.create(resources, R.drawable.dialog_pbshortcut, null)
-                this.title = context.getString(R.string.private_browsing_dialog_add_shortcut_title_v2)
-                this.description = context.getString(R.string.private_browsing_dialog_add_shortcut_content_v2)
-                this.positiveText = context.getString(R.string.private_browsing_dialog_add_shortcut_yes_v2)
-                this.negativeText = context.getString(R.string.private_browsing_dialog_add_shortcut_no_v2)
-                this.showCloseButton = true
-            }
-
-            PromotionDialog(context, data)
-                    .onPositive { callback?.onPositive() }
-                    .onNegative { callback?.onNegative() }
-                    .onClose { callback?.onNegative() }
-                    .onCancel { callback?.onCancel() }
-                    .setCancellable(false)
-                    .show()
+//            val data = CustomViewDialogData().apply {
+//                this.drawable = VectorDrawableCompat.create(resources, R.drawable.dialog_pbshortcut, null)
+//                this.title = context.getString(R.string.private_browsing_dialog_add_shortcut_title_v2)
+//                this.description = context.getString(R.string.private_browsing_dialog_add_shortcut_content_v2)
+//                this.positiveText = context.getString(R.string.private_browsing_dialog_add_shortcut_yes_v2)
+//                this.negativeText = context.getString(R.string.private_browsing_dialog_add_shortcut_no_v2)
+//                this.showCloseButton = true
+//            }
+//
+//            PromotionDialog(context, data)
+//                    .onPositive { callback?.onPositive() }
+//                    .onNegative { callback?.onNegative() }
+//                    .onClose { callback?.onNegative() }
+//                    .onCancel { callback?.onCancel() }
+//                    .setCancellable(false)
+//                    .show()
         })
     }
 
@@ -147,7 +147,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
 
     private fun animatePrivateHome() {
         privateModeBtn.apply {
-            findViewById<LottieAnimationView>(R.id.pm_home_mask).playAnimation()
+//            findViewById<LottieAnimationView>(R.id.iv_home_mask).playAnimation()
         }
         logoMan.playAnimation()
     }
@@ -182,7 +182,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
-//                    animatePrivateHome()
+                    animatePrivateHome()
                 }
             })
 

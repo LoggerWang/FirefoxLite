@@ -176,7 +176,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
     var url_bar_divider:ThemedView?=null
     var urlbar: ThemedFrameLayout?=null
     var video_container:FrameLayout?=null
-    var shopping_search_stub:ViewStub?=null
+//    var shopping_search_stub:ViewStub?=null
     var webview_container: ResizableKeyboardLayout?=null
     var webview_slot:FrameLayout?=null
     var display_url: ThemedTextView?=null
@@ -343,28 +343,28 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_browser, container, false) as ThemedCoordinatorLayout
-        shoppingSearchViewStub = rootView.rootView.findViewById<ViewStub>(R.id.shopping_search_stub)
+//        shoppingSearchViewStub = rootView.rootView.findViewById<ViewStub>(R.id.shopping_search_stub)
         return rootView
     }
 
     private fun observeShoppingSearchPromptMessageViewModel() {
-        shoppingSearchPromptMessageViewModel.openShoppingSearch.observe(viewLifecycleOwner, Observer {
-            startActivity(getStartIntent(requireContext()))
-            ScreenNavigator.get(context).popToHomeScreen(false)
-        })
-        shoppingSearchPromptMessageViewModel.promptVisibilityState.observe(viewLifecycleOwner, Observer { visibilityState: VisibilityState? ->
-            if (shoppingSearchViewStub.parent != null) {
-                setupShoppingSearchPrompt(shoppingSearchViewStub.inflate())
-            }
-            if (visibilityState is Expanded) {
-                changeShoppingSearchPromptMessageState(BottomSheetBehavior.STATE_EXPANDED)
-            } else {
-                changeShoppingSearchPromptMessageState(BottomSheetBehavior.STATE_HIDDEN)
-            }
-        })
-        shoppingSearchPromptMessageViewModel.shoppingSiteList.observe(viewLifecycleOwner, Observer<List<ShoppingSiteItem?>> {
-            shoppingSearchPromptMessageViewModel.checkShoppingSearchPromptVisibility(url)
-        })
+//        shoppingSearchPromptMessageViewModel.openShoppingSearch.observe(viewLifecycleOwner, Observer {
+//            startActivity(getStartIntent(requireContext()))
+//            ScreenNavigator.get(context).popToHomeScreen(false)
+//        })
+//        shoppingSearchPromptMessageViewModel.promptVisibilityState.observe(viewLifecycleOwner, Observer { visibilityState: VisibilityState? ->
+//            if (shoppingSearchViewStub.parent != null) {
+//                setupShoppingSearchPrompt(shoppingSearchViewStub.inflate())
+//            }
+//            if (visibilityState is Expanded) {
+//                changeShoppingSearchPromptMessageState(BottomSheetBehavior.STATE_EXPANDED)
+//            } else {
+//                changeShoppingSearchPromptMessageState(BottomSheetBehavior.STATE_HIDDEN)
+//            }
+//        })
+//        shoppingSearchPromptMessageViewModel.shoppingSiteList.observe(viewLifecycleOwner, Observer<List<ShoppingSiteItem?>> {
+//            shoppingSearchPromptMessageViewModel.checkShoppingSearchPromptVisibility(url)
+//        })
     }
 
     private fun setupShoppingSearchPrompt(view: View) {
@@ -564,7 +564,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         url_bar_divider = container.findViewById(R.id.url_bar_divider)
         urlbar = container.findViewById(R.id.urlbar)
         video_container = container.findViewById(R.id.video_container)
-        shopping_search_stub = container.findViewById(R.id.shopping_search_stub)
+//        shopping_search_stub = container.findViewById(R.id.shopping_search_stub)
         webview_container = container.findViewById(R.id.webview_container)
         webview_slot = container.findViewById(R.id.webview_slot)
         display_url = container.findViewById(R.id.display_url)
@@ -1096,13 +1096,13 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         if (focusTab != null) {
             appbar?.setExpanded(false)
             browser_bottom_bar?.visibility = View.INVISIBLE
-            shoppingSearchViewStub.visibility = View.INVISIBLE
+//            shoppingSearchViewStub.visibility = View.INVISIBLE
             rootView.isActivated = false
             findInPage.onDismissListener = {
                 rootView.isActivated = true
                 appbar?.setExpanded(true)
                 browser_bottom_bar?.visibility = View.VISIBLE
-                shoppingSearchViewStub.visibility = View.VISIBLE
+//                shoppingSearchViewStub.visibility = View.VISIBLE
             }
             findInPage.show(focusTab)
             TelemetryWrapper.findInPage(TelemetryWrapper.FIND_IN_PAGE.OPEN_BY_MENU)
@@ -1268,7 +1268,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                 // Hide browser UI and web content
                 appbar?.visibility = View.INVISIBLE
                 webview_container?.visibility = View.INVISIBLE
-                shoppingSearchViewStub.visibility = View.INVISIBLE
+//                shoppingSearchViewStub.visibility = View.INVISIBLE
                 browser_bottom_bar?.visibility = View.INVISIBLE
 
                 // Add view to video container and make it visible
@@ -1293,7 +1293,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
             // Show browser UI and web content again
             appbar?.visibility = View.VISIBLE
             webview_container?.visibility = View.VISIBLE
-            shoppingSearchViewStub.visibility = View.VISIBLE
+//            shoppingSearchViewStub.visibility = View.VISIBLE
             browser_bottom_bar?.visibility = View.VISIBLE
             if (systemVisibility != ViewUtils.SYSTEM_UI_VISIBILITY_NONE) {
                 ViewUtils.exitImmersiveMode(systemVisibility, activity)

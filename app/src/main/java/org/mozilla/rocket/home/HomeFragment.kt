@@ -235,9 +235,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         // connectZoneId  // 上次连接的zone_id, 如果是自动的, 则为空""
 
         OpenVpnApi.setActivity(activity as MainActivity)
-        OpenVpnApi.setBaseUrl("https://test-api.cybervpn.pro/")
-        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
-//        OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(activity))
+//        OpenVpnApi.setBaseUrl("http://test-api.cybervpn.pro/")
+//        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
+        OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(activity))
         // 设置模式为智能或者自定义的时候, 需要传入包名列表mSmartPkgNameList(反选)或mCustomPkgNameList(正选)
         OpenVpnApi.setProxyMode(ProxyModeEnum.PROXY_CUSTOM)
         //白名单
@@ -247,6 +247,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 //            if (autoConnectVpn) {
 //                vpnSwitchButton.isChecked = true
 //            }
+            if (vpnSwitchButton.isChecked) {
+                connectVpn()
+            }
         }
         OpenVpnApi.serverStateLiveData.observe(activity as MainActivity) {
             Logger.d("legend", "===serverStateLiveData===$it")
@@ -270,21 +273,21 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         }
 
         val map = HashMap<String, String>()
-        map.put("trace_id", "muccc")
-        map.put("app_id", "com.sailfishvpn.fastly.ios")
-        map.put("app_version", "4010079")
-        map.put("os_version", "29")
-        map.put("user_id", "a.5242925349028eb5")
-        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+//        map.put("trace_id", "muccc")
+//        map.put("app_id", "com.sailfishvpn.fastly.ios")
+//        map.put("app_version", "4010079")
+//        map.put("os_version", "29")
+//        map.put("user_id", "a.5242925349028eb5")
+//        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
 
-//        map.put("trace_id", Utils.createUniqueId())
-//        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
-//        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
-//        map.put("os_version", Build.VERSION.SDK_INT.toString())
-//        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
-////            map.put("country","")
-////            map.put("gaid","")
-//        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
+        map.put("trace_id", Utils.createUniqueId())
+        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
+        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
+        map.put("os_version", Build.VERSION.SDK_INT.toString())
+        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
+//            map.put("country","")
+//            map.put("gaid","")
+        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
 
         OpenVpnApi.getZoneList(map)
 //        vpnSwitchButton.setOnClickListener(object :View.OnClickListener{
@@ -325,18 +328,29 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
             return
         }
+        if(!this::zoneList.isInitialized){
+            OpenVpnApi.serverStateLiveData.value=ConnectState.STATE_DISCONNECTED
+            return
+        }
         val map = HashMap<String, String>()
-        map.put("trace_id", "muccc")
-        map.put("app_id", "com.sailfishvpn.fastly.ios")
-        map.put("app_version", "4010079")
-        map.put("os_version", "29")
-        map.put("user_id", "a.5242925349028eb5")
+//        map.put("trace_id", "muccc")
+//        map.put("app_id", "com.sailfishvpn.fastly.ios")
+//        map.put("app_version", "4010079")
+//        map.put("os_version", "29")
+//        map.put("user_id", "a.5242925349028eb5")
+////            map.put("country","")
+////            map.put("gaid","")
+//        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+
+        map.put("trace_id", Utils.createUniqueId())
+        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
+        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
+        map.put("os_version", Build.VERSION.SDK_INT.toString())
+        map.put("user_id", DeviceHelper.getOrCreateDeviceId(activity))
 //            map.put("country","")
 //            map.put("gaid","")
-        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
-//            map.put("ip","")
-//            map.put("device_id","")
-//            map.put("release_channel","")
+        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(activity))
+
 
         val bean = zoneList.firstOrNull { zoneBean ->
             val connectZoneId = settings.get("connectZoneId", "")
@@ -919,6 +933,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 VpnHelper.instance.toStartVpn()
             }else{
                 //用户拒绝了vpn权限
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                vpnSwitchButton.isChecked = false
             }
         }
 

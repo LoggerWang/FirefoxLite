@@ -1,0 +1,13 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/">
+<ShortName>Giggle</ShortName>
+<InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAFo9M/3AAAAAXNSR0IArs4c6QAAAY5JREFUOBGFkk8oRFEUxn9jkCQjpvwpyUJJtmawYYOdUBakFFHWGCIShVAWNmIsZIfNSEmShQ12ylJZkDIbNBpi/Ll37rx335uZzK133znf+c537r3nOPo8v7+IlSa3lUNwmMjWpcRiSGEpVNfB6W6M+3QP3cMWhjLVHlVbPgD/hQUYbRViDgsw4YfLYwWYdZUL6ZkQ+TS8WFXpLgUUKIM5riSE22sor1KB8U1NSCihQ8pKSYjey8hKcxqW/puE9XNoaIeZHfFutZqQbpjBBzjbV1/CLZyC9hxUVNmGqW0jLfYO3xEt2+/VQWmZJeZ6QWaHXmCyU5NSXjMlQWslt8wjWMOlFdDjg7JKccYMkBMU2ICrEytL2QkCg7PgaYbpLni8UyR3CczvgbcF1kbsIjYB2amaJrgR02gk5+aL8foCXxv8fNuTpWcTkIRwCAqKNDG3QJCE8NCiwsaEkHWZo2CACwPgLobVI2jsgDy36GE9uITQuxCPX/92IStbPeLba3ya9m1X0LCyPsLxSKL/B28CaT2X8E52AAAAAElFTkSuQmCC</Image>
+<Url type="application/x-suggestions+json" method="GET" template="https://gggle.co/api/geo/suggestions">
+  <Param name="q" value="{searchTerms}"/>
+</Url>
+<!-- this is effectively x-moz-phonesearch, but search service expects a text/html entry -->
+<Url type="text/html" method="GET" template="https://gggle.co/search">
+  <Param name="q" value="{searchTerms}" />
+</Url>
+<SearchForm>https://gggle.co/</SearchForm>
+</SearchPlugin>

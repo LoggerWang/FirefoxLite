@@ -31,7 +31,7 @@ class PrivateBottomBarViewModel : ViewModel() {
                 ItemData(BottomBarItemAdapter.TYPE_NEXT),
                 ItemData(BottomBarItemAdapter.TYPE_DELETE),
                 ItemData(BottomBarItemAdapter.TYPE_REFRESH),
-                ItemData(BottomBarItemAdapter.TYPE_TRACKER)
+//                ItemData(BottomBarItemAdapter.TYPE_TRACKER)
         )
     }
 }

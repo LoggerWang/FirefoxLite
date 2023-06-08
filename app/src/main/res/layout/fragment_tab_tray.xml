@@ -17,14 +17,15 @@
         app:srcCompat="@drawable/star_bg"
         android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/logo_man"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/tab_tray_peekHeight"
-        app:srcCompat="@drawable/logo_man" />
+<!--    <ImageView-->
+<!--        android:id="@+id/logo_man"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginBottom="@dimen/tab_tray_peekHeight"-->
+<!--        app:srcCompat="@drawable/logo_man" />-->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
@@ -76,7 +77,7 @@
                     android:layout_centerInParent="true"
                     android:padding="8dp"
                     android:tint="@color/tab_tray_private_btn"
-                    app:srcCompat="@drawable/ic_menu_mask"
+                    app:srcCompat="@drawable/private_browsing_mask_states"
                     tools:ignore="contentDescription" />
             </RelativeLayout>
 

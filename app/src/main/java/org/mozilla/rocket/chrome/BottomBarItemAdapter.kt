@@ -190,7 +190,7 @@ class BottomBarItemAdapter(
 
     fun endPrivateHomeAnimation() {
         getItem(TYPE_PRIVATE_HOME)?.view?.apply {
-            findViewById<LottieAnimationView>(R.id.pm_home_mask).progress = 1f
+//            findViewById<LottieAnimationView>(R.id.pm_home_mask).progress = 1f
         }
     }
 

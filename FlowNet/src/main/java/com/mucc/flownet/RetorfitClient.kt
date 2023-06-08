@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-const val HOST_TEST="https://test-api.freeproxy.network"
+const val HOST_TEST="http://test-api.freeproxy.network"
 const val HOST_PRE="https://pre-api.freeproxy.network"
 const val HOST_PRO="https://api.freeproxy.network"
 

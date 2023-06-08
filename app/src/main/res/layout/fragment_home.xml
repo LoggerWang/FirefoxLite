@@ -89,7 +89,6 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/bg_shopping_search_btn"
             android:foreground="@drawable/ripple_circle"
             android:elevation="1dp"
             android:scaleType="centerInside"

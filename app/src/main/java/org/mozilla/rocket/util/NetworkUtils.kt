@@ -16,11 +16,15 @@
 
 package org.mozilla.rocket.util
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import mozilla.components.concept.fetch.Request
 import mozilla.components.concept.fetch.Response
 import mozilla.components.lib.fetch.httpurlconnection.HttpURLConnectionClient
 import org.mozilla.rocket.content.Result
 import java.io.IOException
+
 
 /**
  * Wrap a suspending API [call] in try/catch. In case an exception is thrown, a [Result.Error] is
@@ -43,4 +47,28 @@ fun <T> sendHttpRequest(request: Request, onSuccess: (Response) -> T, onError: (
     } catch (e: IOException) {
         onError(e)
     }
+}
+
+fun isNetworkAvailable(context: Context): Boolean {
+    var result = false
+    try {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        result = isNetworkAvailable(connectivityManager)
+    } catch (e: java.lang.Exception) {
+//            LoggerEx.d(TAG, e.toString());
+    }
+    return result
+}
+private fun isNetworkAvailable(connectivityManager: ConnectivityManager?): Boolean {
+    if (connectivityManager != null && connectivityManager.allNetworkInfo != null) {
+        val networkInfos = connectivityManager.allNetworkInfo
+        val length = networkInfos.size
+        for (i in 0 until length) {
+            if (networkInfos[i].state == NetworkInfo.State.CONNECTED) {
+                return true
+            }
+        }
+    }
+    return false
 }

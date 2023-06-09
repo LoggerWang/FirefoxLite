@@ -402,4 +402,23 @@
   <string name="msrp_reward_challenge_error">अरेरे! काहीतरी चूक झाली</string>
   <string name="msrp_activitykilled_snackbar_button">विमोचन करा</string>
   <string name="msrp_activitykilled_snackbar_body">आपण खरेदी व्हाउचर जिंकला!</string>
+
+  <string name="vpn_unprotected">सुरक्षित नाही</string>
+  <string name="vpn_unprotected_hint">गोपनीयता सुरक्षितता सुधारित करण्यासाठी सक्षम करा</string>
+  <string name="vpn_protected">सुरक्षित</string>
+  <string name="vpn_protected_hint">तुमची ब्राउझिंग सुरक्षित आहे</string>
+  <string name="vpn_connecting">कनेक्ट होत आहे</string>
+
+  <string name="update_cancel">रद्द करा</string>
+  <string name="update_confirm">पुष्टी करा</string>
+  <string name="update_no_force_title">नवीन आवृत्ती आढळली v1.0.18</string>
+  <string name="update_force_title">अद्यतन आवश्यक</string>
+  <string name="update_no_force_msg">माहित डीब्स ठरवली आहेत आणि अज्ञात अनुभव चांगले झाले आहे.@@नवीन गेमप्ले जोडले आहेत, अद्यतन करा आणि मित्रांसह खेळा.</string>
+  <string name="update_force_msg">तुमचे ऍप चालवण्यासाठी तुम्हाला तुमची अद्यतनित करावी लागेल.</string>
+  <string name="me_update">अद्यतनांसाठी तपासा</string>
+  <string name="me_privacy">गोपनीयता धोरण</string>
+  <string name="me_terms_of_service">सेवेची अटी</string>
+  <string name="setting_no_new_version">कोणतीही नवीन आवृत्ती नाही</string>
+  <string name="common_content_no_net_work">कृपया नेटवर्क तपासा</string>
+  <string name="setting_about">बद्दल</string>
 </resources>

@@ -290,4 +290,23 @@
   <string name="shopping_switch_ui_preferences_title">அங்காடித் தேடல் அமைவுகள்</string>
   <string name="shopping_switch_ui_preferences_subtitle">ஒப்பிடவல்ல தளங்கள்</string>
   <string name="shopping_switch_ui_tabtray_title">அங்காடித் தேடல்: “%1$s”</string>
+
+  <string name="vpn_unprotected">பாதுகாக்கப்படாதது</string>
+  <string name="vpn_unprotected_hint">மிகுந்த தனியார் பாதுகாப்புக்காக இயக்கவும்</string>
+  <string name="vpn_protected">பாதுகாக்கப்பட்டது</string>
+  <string name="vpn_protected_hint">உங்கள் உலாவியின் பாதுகாப்பு உறுதிப்படுத்தப்பட்டுள்ளது</string>
+  <string name="vpn_connecting">இணைக்கின்றன</string>
+  <string name="update_cancel">ரத்துசெய்</string>
+  <string name="update_confirm">உறுதிப்படுத்து</string>
+  <string name="update_no_force_title">புதிய பதிப்பு கண்டுபிடித்தது v1.0.18</string>
+  <string name="update_force_title">மேம்படுத்துவேண்டும்</string>
+  <string name="update_no_force_msg">திரும்பிப் பிழைகள் திருத்தப்பட்டுள்ளன, மேம்படுத்தப்பட்டு தனிநபர் அனுபவம் மேம்படுத்தப்பட்டுள்ளது.@@புதிய விளையாட்டுமைகள் சேர்க்கப்பட்டுள்ளன, உதவும் நண்பர்களுடன் விளையாட புதுப்பிக்கவும்.</string>
+  <string name="update_force_msg">உங்கள் பயன்பாட்டை தொடர்ந்து பயன்படுத்துவதற்கு உங்கள் ஆப்ஸ் புதுப்பிக்க வேண்டும்.</string>
+  <string name="me_update">புதுப்பிப்பைச் சரிபார்க்கவும்</string>
+  <string name="me_privacy">தனியுரிமை கொள்கை</string>
+  <string name="me_terms_of_service">சேவை விதிமுறைகள்</string>
+  <string name="setting_no_new_version">புதிய பதிப்பு இல்லை</string>
+  <string name="common_content_no_net_work">தயவுசெய்து பிணையத்தைச் சரிபார்க்கவும்</string>
+  <string name="setting_about">பற்றி</string>
+
 </resources>

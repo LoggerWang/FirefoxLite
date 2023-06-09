@@ -18,6 +18,7 @@ import de.blinkt.openvpn.flowapi.flowRequest
 import de.blinkt.openvpn.flowapi.flowRequestDown
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.ProxyModeEnum
+import de.blinkt.openvpn.utils.ServerState
 import de.blinkt.openvpn.utils.Settings
 import de.blinkt.openvpn.utils.VpnEncryptUtil
 import kotlinx.coroutines.CoroutineScope
@@ -70,7 +71,7 @@ class VpnHelper {
     }
 
     fun setStatus(connectionState: String) {
-        Log.e("muccc_status", connectionState)
+        Log.e("legend", "===VpnHelper===status===$connectionState")
         when (connectionState) {
             "DISCONNECTED" -> {
                 OpenVPNService.setDefaultStatus()
@@ -169,8 +170,12 @@ class VpnHelper {
                 downloadVpnFile(fileUrl)
             }.catchError {
                 Log.d("legend", ("===Error==downloadVpnFile=====" ) )
-                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                 onSaveFailed(this.message ?: "---")
+                OpenVpnApi.mActivity.runOnUiThread {
+                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+                    OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                    OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+                }
             }.collect {
                 mSelectServerNode!!.vpnFileStr = it.string()
                 withContext(Dispatchers.Main) { prepareVpn() }
@@ -275,10 +280,18 @@ class VpnHelper {
             }
             OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_CONNECTING
         } catch (e: IOException) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==toStartVpn=IOException===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             e.printStackTrace()
         } catch (e: RemoteException) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==toStartVpn=RemoteException===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             e.printStackTrace()
         }
     }
@@ -303,8 +316,18 @@ class VpnHelper {
             ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
             VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
         } catch (e: IOException) {
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpn=IOException===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         } catch (e: ConfigParser.ConfigParseError) {
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpn=ConfigParseError===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         }
     }
@@ -334,10 +357,18 @@ class VpnHelper {
             ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
             VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
         } catch (e: IOException) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpnInternalSmart=IOException===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         } catch (e: ConfigParser.ConfigParseError) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpnInternalSmart=ConfigParseError===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         }
     }
@@ -367,10 +398,18 @@ class VpnHelper {
             ProfileManager.setTemporaryProfile(OpenVpnApi.mActivity, vp)
             VPNLaunchHelper.startOpenVpn(vp, OpenVpnApi.mActivity)
         } catch (e: IOException) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpnInternal=IOException===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         } catch (e: ConfigParser.ConfigParseError) {
-            OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+            OpenVpnApi.mActivity.runOnUiThread {
+                Log.d("legend", ("===Error==startVpnInternal=ConfigParseError===$e") )
+                OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+            }
             throw RemoteException(e.message)
         }
     }

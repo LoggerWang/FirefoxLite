@@ -62,7 +62,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pm_home_brand_description  = view.findViewById<TextView>(R.id.pm_home_brand_description)
-        logoMan = view.findViewById(R.id.pm_home_logo)
+//        logoMan = view.findViewById(R.id.pm_home_logo)
         fakeInput = view.findViewById(R.id.pm_home_fake_input)
         initDescription()
 
@@ -149,7 +149,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         privateModeBtn.apply {
 //            findViewById<LottieAnimationView>(R.id.iv_home_mask).playAnimation()
         }
-        logoMan.playAnimation()
+//        logoMan.playAnimation()
     }
 
     override fun onUrlInputScreenVisible(visible: Boolean) {
@@ -166,7 +166,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     }
 
     private fun hideFakeInput() {
-        logoMan.visibility = View.INVISIBLE
+//        logoMan.visibility = View.INVISIBLE
         fakeInput.visibility = View.INVISIBLE
     }
 

@@ -13,3 +13,7 @@ enum class ConnectState{
     STATE_CONNECTING,
     STATE_START
 }
+enum class ServerState{
+    SERVER_STATE_SUCCESS,
+    SERVER_STATE_ERROR
+}

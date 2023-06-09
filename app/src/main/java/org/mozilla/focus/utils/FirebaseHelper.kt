@@ -248,7 +248,7 @@ object FirebaseHelper {
             val shareAppDialogMsg = context.getString(
                 R.string.share_app_promotion_text,
                 context.getString(R.string.app_name), context.getString(R.string.share_app_google_play_url),
-                context.getString(R.string.mozilla)
+                context.getString(R.string.anysite)
             )
             map[STR_SHARE_APP_DIALOG_MSG] = shareAppDialogMsg
         }

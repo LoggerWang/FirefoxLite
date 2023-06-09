@@ -25,7 +25,7 @@ class VpnProfileBean : Serializable {
     var profile: VpnProfileDataBean? = null
 }
 
-class VpnProfileDataBean {
+class VpnProfileDataBean : Serializable{
     //    {
     //        "id":1,
     //                "profile_id":"SHAREit_ptest1_test", "link":"https://profile-cdn.hpstudio.org/profile/test/us15/20230324/udp_user16.ovpnx",

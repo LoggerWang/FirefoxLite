@@ -272,4 +272,23 @@
   <string name="http_auth_dialog_user_name">વપરાશકર્તા નામ</string>
   <string name="http_auth_dialog_password">પાસવર્ડ</string>
   <string name="about_link_terms_of_service">સેવાની શરતો</string>
+
+  <string name="vpn_unprotected">સુરક્ષિત નથી</string>
+  <string name="vpn_unprotected_hint">વધેલી ગોપનીયતા માટે સક્ષમ કરો</string>
+  <string name="vpn_protected">સુરક્ષિત</string>
+  <string name="vpn_protected_hint">તમારી બ્રાઉઝિંગ સુરક્ષિત છે</string>
+  <string name="vpn_connecting">જોડાયેલું</string>
+
+  <string name="update_cancel">રદ કરો</string>
+  <string name="update_confirm">પુષ્ટિ કરો</string>
+  <string name="update_no_force_title">નવું આવ્યું છે આવૃત્તિ v1.0.18</string>
+  <string name="update_force_title">અપડેટ જરૂરી</string>
+  <string name="update_no_force_msg">ઓળખાયેલા તપાસો ઠીક કરેલા છે અને અનામધાન અનુભવ બેહતર છે.@@નવા ગેમપ્લે ઉમેરાઈ ગઈ છે, અપડેટ કરો અને મિત્રો સાથે રમો.</string>
+  <string name="update_force_msg">આપને આગળ વધવા માટે આપની એપ્લિકેશનને અપડેટ કરવી આવશ્યક છે.</string>
+  <string name="me_update">અપડેટો માટે તપાસ કરો</string>
+  <string name="me_privacy">ગોપનીયતા નીતિ</string>
+  <string name="me_terms_of_service">સેવાની શરતો</string>
+  <string name="setting_no_new_version">કોઈ નવી આવૃત્તિ નથી</string>
+  <string name="common_content_no_net_work">કૃપા કરીને નેટવર્ક તપાસો</string>
+  <string name="setting_about">વિશેષણ</string>
 </resources>

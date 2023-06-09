@@ -15,6 +15,7 @@ import de.blinkt.openvpn.model.VpnProfileBean
 import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.ProxyModeEnum
+import de.blinkt.openvpn.utils.ServerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ object OpenVpnApi {
     var serverStateLiveData = MutableLiveData<ConnectState>()
 
     var zoneLiveData = MutableLiveData<ArrayList<ZoneBean>>()
+    var netLiveData = MutableLiveData<ServerState>()
 
     lateinit var mActivity: AppCompatActivity
 
@@ -97,7 +99,11 @@ object OpenVpnApi {
             mActivity.flowRequest {
                 getZoneList(map)
             }.catchError {
-                Log.e("muccc_e", this.message ?: "--")
+                mActivity.runOnUiThread {
+                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+                    serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                    netLiveData.value = ServerState.SERVER_STATE_ERROR
+                }
             }.collect {
                 it.data?.let { zoneModel ->
                     withContext(Dispatchers.Main) {
@@ -120,6 +126,7 @@ object OpenVpnApi {
                 mActivity.runOnUiThread {
                     Log.d("legend", ("===Error==getZoneProfile==" + this.message))
                     serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+                    netLiveData.value = ServerState.SERVER_STATE_ERROR
                 }
 
             }.collect {

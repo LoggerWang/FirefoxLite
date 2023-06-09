@@ -177,8 +177,8 @@ public class SupportUtils {
         final Map<String, String> substitutionMap = new ArrayMap<>();
 
         final String appName = context.getResources().getString(R.string.app_name);
-        final String mozilla = context.getResources().getString(R.string.mozilla);
-        final String firefox = context.getResources().getString(R.string.firefox);
+        final String mozilla = context.getResources().getString(R.string.anysite);
+        final String firefox = context.getResources().getString(R.string.anysite_browser);
         final String mpl = context.getResources().getString(R.string.mpl);
         final String mplUrl = "https://www.mozilla.org/en-US/MPL/";
         final String trademarkPolicyUrl = "https://www.mozilla.org/foundation/trademarks/policy/";
@@ -213,7 +213,7 @@ public class SupportUtils {
 
         final Map<String, String> substitutionMap = new ArrayMap<>();
         final String appName = webView.getContext().getResources().getString(R.string.app_name);
-        final String mozilla = webView.getContext().getResources().getString(R.string.mozilla);
+        final String mozilla = webView.getContext().getResources().getString(R.string.anysite);
         final String aboutBody = webView.getContext().getResources().getString(R.string.about_content_body, appName, mozilla);
 
         final String aboutURI = SupportUtils.getAboutURI();

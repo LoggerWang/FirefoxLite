@@ -1,17 +1,14 @@
 package de.blinkt.openvpn
 
-import android.os.RemoteException
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.mucc.flownet.baseUrl
-import de.blinkt.openvpn.core.ConfigParser
-import de.blinkt.openvpn.core.OpenVPNThread
-import de.blinkt.openvpn.core.ProfileManager
-import de.blinkt.openvpn.core.VPNLaunchHelper
-import de.blinkt.openvpn.flowapi.*
+import com.mucc.flownet.headerMap
+import de.blinkt.openvpn.flowapi.catchError
+import de.blinkt.openvpn.flowapi.flowRequest
 import de.blinkt.openvpn.model.ServerBean
 import de.blinkt.openvpn.model.ServerNodeBean
 import de.blinkt.openvpn.model.VpnProfileBean
@@ -22,10 +19,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
-import java.io.StringReader
-import java.lang.Exception
-import java.util.logging.Logger
 
 object OpenVpnApi {
     var appId = ""
@@ -55,6 +48,10 @@ object OpenVpnApi {
 
     fun setBaseUrl(url: String) {
         baseUrl = url
+    }
+
+    fun setHeaderMap(map: HashMap<String, String>) {
+        headerMap = map
     }
 
     fun setAppIdUserId(appId: String, userId: String) {
@@ -121,7 +118,7 @@ object OpenVpnApi {
             }.catchError {
                 Log.e("muccc_e", this.message ?: "--")
                 mActivity.runOnUiThread {
-                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+                    Log.d("legend", ("===Error==getZoneProfile==" + this.message))
                     serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                 }
 
@@ -132,8 +129,8 @@ object OpenVpnApi {
                     withContext(Dispatchers.Main) {
                         try {
                             checkDownloadUrl(profile.server_code, profile.salt, profile.link)
-                        }catch (e:Exception){
-                            Log.d("legend", ("===Error==getZoneProfile==Exception==" + e) )
+                        } catch (e: Exception) {
+                            Log.d("legend", ("===Error==getZoneProfile==Exception==" + e))
                         }
 
                     }

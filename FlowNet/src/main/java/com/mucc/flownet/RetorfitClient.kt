@@ -8,11 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-const val HOST_TEST="http://test-api.freeproxy.network"
-const val HOST_PRE="https://pre-api.freeproxy.network"
-const val HOST_PRO="https://api.freeproxy.network"
 
-var baseUrl:String =HOST_TEST
+const val HOST_TEST = "http://test-api.freeproxy.network"
+const val HOST_PRE = "https://pre-api.freeproxy.network"
+const val HOST_PRO = "https://api.freeproxy.network"
+
+var baseUrl: String = HOST_TEST
 
 val retrofit: Retrofit by lazy {
     Retrofit.Builder()
@@ -28,10 +29,10 @@ private fun getOkHttpClient(): OkHttpClient {
         .writeTimeout(30, TimeUnit.SECONDS) //设置写的超时时间
         .connectTimeout(30, TimeUnit.SECONDS)
 //    if (BuildConfig.DEBUG) {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        builder.addInterceptor(httpLoggingInterceptor.apply {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        })
+    val httpLoggingInterceptor = HttpLoggingInterceptor()
+    builder.addInterceptor(httpLoggingInterceptor.apply {
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    })
 //    }
     builder.addInterceptor(RequestInterceptor())
     return builder.build()
@@ -40,20 +41,20 @@ private fun getOkHttpClient(): OkHttpClient {
 private class RequestInterceptor : Interceptor {
     @Throws(IOException::class)
 
-   override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest: Request = chain.request()
         val request: Request = oldRequest.newBuilder()
             .headers(getHeaders().toHeaders())
             .build()
-       return chain.proceed(request)
+        return chain.proceed(request)
     }
 }
+
+var headerMap: HashMap<String, String>? = null
 
 /**
  * 获取头信息
  */
 private fun getHeaders(): Map<String, String> {
-    val headersMap: HashMap<String, String> = HashMap()
-    headersMap["app_id"] = "com.supertools.wallpaper"
-    return headersMap
+    return headerMap ?: HashMap()
 }

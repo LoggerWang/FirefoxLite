@@ -282,4 +282,24 @@
   <string name="http_auth_dialog_user_name">Nan ureung ngui</string>
   <string name="http_auth_dialog_password">Lageum tamöng</string>
   <string name="low_priority_notification_channel">Notifikasi teupeusom</string>
+
+  <string name="vpn_unprotected">Lhoih</string>
+  <string name="vpn_unprotected_hint">Peunyoëng saboh geunaseh tambah rahasia</string>
+  <string name="vpn_protected">Geunaseh</string>
+  <string name="vpn_protected_hint">Browsing geunaseh geutanyoe teurajöh</string>
+  <string name="vpn_connecting">Peunyoe</string>
+
+
+  <string name="update_cancel">Beureuntön</string>
+  <string name="update_confirm">Bungo</string>
+  <string name="update_no_force_title">Peunjalöng Versi Baru Tumöh v1.0.18</string>
+  <string name="update_force_title">Peureuta seunaleuëk</string>
+  <string name="update_no_force_msg">Geunong bug-bug neuseubrahan, nyoe peunyoeë rasa bak gampong labee lamba.@@Gameplay baro teukeudeuë, peureuta jeut bungo peunyoe gampong.</string>
+  <string name="update_force_msg">Peureuta meunyoe aplikasi geunaseh peunyoe Real teurajöh nyan.</string>
+  <string name="me_update">Peunjalöng peureuta terbaik</string>
+  <string name="me_privacy">Peunyoeë rahasia</string>
+  <string name="me_terms_of_service">Kawasan Pélayanan</string>
+  <string name="setting_no_new_version">Teuhö meunyoe versi baro</string>
+  <string name="common_content_no_net_work">Peunjalöng beungeutëk réteuë</string>
+  <string name="setting_about">Mengenai</string>
 </resources>

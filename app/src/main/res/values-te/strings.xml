@@ -362,4 +362,23 @@
   <string name="travel_dialog_2_checkbox">నన్ను మళ్లీ అడగవద్దు</string>
   <string name="travel_dialog_2_action">అప్రమేయంగా అమర్చు</string>
   <string name="awesomebar_open_link_clipboard">కాపీ అయిన లంకెను తెరువు</string>
+
+  <string name="vpn_unprotected">సంరక్షితత</string>
+  <string name="vpn_unprotected_hint">గొప్ప గోప్యతను మెరుగుపరచడానికి ప్రారంభించండి</string>
+  <string name="vpn_protected">సంరక్షితం</string>
+  <string name="vpn_protected_hint">మీ బ్రౌజింగ్ భద్రపరచబడింది</string>
+  <string name="vpn_connecting">కనెక్ట్ అవుతోంది</string>
+  <string name="update_cancel">రద్దు చేయి</string>
+  <string name="update_confirm">నిర్ధారించండి</string>
+  <string name="update_no_force_title">కొత్త పరిష్కారం కనిపించబడింది v1.0.18</string>
+  <string name="update_force_title">నవీకరణ అవసరం</string>
+  <string name="update_no_force_msg">తెలిసిన బగ్లను పరిష్కరించాం, మరియు గుమానుస్యము అనుభవం మంచిగా ఉంది.@@కొత్త గేమ్‌ప్లేలు జోడింపులు జోడించాం, మిత్రులతో నవీకరించండి మరియు ఆడండి.</string>
+  <string name="update_force_msg">మీరు Real యాప్‌ను ఉపయోగించేందుకు మీ యాప్‌ను నవీకరించాలి.</string>
+  <string name="me_update">నవీకరణలను తనిఖీ చేయండి</string>
+  <string name="me_privacy">గోప్యతా విధానం</string>
+  <string name="me_terms_of_service">సేవల నిబంధనలు</string>
+  <string name="setting_no_new_version">కొత్త పరిష్కారం లేదు</string>
+  <string name="common_content_no_net_work">దయచేసి నెట్‌వర్క్‌ను తనిఖీ చేయండి</string>
+  <string name="setting_about">గురించి</string>
+
 </resources>

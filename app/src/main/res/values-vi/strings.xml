@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">Đừng hỏi lại tôi nữa</string>
   <string name="travel_dialog_2_action">ĐẶT LÀM MẶC ĐỊNH</string>
   <string name="awesomebar_open_link_clipboard">Mở liên kết đã sao chép</string>
+
+  <string name="vpn_unprotected">Chưa được bảo vệ</string>
+  <string name="vpn_unprotected_hint">Kích hoạt để tăng cường quyền riêng tư</string>
+  <string name="vpn_protected">Được bảo vệ</string>
+  <string name="vpn_protected_hint">Trình duyệt của bạn đã được bảo mật</string>
+  <string name="vpn_connecting">Đang kết nối</string>
+  <string name="update_cancel">Hủy bỏ</string>
+  <string name="update_confirm">Xác nhận</string>
+  <string name="update_no_force_title">Phát hiện phiên bản mới v1.0.18</string>
+  <string name="update_force_title">Yêu cầu cập nhật</string>
+  <string name="update_no_force_msg">Sửa các lỗi đã biết và trải nghiệm ẩn danh tốt hơn.@@Có thêm các chế độ chơi mới, hãy cập nhật và chơi cùng bạn bè.</string>
+  <string name="update_force_msg">Bạn phải cập nhật ứng dụng để tiếp tục sử dụng Real.</string>
+  <string name="me_update">Kiểm tra Cập nhật</string>
+  <string name="me_privacy">Chính sách Riêng tư</string>
+  <string name="me_terms_of_service">Điều khoản Dịch vụ</string>
+  <string name="setting_no_new_version">Không có phiên bản mới</string>
+  <string name="common_content_no_net_work">Vui lòng kiểm tra kết nối mạng</string>
+  <string name="setting_about">Về ứng dụng</string>
+
 </resources>

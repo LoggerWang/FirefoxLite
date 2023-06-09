@@ -389,4 +389,23 @@
   <string name="travel_dialog_1_action_2">HINDI, SALAMAT</string>
   <string name="travel_dialog_2_checkbox">Huwag nang tanungin uli</string>
   <string name="travel_dialog_2_action">ITAKDA BILANG DEFAULT</string>
+
+  <string name="vpn_unprotected">Walang Proteksyon</string>
+  <string name="vpn_unprotected_hint">Paganahin para sa pinabuting privacy</string>
+  <string name="vpn_protected">Protektado</string>
+  <string name="vpn_protected_hint">Ang iyong pag-browse ay naka-secure</string>
+  <string name="vpn_connecting">Kumokonekta</string>
+  <string name="update_cancel">Kanselahin</string>
+  <string name="update_confirm">Kumpirmahin</string>
+  <string name="update_no_force_title">Nakatagpo ng Bagong Bersyon v1.0.18</string>
+  <string name="update_force_title">Kinakailangang I-update</string>
+  <string name="update_no_force_msg">Naayos ang mga kilalang bugs, at mas maganda ang anonymous na karanasan.@@Dagdag na mga gameplay, i-update at maglaro kasama ang mga kaibigan.</string>
+  <string name="update_force_msg">Kailangan mong i-update ang iyong app para magpatuloy sa paggamit ng Real.</string>
+  <string name="me_update">Suriin ang Mga Update</string>
+  <string name="me_privacy">Patakaran sa Privacy</string>
+  <string name="me_terms_of_service">Mga Tuntunin ng Serbisyo</string>
+  <string name="setting_no_new_version">Walang Bagong Bersyon</string>
+  <string name="common_content_no_net_work">Mangyaring suriin ang network</string>
+  <string name="setting_about">Tungkol Dito</string>
+
 </resources>

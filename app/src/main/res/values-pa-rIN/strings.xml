@@ -337,4 +337,23 @@
   <string name="msrp_reward_challenge_nodata">ਸਾਰੀਆਂ ਚੁਣੌਤੀਆਂ ਪੂਰੀਆਂ ਹੋ ਗਈਆਂ</string>
   <string name="msrp_reward_challenge_error_button">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="msrp_reward_challenge_error">ਓਹ ਹੋ! ਕੁਝ ਗ਼ਲਤ ਵਾਪਰਿਆ ਹੈ</string>
+
+  <string name="vpn_unprotected">ਸੁਰੱਖਿਅਤ ਨਹੀਂ</string>
+  <string name="vpn_unprotected_hint">ਪਰਦੇਦਾਰੀ ਨੂੰ ਬਢਾਉਣ ਲਈ ਚਾਲੂ ਕਰੋ</string>
+  <string name="vpn_protected">ਸੁਰੱਖਿਅਤ</string>
+  <string name="vpn_protected_hint">ਤੁਹਾਡੀ ਬਰਾਉਜ਼ਿੰਗ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ</string>
+  <string name="vpn_connecting">ਕੁਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+
+  <string name="update_cancel">ਰੱਦ ਕਰੋ</string>
+  <string name="update_confirm">ਪੁਸ਼ਟੀ ਕਰੋ</string>
+  <string name="update_no_force_title">ਨਵੀਂ ਵਰਜਨ ਲੱਭੀ v1.0.18</string>
+  <string name="update_force_title">ਅੱਪਡੇਟ ਦੀ ਜ਼ਰੂਰਤ ਹੈ</string>
+  <string name="update_no_force_msg">ਜਾਣੇ ਮਾਰੇ ਖੇਤਰਾਂ ਨੂੰ ਸੁਧਾਰਿਆ ਗਿਆ ਹੈ, ਅਤੇ ਅਨਾਮ ਅਨੁਭਵ ਵਧਿਆ ਹੈ।@@ਨਵੇਂ ਗੇਮਪਲੇ ਜੋੜੇ ਗਏ ਹਨ, ਅੱਪਡੇਟ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨਾਲ ਖੇਡੋ।</string>
+  <string name="update_force_msg">ਤੁਹਾਡੇ ਐਪ ਨੂੰ ਜਾਰੀ ਰੱਖਣ ਲਈ ਤੁਹਾਨੂੰ ਅੱਪਡੇਟ ਕਰਨੀ ਲੋੜ ਹੈ।</string>
+  <string name="me_update">ਅੱਪਡੇਟ ਲਈ ਜਾਂਚ ਕਰੋ</string>
+  <string name="me_privacy">ਪਰਦੇਦਾਰੀ ਨੀਤੀ</string>
+  <string name="me_terms_of_service">ਸੇਵਾ ਦੀ ਸ਼ਰਤਾਂ</string>
+  <string name="setting_no_new_version">ਕੋਈ ਨਵੀਂ ਆਵਰਤ ਨਹੀਂ ਹੈ</string>
+  <string name="common_content_no_net_work">ਕਿਰਪਾ ਕਰਕੇ ਨੈੱਟਵਰਕ ਦੀ ਜਾਂਚ ਕਰੋ</string>
+  <string name="setting_about">ਬਾਰੇ ਵੀ</string>
 </resources>

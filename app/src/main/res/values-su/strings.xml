@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">Ulah nanya deui</string>
   <string name="travel_dialog_2_action">SETÉL JADI BAKU</string>
   <string name="awesomebar_open_link_clipboard">Buka Tutumbu Tironan</string>
+
+  <string name="vpn_unprotected">Teu Kaasup</string>
+  <string name="vpn_unprotected_hint">Aktipkeun pikeun privasi nu leuwih lengkep</string>
+  <string name="vpn_protected">Kaasup</string>
+  <string name="vpn_protected_hint">Penjelajahan anjeun dijamin aman</string>
+  <string name="vpn_connecting">Ngalangkungan</string>
+  <string name="update_cancel">Bolay</string>
+  <string name="update_confirm">Konfirmasi</string>
+  <string name="update_no_force_title">Versi Anyar Kapendak v1.0.18</string>
+  <string name="update_force_title">Perlu Diperbarui</string>
+  <string name="update_no_force_msg">Bug anu dipikawanoh geus diperbaiki, sareng pengalaman anonim leuwih panggih.@@Gameplay anyar geus ditambahkeun, perbarui sareng main sareng sahabat.</string>
+  <string name="update_force_msg">Anjeun kedah ngabaharkeun aplikasi anjeun pikeun terus ngagunakeun Real.</string>
+  <string name="me_update">Periksa Pembaruan</string>
+  <string name="me_privacy">Kawijakan Privasi</string>
+  <string name="me_terms_of_service">Syarat-syarat Panggunaan</string>
+  <string name="setting_no_new_version">Teu aya versi anyar</string>
+  <string name="common_content_no_net_work">Mangga periksa jaringan</string>
+  <string name="setting_about">Ngena</string>
+
 </resources>

@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
 import org.mozilla.focus.vpn.IOnItemClick
 import org.mozilla.focus.vpn.ServerAdapter
+import org.mozilla.rocket.util.isNetworkAvailable
 import java.util.HashMap
 
 class SetVpnActivity : AppCompatActivity() {
@@ -45,21 +47,23 @@ class SetVpnActivity : AppCompatActivity() {
         settings = Settings(this, "vpn_settings")
 
         val zoneList = OpenVpnApi.zoneLiveData.value
-        val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
+//        val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
         var connectPos = settings.getInt("connect_pos",0)
-        settings.set("connectZoneId", zoneList[connectPos].zone_id)
+        settings.set("connectZoneId", zoneList?.get(connectPos)?.zone_id)
         rvZone.layoutManager = LinearLayoutManager(this)
-        rvZone.adapter = ServerAdapter(zoneList, object : IOnItemClick {
-            override fun iOnItemClick(position: Int, nodeBean: ZoneBean) {
-//                if (autoPosition == position)
-//                    settings.set("connectZoneId", "") // 上次连接的zone_id, 如果是自动的, 则为空""
-//                else
+        rvZone.adapter = zoneList?.let {
+            ServerAdapter(it, object : IOnItemClick {
+                override fun iOnItemClick(position: Int, nodeBean: ZoneBean) {
+    //                if (autoPosition == position)
+    //                    settings.set("connectZoneId", "") // 上次连接的zone_id, 如果是自动的, 则为空""
+    //                else
                     settings.set("connectZoneId", nodeBean.zone_id)
                     settings.setInt("connect_pos", position)
                     OpenVpnApi.stopVpn()
                     rvZone.postDelayed({ connectVpn() },500)
-            }
-        }, connectPos)
+                }
+            }, connectPos)
+        }
 
         rotationAnim = ObjectAnimator.ofFloat(ivState, "rotation", 0f, 360f)
         rotationAnim.repeatCount = ValueAnimator.INFINITE
@@ -74,6 +78,9 @@ class SetVpnActivity : AppCompatActivity() {
         }
 
         ivConnBg.setOnClickListener {
+            if (!isNetworkAvailable(this@SetVpnActivity)) {
+                Toast.makeText(this@SetVpnActivity,"please check your network", Toast.LENGTH_LONG).show()
+            }
             val state = OpenVpnApi.serverStateLiveData.value
             if (state == null || state == ConnectState.STATE_DISCONNECTED) {
                 connectVpn()

@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">Не спрашивать в следующий раз</string>
   <string name="travel_dialog_2_action">УСТАНОВИТЬ ПО УМОЛЧАНИЮ</string>
   <string name="awesomebar_open_link_clipboard">Вставить и перейти</string>
+
+  <string name="vpn_unprotected">Не защищено</string>
+  <string name="vpn_unprotected_hint">Включите для повышения конфиденциальности</string>
+  <string name="vpn_protected">Защищено</string>
+  <string name="vpn_protected_hint">Ваше просмотр безопасен</string>
+  <string name="vpn_connecting">Подключение</string>
+  <string name="update_cancel">Отмена</string>
+  <string name="update_confirm">Подтвердить</string>
+  <string name="update_no_force_title">Обнаружена новая версия v1.0.18</string>
+  <string name="update_force_title">Требуется обновление</string>
+  <string name="update_no_force_msg">Исправлены известные ошибки, анонимный опыт улучшен.@@Добавлены новые игровые возможности, обновитесь и играйте с друзьями.</string>
+  <string name="update_force_msg">Вы должны обновить приложение, чтобы продолжить использование Real.</string>
+  <string name="me_update">Проверить наличие обновлений</string>
+  <string name="me_privacy">Политика конфиденциальности</string>
+  <string name="me_terms_of_service">Условия использования</string>
+  <string name="setting_no_new_version">Нет новой версии</string>
+  <string name="common_content_no_net_work">Пожалуйста, проверьте подключение к сети</string>
+  <string name="setting_about">О приложении</string>
+
 </resources>

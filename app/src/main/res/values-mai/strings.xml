@@ -184,4 +184,22 @@
   <string name="private_browsing_erase_message">निजी ब्राउज़िंग इतिहास मेटाबू</string>
   <string name="private_browsing_open_action">खोलू</string>
   <string name="private_browsing_erase_done">अहाँक निजी ब्राउजिंग इतिहास केँ मेटाएब देल गेल.</string>
+
+  <string name="vpn_unprotected">सुरक्षित नभईल</string>
+  <string name="vpn_unprotected_hint">गोपनीयता सुधारित के लिए सक्षम करें</string>
+  <string name="vpn_protected">सुरक्षित</string>
+  <string name="vpn_protected_hint">आपका ब्राउज़िंग सुरक्षित है</string>
+  <string name="vpn_connecting">कनेक्ट हो रहा है</string>
+  <string name="update_cancel">रद्द करें</string>
+  <string name="update_confirm">पुष्टि करें</string>
+  <string name="update_no_force_title">नया संस्करण मिला v1.0.18</string>
+  <string name="update_force_title">अपडेट आवश्यक</string>
+  <string name="update_no_force_msg">पता चले हुए बग्स को ठीक किया गया है और गुमनाम अनुभव बेहतर हो गया है।@@नए गेमप्ले जोड़े गए हैं, अपडेट करें और दोस्तों के साथ खेलें।</string>
+  <string name="update_force_msg">Real का उपयोग करना जारी रखने के लिए आपको अपना ऐप अपडेट करना होगा।</string>
+  <string name="me_update">अपडेट देखें</string>
+  <string name="me_privacy">गोपनीयता नीति</string>
+  <string name="me_terms_of_service">सेवा की शर्तें</string>
+  <string name="setting_no_new_version">कोई नया संस्करण नहीं</string>
+  <string name="common_content_no_net_work">कृपया नेटवर्क की जांच करें</string>
+  <string name="setting_about">बारे में</string>
 </resources>

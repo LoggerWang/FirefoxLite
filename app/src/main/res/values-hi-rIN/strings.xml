@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">मुझसे दोबारा ना पूछें</string>
   <string name="travel_dialog_2_action">तयशुदा बनाएं</string>
   <string name="awesomebar_open_link_clipboard">कॉपी की गई लिंक खोलें</string>
+
+  <string name="vpn_unprotected">असुरक्षित</string>
+  <string name="vpn_unprotected_hint">बढ़ी हुई गोपनीयता के लिए सक्षम करें</string>
+  <string name="vpn_protected">सुरक्षित</string>
+  <string name="vpn_protected_hint">आपका ब्राउज़िंग सुरक्षित है</string>
+  <string name="vpn_connecting">कनेक्ट हो रहा है</string>
+
+  <string name="update_cancel">रद्द करें</string>
+  <string name="update_confirm">पुष्टि करें</string>
+  <string name="update_no_force_title">नई संस्करण मिल गया v1.0.18</string>
+  <string name="update_force_title">अपडेट आवश्यक</string>
+  <string name="update_no_force_msg">जाने माने बग्स ठीक किए गए हैं, और गुमनाम अनुभव बेहतर है।@@नए गेमप्ले जोड़े गए हैं, अपडेट करें और दोस्तों के साथ खेलें।</string>
+  <string name="update_force_msg">रीयल का उपयोग करने के लिए आपको अपना ऐप अपडेट करना होगा।</string>
+  <string name="me_update">अद्यतन की जांच करें</string>
+  <string name="me_privacy">गोपनीयता नीति</string>
+  <string name="me_terms_of_service">सेवा की शर्तें</string>
+  <string name="setting_no_new_version">कोई नया संस्करण नहीं</string>
+  <string name="common_content_no_net_work">कृपया नेटवर्क की जांच करें</string>
+  <string name="setting_about">के बारे में</string>
 </resources>

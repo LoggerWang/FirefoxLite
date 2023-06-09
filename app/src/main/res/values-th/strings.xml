@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">ไม่ต้องถามฉันอีก</string>
   <string name="travel_dialog_2_action">ตั้งเป็นค่าเริ่มต้น</string>
   <string name="awesomebar_open_link_clipboard">เปิดลิงก์ที่คัดลอก</string>
+
+  <string name="vpn_unprotected">ไม่ได้รับการป้องกัน</string>
+  <string name="vpn_unprotected_hint">เปิดใช้งานเพื่อเพิ่มความเป็นส่วนตัว</string>
+  <string name="vpn_protected">ได้รับการป้องกัน</string>
+  <string name="vpn_protected_hint">การเรียกดูของคุณได้รับการรักษาความปลอดภัย</string>
+  <string name="vpn_connecting">กำลังเชื่อมต่อ</string>
+  <string name="update_cancel">ยกเลิก</string>
+  <string name="update_confirm">ยืนยัน</string>
+  <string name="update_no_force_title">พบเวอร์ชันใหม่ v1.0.18</string>
+  <string name="update_force_title">ต้องอัปเดต</string>
+  <string name="update_no_force_msg">แก้ไขปัญหาที่รู้จักแล้วและประสบการณ์ที่ไม่ระบุชื่อดีขึ้น@@เพิ่มเกมเล่นใหม่ เพิ่มเพื่อนและเล่นอัพเดต</string>
+  <string name="update_force_msg">คุณต้องอัปเดตแอปของคุณเพื่อใช้งาน Real ต่อไป</string>
+  <string name="me_update">ตรวจสอบการอัปเดต</string>
+  <string name="me_privacy">นโยบายความเป็นส่วนตัว</string>
+  <string name="me_terms_of_service">เงื่อนไขการให้บริการ</string>
+  <string name="setting_no_new_version">ไม่มีเวอร์ชันใหม่</string>
+  <string name="common_content_no_net_work">โปรดตรวจสอบเครือข่าย</string>
+  <string name="setting_about">เกี่ยวกับ</string>
+
 </resources>

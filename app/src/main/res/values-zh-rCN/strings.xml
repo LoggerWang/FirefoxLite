@@ -494,4 +494,23 @@
   <string name="travel_dialog_2_checkbox">不再询问我</string>
   <string name="travel_dialog_2_action">设为默认值</string>
   <string name="awesomebar_open_link_clipboard">打开复制的链接</string>
+
+  <string name="vpn_unprotected">未保护</string>
+  <string name="vpn_unprotected_hint">启用以增强隐私</string>
+  <string name="vpn_protected">已保护</string>
+  <string name="vpn_protected_hint">您的浏览已经安全保护</string>
+  <string name="vpn_connecting">正在连接</string>
+  <string name="update_cancel">取消</string>
+  <string name="update_confirm">确认</string>
+  <string name="update_no_force_title">发现新版本 v1.0.18</string>
+  <string name="update_force_title">需要更新</string>
+  <string name="update_no_force_msg">已修复已知的问题，匿名体验更好。@@新增了新的游戏玩法，快更新并与朋友一起玩吧。</string>
+  <string name="update_force_msg">您必须更新应用程序以继续使用 Real。</string>
+  <string name="me_update">检查更新</string>
+  <string name="me_privacy">隐私政策</string>
+  <string name="me_terms_of_service">服务条款</string>
+  <string name="setting_no_new_version">无新版本</string>
+  <string name="common_content_no_net_work">请检查网络</string>
+  <string name="setting_about">关于</string>
+
 </resources>

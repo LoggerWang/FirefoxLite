@@ -275,4 +275,23 @@
   <string name="http_auth_dialog_user_name">ಬಳಕೆದಾರನ ಹೆಸರು</string>
   <string name="http_auth_dialog_password">ಗುಪ್ತಪದ</string>
   <string name="low_priority_notification_channel">ಮರೆಮಾಡಿದ ಸೂಚನೆಗಳು</string>
+
+  <string name="vpn_unprotected">ರಕ್ಷಣೆ ಇಲ್ಲ</string>
+  <string name="vpn_unprotected_hint">ಗೆದ್ದು ಗೌಣಿಕೆಗಾಗಿ ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+  <string name="vpn_protected">ರಕ್ಷಿತ</string>
+  <string name="vpn_protected_hint">ನಿಮ್ಮ ಅನ್ವೇಷಣೆ ಸುರಕ್ಷಿತವಾಗಿದೆ</string>
+  <string name="vpn_connecting">ಸಂಪರ್ಕಿಸುತ್ತಿದೆ</string>
+
+  <string name="update_cancel">ರದ್ದುಮಾಡಿ</string>
+  <string name="update_confirm">ದೃConfirm</string>
+  <string name="update_no_force_title">ಹೊಸ ಆವೃತ್ತಿ ಕಂಡುಬಂದಿದೆ v1.0.18</string>
+  <string name="update_force_title">ನವೀಕರಣ ಅಗತ್ಯವಿದೆ</string>
+  <string name="update_no_force_msg">ಗೊತ್ತಿರುವ ದೋಷಗಳನ್ನು ಪರಿಹರಿಸಲಾಗಿದೆ ಮತ್ತು ಗೌರವಾನ್ವಿತ ಅನುಭವ ಹೆಚ್ಚಿದೆ.@@ಹೊಸ ಆಟಗಳು ಸೇರಿದ್ದು, ನವೀಕರಿಸಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ.</string>
+  <string name="update_force_msg">Real ಬಳಸುವುದಕ್ಕೆ ನೀವು ಅಪ್ಡೇಟ್ ಮಾಡಬೇಕು.</string>
+  <string name="me_update">ನವೀಕರಣಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+  <string name="me_privacy">ಗೌಪ್ಯತಾ ನಿಯಮಗಳು</string>
+  <string name="me_terms_of_service">ಸೇವೆಯ ನಿಯಮಗಳು</string>
+  <string name="setting_no_new_version">ಹೊಸ ಆವೃತ್ತಿ ಇಲ್ಲ</string>
+  <string name="common_content_no_net_work">ದಯವಿಟ್ಟು ನೆಟ್ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ</string>
+  <string name="setting_about">ಬಗ್ಗೆ</string>
 </resources>

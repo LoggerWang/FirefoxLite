@@ -420,4 +420,23 @@
   <string name="travel_dialog_1_action_2">না, ধন্যবাদ</string>
   <string name="travel_dialog_2_checkbox">পুনরায় আমাকে জিজ্ঞেস করবে না</string>
   <string name="travel_dialog_2_action">ডিফল্ট হিসেবে সেট করুন</string>
+
+  <string name="vpn_unprotected">সুরক্ষাহীন</string>
+  <string name="vpn_unprotected_hint">উন্নত গোপনীয়তা জন্য সক্ষম করুন</string>
+  <string name="vpn_protected">সুরক্ষিত</string>
+  <string name="vpn_protected_hint">আপনার ব্রাউজিং সুরক্ষিত আছে</string>
+  <string name="vpn_connecting">সংযোগ হচ্ছে</string>
+
+  <string name="update_cancel">বাতিল করুন</string>
+  <string name="update_confirm">নিশ্চিত করুন</string>
+  <string name="update_no_force_title">নতুন সংস্করণ পাওয়া গেছে v1.0.18</string>
+  <string name="update_force_title">আপডেট প্রয়োজন</string>
+  <string name="update_no_force_msg">পরিচিত বাগগুলি ঠিক করা হয়েছে, এবং অজ্ঞাতনামেয় অভিজ্ঞতা উন্নত।@@নতুন গেমপ্লেস যুক্ত করা হয়েছে, আপডেট করে বন্ধুদের সঙ্গে খেলুন।</string>
+  <string name="update_force_msg">আপনার অ্যাপটি ব্যবহার করতে অব্যাহত থাকতে অ্যাপটি আপডেট করতে হবে।</string>
+  <string name="me_update">আপডেট চেক করুন</string>
+  <string name="me_privacy">গোপনীয়তা নীতি</string>
+  <string name="me_terms_of_service">সেবা প্রদানের শর্তাবলী</string>
+  <string name="setting_no_new_version">নতুন সংস্করণ নেই</string>
+  <string name="common_content_no_net_work">নেটওয়ার্ক চেক করুন</string>
+  <string name="setting_about">সম্পর্কিত</string>
 </resources>

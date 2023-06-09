@@ -1085,18 +1085,17 @@
     <string name="vpn_protected">Protected</string>
     <string name="vpn_protected_hint">Your browsing is secured</string>
     <string name="vpn_connecting">Connecting</string>
-
-
     <string name="update_cancel">Cancel</string>
     <string name="update_confirm">Confirm</string>
     <string name="update_no_force_title">New Version Found v1.0.18</string>
     <string name="update_force_title">Update Required</string>
     <string name="update_no_force_msg">Known bugs are fixed, and the anonymous experience is better.@@New gameplays have been added，update and paly with friends.</string>
     <string name="update_force_msg">You must update your app to continue using Real.</string>
-    <string name="me_update" translatable="false">Check for Updates</string>
-    <string name="me_privacy" translatable="false">Privacy Policy</string>
-    <string name="me_terms_of_service" translatable="false">Terms of Service</string>
-    <string name="setting_no_new_version" translatable="false">No new version</string>
+    <string name="me_update">Check for Updates</string>
+    <string name="me_privacy">Privacy Policy</string>
+    <string name="me_terms_of_service">Terms of Service</string>
+    <string name="setting_no_new_version">No new version</string>
     <string name="common_content_no_net_work">Please check the network</string>
+    <string name="setting_about">About</string>
 
 </resources>

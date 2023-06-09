@@ -266,4 +266,24 @@
   <string name="http_auth_dialog_title">ആധികാരികത ഉറപ്പാക്കേണ്ടതുണ്ട്</string>
   <string name="http_auth_dialog_user_name">ഉപയോക്തൃനാമം</string>
   <string name="http_auth_dialog_password">രഹസ്യവാക്ക്</string>
+
+  <string name="vpn_unprotected">സുരക്ഷിതമല്ലെങ്കിൽ</string>
+  <string name="vpn_unprotected_hint">പ്രൈവസി അഭിവൃദ്ധിക്കാൻ സജ്ജമാക്കുക</string>
+  <string name="vpn_protected">സുരക്ഷിതമാണ്</string>
+  <string name="vpn_protected_hint">നിങ്ങളുടെ ബ്രൗസിംഗ് സുരക്ഷിതമാണ്</string>
+  <string name="vpn_connecting">താങ്കളുടെ ബന്ധിപ്പിക്കുന്നു</string>
+
+  <string name="update_cancel">റദ്ദാക്കുക</string>
+  <string name="update_confirm">സ്ഥിരീകരിക്കുക</string>
+  <string name="update_no_force_title">പുതിയ പതിപ്പ് കണ്ടെത്തി v1.0.18</string>
+  <string name="update_force_title">അപ്ഡേറ്റ് ആവശ്യമാണ്</string>
+  <string name="update_no_force_msg">അറിയപ്പെടുന്ന പിശകുകൾ പരിഹരിച്ചുകൊണ്ട് അജ്ഞാതമായ അനുഭവം മെച്ചപ്പെടുത്തി. @@
+    പുതിയ ഗെയിംപ്ലേസുകൾ ചേർത്തിട്ടുണ്ട്, അപ്‌ഡേറ്റുചെയ്യുക മറ്റുള്ളവർക്ക് പടിയായി പടിക്കുക</string>
+  <string name="update_force_msg">ആപ്പ് ഉപയോഗിക്കുന്നതിന് അപ്ഡേറ്റ് ചെയ്യേണ്ടതാണ്</string>
+  <string name="me_update">അപ്‌ഡേറ്റുകളിലേക്ക് പരിശോധിക്കുക</string>
+  <string name="me_privacy">ഗോപനീയത നയം</string>
+  <string name="me_terms_of_service">സേവന നിബന്ധനകൾ</string>
+  <string name="setting_no_new_version">പുതിയ പതിപ്പില്ല</string>
+  <string name="common_content_no_net_work">നെറ്റ്‌വർക്ക് പരിശോധിക്കുക</string>
+  <string name="setting_about">കുറിച്ച്</string>
 </resources>

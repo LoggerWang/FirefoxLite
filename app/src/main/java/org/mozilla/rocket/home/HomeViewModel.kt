@@ -330,8 +330,8 @@ class HomeViewModel(
         }
     }
 
-    override fun onTopSiteLongClicked(site: Site, position: Int): Boolean =
-            if (site is Site.UrlSite.RemovableSite || site is Site.DummySite) {
+    override fun onTopSiteLongClicked(site: Site, position: Int): Boolean = false
+            /*if (site is Site.UrlSite.RemovableSite || site is Site.DummySite) {
                 val pageIndex = requireNotNull(topSitesPageIndex.value)
                 val topSitePosition = position + pageIndex * TOP_SITES_PER_PAGE
                 when (site) {
@@ -341,7 +341,7 @@ class HomeViewModel(
                 true
             } else {
                 false
-            }
+            }*/
 
     fun onPinTopSiteClicked(site: Site, position: Int) = viewModelScope.launch {
         when (site) {

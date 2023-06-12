@@ -500,6 +500,8 @@
   <string name="vpn_protected">Kaasup</string>
   <string name="vpn_protected_hint">Penjelajahan anjeun dijamin aman</string>
   <string name="vpn_connecting">Ngalangkungan</string>
+  <string name="vpn_protect_your_privacy">Pikeun ningal privasi anjeun</string>
+
   <string name="update_cancel">Bolay</string>
   <string name="update_confirm">Konfirmasi</string>
   <string name="update_no_force_title">Versi Anyar Kapendak v1.0.18</string>

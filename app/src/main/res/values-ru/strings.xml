@@ -500,6 +500,8 @@
   <string name="vpn_protected">Защищено</string>
   <string name="vpn_protected_hint">Ваше просмотр безопасен</string>
   <string name="vpn_connecting">Подключение</string>
+  <string name="vpn_protect_your_privacy">Защитите свою конфиденциальность</string>
+
   <string name="update_cancel">Отмена</string>
   <string name="update_confirm">Подтвердить</string>
   <string name="update_no_force_title">Обнаружена новая версия v1.0.18</string>

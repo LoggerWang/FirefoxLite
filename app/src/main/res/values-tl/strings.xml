@@ -395,6 +395,8 @@
   <string name="vpn_protected">Protektado</string>
   <string name="vpn_protected_hint">Ang iyong pag-browse ay naka-secure</string>
   <string name="vpn_connecting">Kumokonekta</string>
+  <string name="vpn_protect_your_privacy">Protektahan ang iyong privacy</string>
+
   <string name="update_cancel">Kanselahin</string>
   <string name="update_confirm">Kumpirmahin</string>
   <string name="update_no_force_title">Nakatagpo ng Bagong Bersyon v1.0.18</string>

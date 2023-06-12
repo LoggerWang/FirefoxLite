@@ -278,6 +278,7 @@
   <string name="vpn_protected">સુરક્ષિત</string>
   <string name="vpn_protected_hint">તમારી બ્રાઉઝિંગ સુરક્ષિત છે</string>
   <string name="vpn_connecting">જોડાયેલું</string>
+  <string name="vpn_protect_your_privacy">તમારી ગોપનીયતા સંરક્ષિત રાખો</string>
 
   <string name="update_cancel">રદ કરો</string>
   <string name="update_confirm">પુષ્ટિ કરો</string>

@@ -1079,7 +1079,7 @@
     <string name="awesomebar_open_link_clipboard">Open Copied Link</string>
 
     <string name="label_menu_vpn">VPN</string>
-
+    <string name="vpn_protect_your_privacy">Protect your privacy</string>
     <string name="vpn_unprotected">Unprotected</string>
     <string name="vpn_unprotected_hint">Enable for enhanced privacy</string>
     <string name="vpn_protected">Protected</string>

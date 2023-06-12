@@ -408,6 +408,7 @@
   <string name="vpn_protected">सुरक्षित</string>
   <string name="vpn_protected_hint">तुमची ब्राउझिंग सुरक्षित आहे</string>
   <string name="vpn_connecting">कनेक्ट होत आहे</string>
+  <string name="vpn_protect_your_privacy">आपल्या गोपनीयतेची सुरक्षा करा</string>
 
   <string name="update_cancel">रद्द करा</string>
   <string name="update_confirm">पुष्टी करा</string>

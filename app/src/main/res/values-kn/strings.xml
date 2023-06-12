@@ -281,6 +281,7 @@
   <string name="vpn_protected">ರಕ್ಷಿತ</string>
   <string name="vpn_protected_hint">ನಿಮ್ಮ ಅನ್ವೇಷಣೆ ಸುರಕ್ಷಿತವಾಗಿದೆ</string>
   <string name="vpn_connecting">ಸಂಪರ್ಕಿಸುತ್ತಿದೆ</string>
+  <string name="vpn_protect_your_privacy">ನಿಮ್ಮ ಗೌಪ್ಯತೆಯನ್ನು ಕಾಪಾಡಿ</string>
 
   <string name="update_cancel">ರದ್ದುಮಾಡಿ</string>
   <string name="update_confirm">ದೃConfirm</string>

@@ -368,6 +368,8 @@
   <string name="vpn_protected">సంరక్షితం</string>
   <string name="vpn_protected_hint">మీ బ్రౌజింగ్ భద్రపరచబడింది</string>
   <string name="vpn_connecting">కనెక్ట్ అవుతోంది</string>
+  <string name="vpn_protect_your_privacy">మీ గోప్యతను సంరక్షించండి</string>
+
   <string name="update_cancel">రద్దు చేయి</string>
   <string name="update_confirm">నిర్ధారించండి</string>
   <string name="update_no_force_title">కొత్త పరిష్కారం కనిపించబడింది v1.0.18</string>

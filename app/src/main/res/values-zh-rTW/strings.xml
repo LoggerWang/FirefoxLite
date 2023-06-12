@@ -500,6 +500,8 @@
   <string name="vpn_protected">已保護</string>
   <string name="vpn_protected_hint">您的瀏覽已獲安全保護</string>
   <string name="vpn_connecting">連線中</string>
+  <string name="vpn_protect_your_privacy">保護您的隱私</string>
+
   <string name="update_cancel">取消</string>
   <string name="update_confirm">確認</string>
   <string name="update_no_force_title">發現新版本 v1.0.18</string>

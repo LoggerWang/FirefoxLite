@@ -192,6 +192,8 @@
   <string name="vpn_connecting">कनेक्ट हो रहा है</string>
   <string name="update_cancel">रद्द करें</string>
   <string name="update_confirm">पुष्टि करें</string>
+  <string name="vpn_protect_your_privacy">अपनी गोपनीयता संरक्षित करें</string>
+
   <string name="update_no_force_title">नया संस्करण मिला v1.0.18</string>
   <string name="update_force_title">अपडेट आवश्यक</string>
   <string name="update_no_force_msg">पता चले हुए बग्स को ठीक किया गया है और गुमनाम अनुभव बेहतर हो गया है।@@नए गेमप्ले जोड़े गए हैं, अपडेट करें और दोस्तों के साथ खेलें।</string>

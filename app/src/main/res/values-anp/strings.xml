@@ -314,6 +314,7 @@
   <string name="vpn_protected">संरक्षित</string>
   <string name="vpn_protected_hint">तुमचे ब्राउझिंग सुरक्षित आहे</string>
   <string name="vpn_connecting">संपर्क</string>
+  <string name="vpn_protect_your_privacy">आपलो निजता संरक्षित करा</string>
 
   <string name="update_cancel">रद्द करें</string>
   <string name="update_confirm">पुष्टि करें</string>

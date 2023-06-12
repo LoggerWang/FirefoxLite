@@ -500,6 +500,8 @@
   <string name="vpn_protected">Được bảo vệ</string>
   <string name="vpn_protected_hint">Trình duyệt của bạn đã được bảo mật</string>
   <string name="vpn_connecting">Đang kết nối</string>
+  <string name="vpn_protect_your_privacy">Bảo vệ quyền riêng tư của bạn</string>
+
   <string name="update_cancel">Hủy bỏ</string>
   <string name="update_confirm">Xác nhận</string>
   <string name="update_no_force_title">Phát hiện phiên bản mới v1.0.18</string>

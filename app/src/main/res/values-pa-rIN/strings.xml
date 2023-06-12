@@ -343,6 +343,7 @@
   <string name="vpn_protected">ਸੁਰੱਖਿਅਤ</string>
   <string name="vpn_protected_hint">ਤੁਹਾਡੀ ਬਰਾਉਜ਼ਿੰਗ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ</string>
   <string name="vpn_connecting">ਕੁਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+  <string name="vpn_protect_your_privacy">ਆਪਣੀ ਨਿੱਜੀਤਾ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰੋ</string>
 
   <string name="update_cancel">ਰੱਦ ਕਰੋ</string>
   <string name="update_confirm">ਪੁਸ਼ਟੀ ਕਰੋ</string>

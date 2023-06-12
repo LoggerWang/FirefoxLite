@@ -25,7 +25,7 @@
         android:layout_marginStart="6dp"
         android:textSize="15sp"
         android:textColor="#3b3b3b"
-        android:text="Protect your privacy"
+        android:text="@string/vpn_protect_your_privacy"
         android:textStyle="bold"/>
     <com.suke.widget.SwitchButton
         android:id="@+id/vpn_switch_button"

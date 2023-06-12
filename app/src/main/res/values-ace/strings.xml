@@ -288,7 +288,7 @@
   <string name="vpn_protected">Geunaseh</string>
   <string name="vpn_protected_hint">Browsing geunaseh geutanyoe teurajöh</string>
   <string name="vpn_connecting">Peunyoe</string>
-
+  <string name="vpn_protect_your_privacy">Proteksi privasi Anda</string>
 
   <string name="update_cancel">Beureuntön</string>
   <string name="update_confirm">Bungo</string>

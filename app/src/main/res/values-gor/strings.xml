@@ -220,6 +220,7 @@
   <string name="vpn_protected">Protected</string>
   <string name="vpn_protected_hint">Your browsing is secured</string>
   <string name="vpn_connecting">Connecting</string>
+  <string name="vpn_protect_your_privacy">Protect your privacy</string>
 
   <string name="update_cancel">Cancel</string>
   <string name="update_confirm">Confirm</string>

@@ -500,6 +500,8 @@
   <string name="vpn_protected">ได้รับการป้องกัน</string>
   <string name="vpn_protected_hint">การเรียกดูของคุณได้รับการรักษาความปลอดภัย</string>
   <string name="vpn_connecting">กำลังเชื่อมต่อ</string>
+  <string name="vpn_protect_your_privacy">ปกป้องความเป็นส่วนตัวของคุณ</string>
+
   <string name="update_cancel">ยกเลิก</string>
   <string name="update_confirm">ยืนยัน</string>
   <string name="update_no_force_title">พบเวอร์ชันใหม่ v1.0.18</string>

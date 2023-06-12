@@ -37,6 +37,7 @@ import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.ProxyModeEnum
 import de.blinkt.openvpn.utils.ServerState
 import de.blinkt.openvpn.utils.Settings
+import kotlinx.coroutines.withContext
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.MainActivity
 import org.mozilla.focus.activity.SetVpnActivity
@@ -261,12 +262,16 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 }
                 ConnectState.STATE_START -> {
                     mIsStateChange = true
-                    requireActivity().runOnUiThread { vpnSwitchButton.isChecked = true }
+                    if (isAdded) {
+                        requireActivity().runOnUiThread { vpnSwitchButton.isChecked = true }
+                    }
                     vpnSwitchButton.isEnabled = true
                 }
                 ConnectState.STATE_DISCONNECTED -> {
                     mIsStateChange = true
-                    requireActivity().runOnUiThread { vpnSwitchButton.isChecked = false }
+                    if (isAdded) {
+                        requireActivity().runOnUiThread { vpnSwitchButton.isChecked = false }
+                    }
                     vpnSwitchButton.isEnabled = true
                     Logger.d("legend", "===serverStateLiveData=66666666==$it ===ischecked==${vpnSwitchButton.isChecked}")
                 }

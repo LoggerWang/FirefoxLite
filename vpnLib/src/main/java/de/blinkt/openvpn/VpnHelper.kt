@@ -171,11 +171,11 @@ class VpnHelper {
             }.catchError {
                 Log.d("legend", ("===Error==downloadVpnFile=====" ) )
                 onSaveFailed(this.message ?: "---")
-                OpenVpnApi.mActivity.runOnUiThread {
-                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
-                    OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
-                    OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
-                }
+//                OpenVpnApi.mActivity.runOnUiThread {
+//                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+//                    OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+//                    OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+//                }
             }.collect {
                 mSelectServerNode!!.vpnFileStr = it.string()
                 withContext(Dispatchers.Main) { prepareVpn() }
@@ -184,9 +184,11 @@ class VpnHelper {
     }
 
     private fun onSaveFailed(failed: String) {
-        Log.d("legend", ("===Error==onSaveFailed=====" ) )
+        Log.d("legend", ("===Error==onSaveFailed====="+failed ) )
+        OpenVpnApi.mActivity.runOnUiThread {
         OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
-        showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))
+        OpenVpnApi.netLiveData.value = ServerState.SERVER_STATE_ERROR
+        showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))}
     }
 
     // 解析文件

@@ -35,21 +35,23 @@ class DefaultBrowserHelper(
     }
 
     fun openSumoPage() {
-        val intent = InfoActivity.getIntentFor(
+        /*val intent = InfoActivity.getIntentFor(
             activity,
             SupportUtils.getSumoURLForTopic(activity, "rocket-default"),
             activity.getString(R.string.preference_default_browser)
         )
-        activity.startActivity(intent)
+        activity.startActivity(intent)*/
+        openAppDetailSettings()
     }
 
     fun triggerWebOpen() {
-        val viewIntent = Intent(Intent.ACTION_VIEW)
+        /*val viewIntent = Intent(Intent.ACTION_VIEW)
         viewIntent.data = Uri.parse(SupportUtils.getSumoURLForTopic(activity, "rocket-default"))
 
         //  Put a mojo to force MainActivity finish it's self, we probably need an intent flag to handle the task problem (reorder/parent/top)
         viewIntent.putExtra(DefaultBrowserPreference.EXTRA_RESOLVE_BROWSER, true)
-        activity.startActivity(viewIntent)
+        activity.startActivity(viewIntent)*/
+        openAppDetailSettings()
     }
 
     fun showSuccessMessage() {

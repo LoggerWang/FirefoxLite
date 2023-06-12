@@ -11,6 +11,7 @@ import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FirebaseHelper
 import org.mozilla.focus.utils.Settings
 import org.mozilla.rocket.chrome.domain.ShouldShowNewMenuItemHintUseCase
+import org.mozilla.rocket.config.RemoteConfigHelper
 import org.mozilla.rocket.download.SingleLiveEvent
 import org.mozilla.rocket.extension.first
 import org.mozilla.rocket.extension.map
@@ -172,28 +173,69 @@ class HomeViewModel(
         logoManNotification.addSource(lastReadMissionIdUseCase(), lastReadIdObserver)
     }
 
+    private fun List<org.mozilla.focus.history.model.Site>.toRemovableSite(isPinned: Boolean): List<Site.UrlSite> =
+        map { it.toRemovableSite(isPinned) }
+
+    private fun org.mozilla.focus.history.model.Site.toRemovableSite(isPinned: Boolean): Site.UrlSite =
+        Site.UrlSite.RemovableSite(
+            id = id,
+            title = title ?: "",
+            url = url,
+            iconUri = favIconUri,
+            viewCount = viewCount,
+            lastViewTimestamp = lastViewTimestamp,
+            isDefault = isDefault,
+            isPinned = isPinned
+        )
+
     private fun updateTopSitesData() = viewModelScope.launch {
         val topSiteList = getTopSitesUseCase()
-        sitePages.value = if (topSiteList.isNotEmpty()) {
-            topSiteList.addDummyTopSites().toSitePages().also { sitePages ->
-                val sitePosition = when (val result = pinTopSiteResult) {
-                    is PinTopSiteUseCase.PinTopSiteResult.Success -> result.position
-                    is PinTopSiteUseCase.PinTopSiteResult.Existing -> result.position
-                    else -> -1
+        var mySitePages : ArrayList<SitePage> = ArrayList<SitePage>()
+        if(RemoteConfigHelper.isShowHotSites()){
+            var sites1 : List<Site> = RemoteConfigHelper.getHomeHotSites().toRemovableSite(false)
+            if(sites1.isNotEmpty()){
+                if(sites1.size > 8){
+                    sites1.subList(0,8)
                 }
-                if (sitePosition != -1) {
-                    val sitePage = sitePosition / TOP_SITES_PER_PAGE
-                    val siteInPageIndex = sitePosition % TOP_SITES_PER_PAGE
-                    if (sitePage < sitePages.size && siteInPageIndex < sitePages[sitePage].sites.size) {
-                        when (val topSite = sitePages[sitePage].sites[siteInPageIndex]) {
-                            is Site.UrlSite -> topSite.highlight = true
+                var sitePage1 : SitePage = SitePage(sites1)
+                mySitePages.add(sitePage1)
+            }
+        }
+        if(RemoteConfigHelper.isShowHomeWatchSites()){
+            var sites2 : List<Site> = RemoteConfigHelper.getHomeWatchSites().toRemovableSite(false)
+            if(sites2.isNotEmpty()){
+                if(sites2.size > 8){
+                    sites2.subList(0,8)
+                }
+                var sitePage2 : SitePage = SitePage(sites2)
+                mySitePages.add(sitePage2)
+            }
+        }
+        if(mySitePages.size > 0){
+            sitePages.value = mySitePages
+        } else {
+            sitePages.value = listOf(SitePage(topSiteList))
+            /*sitePages.value = if (topSiteList.isNotEmpty()) {
+                topSiteList.addDummyTopSites().toSitePages().also { sitePages ->
+                    val sitePosition = when (val result = pinTopSiteResult) {
+                        is PinTopSiteUseCase.PinTopSiteResult.Success -> result.position
+                        is PinTopSiteUseCase.PinTopSiteResult.Existing -> result.position
+                        else -> -1
+                    }
+                    if (sitePosition != -1) {
+                        val sitePage = sitePosition / TOP_SITES_PER_PAGE
+                        val siteInPageIndex = sitePosition % TOP_SITES_PER_PAGE
+                        if (sitePage < sitePages.size && siteInPageIndex < sitePages[sitePage].sites.size) {
+                            when (val topSite = sitePages[sitePage].sites[siteInPageIndex]) {
+                                is Site.UrlSite -> topSite.highlight = true
+                            }
                         }
                     }
+                    pinTopSiteResult = null
                 }
-                pinTopSiteResult = null
-            }
-        } else {
-            listOf(Site.EmptyHintSite).addDummyTopSites().toSitePages()
+            } else {
+                listOf(Site.EmptyHintSite).addDummyTopSites().toSitePages()
+            }*/
         }
     }
 

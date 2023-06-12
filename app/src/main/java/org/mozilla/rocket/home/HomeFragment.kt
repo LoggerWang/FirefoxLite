@@ -507,6 +507,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         homeViewModel.run {
             sitePages.observe(viewLifecycleOwner, Observer {
                 page_indicator.setSize(it.size)
+                if(it.size <= 1){
+                    page_indicator.visibility = View.GONE
+                }
                 topSitesAdapter.setData(it)
                 savedTopSitesPagePosition?.let { savedPosition ->
                     savedTopSitesPagePosition = null

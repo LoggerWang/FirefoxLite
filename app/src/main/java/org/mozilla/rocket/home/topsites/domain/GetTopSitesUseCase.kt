@@ -19,12 +19,8 @@ open class GetTopSitesUseCase(
     }
 
     open suspend operator fun invoke(): List<Site> = withContext(Dispatchers.IO) {
-        val pinnedSites = topSitesRepo.getPinnedSites()
-        var aa = topSitesRepo.getChangedDefaultSites()
-        var bb = topSitesRepo.getConfiguredDefaultSiteGroups()
-        var cc = topSitesRepo.getDefaultSites(contentPrefRepo.getContentPref().topSitesResId)
         var defaultSites : List<org.mozilla.focus.history.model.Site>
-
+        val pinnedSites = topSitesRepo.getPinnedSites()
         if(RemoteConfigHelper.isShowHotSites()){
             defaultSites = RemoteConfigHelper.getHomeHotSites()
             if(RemoteConfigHelper.isShowHomeWatchSites()){

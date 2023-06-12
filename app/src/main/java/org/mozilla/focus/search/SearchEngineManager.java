@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.mozilla.focus.locale.Locales;
 import org.mozilla.focus.utils.IOUtils;
 import org.mozilla.focus.utils.Settings;
+import org.mozilla.rocket.config.RemoteConfigHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -153,7 +154,10 @@ public class SearchEngineManager extends BroadcastReceiver {
     public synchronized SearchEngine getDefaultSearchEngine(Context context) {
         awaitLoadingSearchEnginesLocked();
 
-        final String defaultSearch = Settings.getInstance(context).getDefaultSearchEngineName();
+        String defaultSearch = Settings.getInstance(context).getDefaultSearchEngineName();
+        if(defaultSearch == null){
+            defaultSearch = RemoteConfigHelper.getDefaultSearchEngine();
+        }
         if (defaultSearch != null) {
             for (SearchEngine searchEngine : searchEngines) {
                 if (defaultSearch.equals(searchEngine.getName())) {

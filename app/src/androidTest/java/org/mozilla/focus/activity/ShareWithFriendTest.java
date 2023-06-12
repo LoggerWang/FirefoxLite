@@ -71,6 +71,9 @@ public class ShareWithFriendTest {
         onView(withId(R.id.positive_button)).perform(click());
 
         // Check intent sent
-        intended(allOf(hasAction(Intent.ACTION_CHOOSER), hasExtra(is(Intent.EXTRA_INTENT), allOf(hasAction(Intent.ACTION_SEND), hasExtra(Intent.EXTRA_TEXT, activity.getResources().getString(R.string.share_app_promotion_text, activity.getResources().getString(R.string.app_name), activity.getResources().getString(R.string.share_app_google_play_url), activity.getResources().getString(R.string.anysite)))))));
+        intended(allOf(hasAction(Intent.ACTION_CHOOSER), hasExtra(is(Intent.EXTRA_INTENT), allOf(hasAction(Intent.ACTION_SEND),
+                hasExtra(Intent.EXTRA_TEXT, activity.getResources().getString(R.string.share_app_promotion_text, activity.getResources()
+                        .getString(R.string.app_name), activity.getResources().getString(R.string.share_app_google_play_url),
+                        activity.getResources().getString(R.string.anysite)))))));
     }
 }

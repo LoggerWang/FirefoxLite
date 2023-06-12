@@ -509,7 +509,7 @@
     <string name="share_app_dialog_text_content">- Fast and lightweight\n- Smart Shopping Search\n- Free Games, trending news</string>
     <string name="share_app_dialog_btn_share">Share</string>
     //TODO 分享应用的googleplay url
-    <string name="share_app_google_play_url" translatable="false">https://mzl.la/2kScptw</string>
+    <string name="share_app_google_play_url" translatable="false">https://play.google.com/store/apps/details?id=anysite.proxy.browser</string>
     <!-- The message template used when user shares Rocket with friends. %1$s is the App name i.e. Rocket, and %2$s is the Google Play url, and %3$s is "Mozilla"-->
     <string name="share_app_promotion_text">Hey, check out this fast and lightweight browser from %3$s. %1$s %2$s</string> 
     

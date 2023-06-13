@@ -296,7 +296,7 @@
   <string name="vpn_protected">பாதுகாக்கப்பட்டது</string>
   <string name="vpn_protected_hint">உங்கள் உலாவியின் பாதுகாப்பு உறுதிப்படுத்தப்பட்டுள்ளது</string>
   <string name="vpn_connecting">இணைக்கின்றன</string>
-  <string name="vpn_protect_your_privacy">உங்கள் தனியுரிமையை பாதுகாக்கவும்</string>
+  <string name="vpn_protect_your_privacy">பாதுகாக்கப்பட்டது</string>
 
   <string name="update_cancel">ரத்துசெய்</string>
   <string name="update_confirm">உறுதிப்படுத்து</string>

@@ -272,7 +272,7 @@
   <string name="vpn_protected">സുരക്ഷിതമാണ്</string>
   <string name="vpn_protected_hint">നിങ്ങളുടെ ബ്രൗസിംഗ് സുരക്ഷിതമാണ്</string>
   <string name="vpn_connecting">താങ്കളുടെ ബന്ധിപ്പിക്കുന്നു</string>
-  <string name="vpn_protect_your_privacy">നിങ്ങളുടെ സ്വകാര്യത സംരക്ഷിക്കുക</string>
+  <string name="vpn_protect_your_privacy">സുരക്ഷിതമാക്കുക</string>
 
   <string name="update_cancel">റദ്ദാക്കുക</string>
   <string name="update_confirm">സ്ഥിരീകരിക്കുക</string>

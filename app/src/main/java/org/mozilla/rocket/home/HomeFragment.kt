@@ -11,6 +11,7 @@ import android.os.Looper
 import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -130,6 +131,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private lateinit var home_fragment_fake_input: ThemedView
     private lateinit var home_fragment_fake_input_icon: ThemedImageView
     private lateinit var home_fragment_fake_input_text: ThemedTextView
+    private lateinit var tv_protect_privacy : TextView
     private lateinit var home_fragment_menu_button: MenuButton
     private lateinit var home_fragment_tab_counter: TabCounter
     private lateinit var iv_home_history: ImageView
@@ -187,6 +189,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         home_fragment_fake_input = view.findViewById(R.id.home_fragment_fake_input)
         home_fragment_fake_input_icon = view.findViewById(R.id.home_fragment_fake_input_icon)
         home_fragment_fake_input_text = view.findViewById(R.id.home_fragment_fake_input_text)
+        tv_protect_privacy = view.findViewById(R.id.tv_protect_privacy)
         home_fragment_menu_button = view.findViewById(R.id.home_fragment_menu_button)
         home_fragment_tab_counter = view.findViewById(R.id.home_fragment_tab_counter)
         home_fragment_title = view.findViewById(R.id.home_fragment_title)
@@ -623,14 +626,18 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         homeViewModel.onPageForeground()
     }
 
+    private var inPageTime : Long = 0
     override fun onResume() {
         super.onResume()
         defaultBrowserPreferenceViewModel.onResume()
+        BuriedPointUtil.addActivityInpage("/home/x/x","/x/x/x")
+        inPageTime = System.currentTimeMillis()
     }
 
     override fun onPause() {
         super.onPause()
         defaultBrowserPreferenceViewModel.onPause()
+        BuriedPointUtil.addActivityOutPage("/home/x/x","/x/x/x", System.currentTimeMillis() - inPageTime)
     }
 
     override fun onStop() {
@@ -659,6 +666,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     override fun applyLocale() {
         home_fragment_fake_input_text.text = getString(R.string.home_search_bar_text)
+        tv_protect_privacy.text = getString(R.string.vpn_protect_your_privacy)
+
     }
 
     fun notifyAddNewTopSiteResult(pinTopSiteResult: PinTopSiteUseCase.PinTopSiteResult?) {

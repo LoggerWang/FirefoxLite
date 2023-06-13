@@ -310,7 +310,6 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         OpenVpnApi.getZoneList(map)
         vpnSwitchButton.setOnClickListener {
 
-
         }
 
 
@@ -320,7 +319,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             } else {
 
             }
-
+            BuriedPointUtil.addClick("/home/VPN_switch/x")
             Logger.d("legend","===HomeFragment==setOnCheckedChangeListener==isChecked==$isChecked")
             if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
 //            settings.setBoolean("autoConnectVpn", isChecked)
@@ -392,6 +391,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             setOnClickListener {
                 chromeViewModel.showHomeMenu.call()
                 TelemetryWrapper.showMenuHome()
+                BuriedPointUtil.addClick("/toolbar/more/x")
             }
             setOnLongClickListener {
                 chromeViewModel.showDownloadPanel.call()
@@ -402,14 +402,17 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         iv_home_history.setOnClickListener {
             chromeViewModel.showHistory.call()
             TelemetryWrapper.clickMenuHistory()
+            BuriedPointUtil.addClick("/toolbar/history/x")
         }
         iv_home_marks.setOnClickListener {
             chromeViewModel.showBookmarks.call()
             TelemetryWrapper.clickMenuBookmark()
+            BuriedPointUtil.addClick("/toolbar/bookmarks/x")
         }
         home_fragment_tab_counter.setOnClickListener {
             chromeViewModel.showTabTray.call()
             TelemetryWrapper.showTabTrayHome()
+            BuriedPointUtil.addClick("/toolbar/page/x")
         }
         chromeViewModel.tabCount.observe(viewLifecycleOwner, Observer {
             setTabCount(it ?: 0)
@@ -425,7 +428,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         chromeViewModel.isPrivateBrowsingActive.observe(viewLifecycleOwner, Observer {
             private_mode_button.isActivated = it
         })
-        private_mode_button.setOnClickListener { homeViewModel.onPrivateModeButtonClicked() }
+        private_mode_button.setOnClickListener {
+            homeViewModel.onPrivateModeButtonClicked()
+        }
         homeViewModel.openPrivateMode.observe(viewLifecycleOwner, Observer {
             chromeViewModel.togglePrivateMode.call()
         })

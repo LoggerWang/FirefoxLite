@@ -20,6 +20,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.MenuViewModel
 import org.mozilla.rocket.content.appComponent
@@ -157,6 +158,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showBookmarks.call()
                     TelemetryWrapper.clickMenuBookmark()
+                    BuriedPointUtil.addClick("/toolbar/more/bookmarks")
                 }
             }
             menu_history.setOnClickListener {
@@ -164,6 +166,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showHistory.call()
                     TelemetryWrapper.clickMenuHistory()
+                    BuriedPointUtil.addClick("/toolbar/more/historys")
                 }
             }
             menu_download.setOnClickListener {
@@ -171,6 +174,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showDownloadPanel.call()
                     TelemetryWrapper.clickMenuDownload()
+                    BuriedPointUtil.addClick("/toolbar/more/downloads")
                 }
             }
             menu_setting.setOnClickListener {
@@ -179,6 +183,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     chromeViewModel.checkToDriveDefaultBrowser()
                     chromeViewModel.openPreference.call()
                     TelemetryWrapper.clickMenuSettings()
+                    BuriedPointUtil.addClick("/toolbar/more/settings")
                 }
             }
             menu_clean.setOnClickListener {
@@ -186,6 +191,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     onDeleteClicked()
                     TelemetryWrapper.clickMenuClearCache()
+                    BuriedPointUtil.addClick("/toolbar/more/clear_cache")
                 }
             }
             menu_vpn.setOnClickListener {
@@ -193,6 +199,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     val intent = Intent(context, SetVpnActivity::class.java)
                     context.startActivity(intent)
+                    BuriedPointUtil.addClick("/toolbar/more/vpn")
                 }
             }
         }

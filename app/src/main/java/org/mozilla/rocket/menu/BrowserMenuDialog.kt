@@ -21,6 +21,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.BottomBarItemAdapter
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.MenuViewModel
@@ -148,6 +149,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showBookmarks.call()
                     TelemetryWrapper.clickMenuBookmark()
+                    BuriedPointUtil.addClick("/toolbar/more/bookmarks")
                 }
             }
             menu_history.setOnClickListener {
@@ -155,6 +157,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showHistory.call()
                     TelemetryWrapper.clickMenuHistory()
+                    BuriedPointUtil.addClick("/toolbar/more/historys")
                 }
             }
             menu_download.setOnClickListener {
@@ -162,6 +165,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     chromeViewModel.showDownloadPanel.call()
                     TelemetryWrapper.clickMenuDownload()
+                    BuriedPointUtil.addClick("/toolbar/more/downloads")
                 }
             }
             menu_vpn.setOnClickListener {
@@ -169,6 +173,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     val intent = Intent(context, SetVpnActivity::class.java)
                     context.startActivity(intent)
+                    BuriedPointUtil.addClick("/toolbar/more/vpn")
                 }
             }
             menu_add_mark.setOnClickListener {
@@ -177,6 +182,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     val isActivated = bottomBarItemAdapter.getItem(BottomBarItemAdapter.TYPE_BOOKMARK)?.view?.isActivated == true
                     TelemetryWrapper.clickToolbarBookmark(!isActivated, TelemetryWrapper.Extra_Value.MENU, 0)
                     chromeViewModel.toggleBookmark()
+                    BuriedPointUtil.addClick("/toolbar/more/addto_bookmarks")
                 }
 
             }
@@ -199,6 +205,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                 postDelayClickEvent {
                     cancel()
                     chromeViewModel.showFindInPage.call()
+                    BuriedPointUtil.addClick("/toolbar/more/findin_page")
                 }
             }
             menu_pin_shortcut.setOnClickListener {
@@ -237,6 +244,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     chromeViewModel.checkToDriveDefaultBrowser()
                     chromeViewModel.openPreference.call()
                     TelemetryWrapper.clickMenuSettings()
+                    BuriedPointUtil.addClick("/toolbar/more/settings")
                 }
             }
             menu_delete.setOnClickListener {
@@ -244,6 +252,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                     cancel()
                     onDeleteClicked()
                     TelemetryWrapper.clickMenuClearCache()
+                    BuriedPointUtil.addClick("/toolbar/more/clear_cache")
                 }
             }
             menu_exit.setOnClickListener {

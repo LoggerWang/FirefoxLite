@@ -22,6 +22,7 @@ import org.mozilla.focus.utils.DimenUtils
 import org.mozilla.icon.FavIconUtils
 import org.mozilla.rocket.adapter.AdapterDelegate
 import org.mozilla.rocket.adapter.DelegateAdapter
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.nightmode.themed.ThemedTextView
 import org.mozilla.strictmodeviolator.StrictModeViolation
@@ -48,6 +49,7 @@ class SiteViewHolder(
         val site = uiModel as Site
         when (site) {
             is Site.UrlSite -> {
+                BuriedPointUtil.addShowVe("/home/site/x", "key1", site.url)
                  text = containerView.findViewById(R.id.text)
                  content_image = containerView.findViewById(R.id.content_image)
                  pin_indicator = containerView.findViewById(R.id.pin_indicator)
@@ -90,7 +92,10 @@ class SiteViewHolder(
                     favicon?.let { getBackgroundColor(it) }?.let { setPinColor(it) }
                 }
 
-                itemView.setOnClickListener { topSiteClickListener.onTopSiteClicked(site, adapterPosition) }
+                itemView.setOnClickListener {
+                    topSiteClickListener.onTopSiteClicked(site, adapterPosition)
+                    BuriedPointUtil.addClick("/home/site/x", "key1", site.url)
+                }
                 if (site is Site.UrlSite.FixedSite) {
                     itemView.setOnLongClickListener(null)
                 } else {

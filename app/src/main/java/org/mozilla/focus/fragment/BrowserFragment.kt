@@ -79,6 +79,7 @@ import org.mozilla.focus.widget.FindInPage
 import org.mozilla.focus.widget.ResizableKeyboardLayout
 import org.mozilla.permissionhandler.PermissionHandle
 import org.mozilla.permissionhandler.PermissionHandler
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.BottomBarItemAdapter
 import org.mozilla.rocket.chrome.BottomBarViewModel
 import org.mozilla.rocket.chrome.ChromeViewModel
@@ -444,14 +445,17 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     BottomBarItemAdapter.TYPE_TAB_COUNTER -> {
                         chromeViewModel.showTabTray.call()
                         TelemetryWrapper.showTabTrayToolbar(Extra_Value.WEBVIEW, position, isInLandscape())
+                        BuriedPointUtil.addClick("/toolbar/page/x")
                     }
                     BottomBarItemAdapter.TYPE_MENU -> {
                         chromeViewModel.showBrowserMenu.call()
                         TelemetryWrapper.showMenuToolbar(Extra_Value.WEBVIEW, position)
+                        BuriedPointUtil.addClick("/toolbar/more/x")
                     }
                     BottomBarItemAdapter.TYPE_HOME -> {
                         chromeViewModel.showNewTab.call()
                         TelemetryWrapper.clickAddTabToolbar(Extra_Value.WEBVIEW, position, isInLandscape())
+                        BuriedPointUtil.addClick("/toolbar/back_home/x")
                     }
                     BottomBarItemAdapter.TYPE_SEARCH -> {
                         chromeViewModel.showUrlInput.value = url
@@ -482,6 +486,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     BottomBarItemAdapter.TYPE_BACK -> {
                         chromeViewModel.goBack.call()
                         TelemetryWrapper.clickToolbarBack(position)
+                        BuriedPointUtil.addClick("/toolbar/back/x")
                     }
                     else -> throw IllegalArgumentException("Unhandled bottom bar item, type: $type")
                 }

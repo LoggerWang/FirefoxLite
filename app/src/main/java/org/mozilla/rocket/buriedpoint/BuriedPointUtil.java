@@ -26,7 +26,7 @@ public class BuriedPointUtil {
         if (!TextUtils.isEmpty(prePage)) {
             map.put("pve_pre", prePage);
         }
-        map.put("result_dur", String.valueOf(durationTime));
+        map.put("result_dur_Num", String.valueOf(durationTime));
         Stats.onEvent(ObjectStore.getContext(), "out_page", map);
         Log.i("real buried point", "out_page" + map.toString());
     }
@@ -41,6 +41,14 @@ public class BuriedPointUtil {
     public static void addShowVe(String curPage) {
         HashMap<String, String> map = new HashMap<>();
         map.put("pve_cur", curPage);
+        Stats.onEvent(ObjectStore.getContext(), "show_ve", map);
+        Log.i("real buried point", "show_ve " + map.toString());
+    }
+
+    public static void addShowVe(String curPage, String key, String value) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("pve_cur", curPage);
+        map.put(key, value);
         Stats.onEvent(ObjectStore.getContext(), "show_ve", map);
         Log.i("real buried point", "show_ve " + map.toString());
     }

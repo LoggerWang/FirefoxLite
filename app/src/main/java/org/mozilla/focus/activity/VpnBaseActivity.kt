@@ -12,6 +12,7 @@ import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.Settings
 import org.mozilla.rocket.util.isNetworkAvailable
+import java.lang.Exception
 
 /**
  * @desc:
@@ -58,6 +59,7 @@ open class VpnBaseActivity : BaseActivity() {
 //            return
 //        }
         if (!isNetworkAvailable(this)) {
+            OpenVpnApi.serverStateLiveData.value= ConnectState.STATE_DISCONNECTED
             Toast.makeText(this,"please check your network", Toast.LENGTH_LONG).show()
             return
 
@@ -68,7 +70,12 @@ open class VpnBaseActivity : BaseActivity() {
             Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
             return
         }
-         zoneList = OpenVpnApi.zoneLiveData.value!!
+         try {
+            zoneList = OpenVpnApi.zoneLiveData.value!!
+         }catch (e:Exception){
+             OpenVpnApi.serverStateLiveData.value= ConnectState.STATE_DISCONNECTED
+             return
+         }
 
         if(!this::zoneList.isInitialized || zoneList.isEmpty()){
 //            OpenVpnApi.serverStateLiveData.value=ConnectState.STATE_DISCONNECTED

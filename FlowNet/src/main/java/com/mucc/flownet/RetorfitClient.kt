@@ -13,7 +13,7 @@ const val HOST_TEST = "http://test-api.freeproxy.network"
 const val HOST_PRE = "https://pre-api.freeproxy.network"
 const val HOST_PRO = "https://api.freeproxy.network"
 
-var baseUrl: String = HOST_TEST
+var baseUrl: String = HOST_PRO
 
 val retrofit: Retrofit by lazy {
     Retrofit.Builder()

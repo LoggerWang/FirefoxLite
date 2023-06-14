@@ -10,13 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anysitebrowser.base.core.log.Logger
+import com.anysitebrowser.base.core.net.NetUtils
+import com.anysitebrowser.tools.core.utils.Utils
 import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
+import org.mozilla.focus.settings.PrePage
 import org.mozilla.focus.vpn.IOnItemClick
 import org.mozilla.focus.vpn.ServerAdapter
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.util.isNetworkAvailable
 import java.util.HashMap
 
@@ -30,12 +34,12 @@ class SetVpnActivity : VpnBaseActivity() {
     private lateinit var rvZone: RecyclerView
 
     private lateinit var rotationAnim: ObjectAnimator
+    var inpageTime = 0L
 //    private lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_vpn)
-
         findViewById<ImageView>(R.id.ivVpnBack).setOnClickListener { onBackPressed() }
         ivWorldBg = findViewById(R.id.ivWorldBg)
         ivConnBg = findViewById(R.id.ivConnBg)
@@ -58,10 +62,19 @@ class SetVpnActivity : VpnBaseActivity() {
     //                if (autoPosition == position)
     //                    settings.set("connectZoneId", "") // 上次连接的zone_id, 如果是自动的, 则为空""
     //                else
+                    if (!isNetworkAvailable(this@SetVpnActivity)) {
+                        OpenVpnApi.serverStateLiveData.value= ConnectState.STATE_DISCONNECTED
+                        Toast.makeText(this@SetVpnActivity,"please check your network", Toast.LENGTH_LONG).show()
+                        return
+                    }
+                    BuriedPointUtil.addClick("/VPN/node_area/x")
                     settings.set("connectZoneId", nodeBean.zone_id)
                     settings.setInt("connect_pos", position)
                     OpenVpnApi.stopVpn()
-                    rvZone.postDelayed({ connectVpn() },500)
+                    rvZone.postDelayed({
+                        OpenVpnApi.connectType = "2"
+                        connectVpn()
+                    }, 500)
                 }
             }, connectPos)
         }
@@ -74,19 +87,24 @@ class SetVpnActivity : VpnBaseActivity() {
         Logger.d("legend","===SetVpnActivity==connectState==$connectState")
 
         OpenVpnApi.serverStateLiveData.observe(this) {
-            Logger.d("legend","===SetVpnActivity==OpenVpnApi.serverStateLiveData.observe==$it")
+            Logger.d("legenddd","===SetVpnActivity==OpenVpnApi.serverStateLiveData.observe==$it")
             setConnectState(it)
+
         }
 
         ivConnBg.setOnClickListener {
             if (!isNetworkAvailable(this@SetVpnActivity)) {
+                OpenVpnApi.serverStateLiveData.value= ConnectState.STATE_DISCONNECTED
                 Toast.makeText(this@SetVpnActivity,"please check your network", Toast.LENGTH_LONG).show()
             }
+            BuriedPointUtil.addClick("/VPN/VPN_switch/x")
             val state = OpenVpnApi.serverStateLiveData.value
             if (state == null || state == ConnectState.STATE_DISCONNECTED) {
+                OpenVpnApi.connectType = "2"
                 connectVpn()
             } else if (state == ConnectState.STATE_START) {
                 OpenVpnApi.stopVpn()
+                OpenVpnApi.showToast(OpenVpnApi.mActivity.getString(de.blinkt.openvpn.R.string.connection_disconnected))
             } else {
                 // 连接中
             }
@@ -106,6 +124,16 @@ class SetVpnActivity : VpnBaseActivity() {
             ivConnBg.isClickable = true
             rvZone.isEnabled = true
             rvZone.isClickable = true
+            if (OpenVpnApi.connectType == "2") {
+                val zoneList = OpenVpnApi.zoneLiveData.value
+                val connectPos = settings.getInt("connect_pos",0)
+                val node = zoneList?.get(connectPos)
+                Logger.d("legenddd", "===断开链接上报====SetVpnActvity==")
+                val connectStartTime = OpenVpnApi.connectStartTime
+                OpenVpnApi.disconnectStartTime- connectStartTime
+                BuriedPointUtil.resultDisconnect("1", node?.zone_name,"",connectStartTime.toString(),Utils.createUniqueId(),node?.zone_id,
+                    NetUtils.getNetworkTypeName(this))
+            }
         } else if (connectState == ConnectState.STATE_START) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_connected)
             ivConnBg.setImageResource(R.mipmap.bg_conn_connected)
@@ -117,6 +145,14 @@ class SetVpnActivity : VpnBaseActivity() {
             ivConnBg.isClickable = true
             rvZone.isEnabled = true
             rvZone.isClickable = true
+            if (OpenVpnApi.connectType == "2") {
+                val zoneList = OpenVpnApi.zoneLiveData.value
+                val connectPos = settings.getInt("connect_pos",0)
+                val node = zoneList?.get(connectPos)
+                Logger.d("legenddd", "===链接成功上报====SetVpnActvity==")
+                BuriedPointUtil.resultConnect("1", node?.zone_name,"success","",
+                    Utils.createUniqueId(),node?.zone_id)
+            }
         } else {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
@@ -155,5 +191,14 @@ class SetVpnActivity : VpnBaseActivity() {
 //            OpenVpnApi.getZoneProfile(map, zoneId)
 //        }
 //    }
+    override fun onResume() {
+        super.onResume()
+        inpageTime = System.currentTimeMillis()
+        BuriedPointUtil.addActivityInpage("/VPN/x/x","/home/x/x")
+    }
+    override fun onPause() {
+        super.onPause()
+        BuriedPointUtil.addActivityOutPage("/VPN/x/x", "/home/x/x", System.currentTimeMillis() - inpageTime)
+    }
 
 }

@@ -1,6 +1,7 @@
 package de.blinkt.openvpn
 
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -22,6 +23,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 object OpenVpnApi {
+
+    var connectStartTime=0L
+    var disconnectStartTime=0L
+    var connectType = "1"//1首页，2vpn页
     var appId = ""
     var userId = ""
     var mCurrentProxyMode = ProxyModeEnum.PROXY_ALL
@@ -174,5 +179,8 @@ object OpenVpnApi {
     }
     fun judgeActivityIninted():Boolean{
         return ::mActivity.isInitialized
+    }
+    fun showToast(txt: String) {
+        Toast.makeText(mActivity, txt, Toast.LENGTH_LONG).show()
     }
 }

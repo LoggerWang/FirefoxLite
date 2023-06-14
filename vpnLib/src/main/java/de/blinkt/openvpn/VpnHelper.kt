@@ -74,10 +74,12 @@ class VpnHelper {
         Log.e("legend", "===VpnHelper===status===$connectionState")
         when (connectionState) {
             "DISCONNECTED" -> {
+                OpenVpnApi.disconnectStartTime = System.currentTimeMillis()
                 OpenVPNService.setDefaultStatus()
                 OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
             }
             "CONNECTED" -> {
+                OpenVpnApi.connectStartTime = System.currentTimeMillis()
                 OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_START
             }// it will use after restart this activity
             "WAIT" -> {}// "waiting for server connection!!"
@@ -111,7 +113,6 @@ class VpnHelper {
     fun stopVpn(): Boolean {
         try {
             OpenVPNThread.stop()
-            showToast(OpenVpnApi.mActivity.getString(R.string.connection_disconnected))
             return true
         } catch (e: Exception) {
             e.printStackTrace()

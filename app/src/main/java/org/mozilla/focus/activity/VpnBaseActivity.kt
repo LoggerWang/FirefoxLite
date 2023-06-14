@@ -22,7 +22,7 @@ import java.lang.Exception
 open class VpnBaseActivity : BaseActivity() {
 
     lateinit var zoneList: ArrayList<ZoneBean>
-    lateinit var settings: Settings
+    open lateinit var settings: Settings
 
     override fun applyLocale() {}
     val vpnZone: Unit

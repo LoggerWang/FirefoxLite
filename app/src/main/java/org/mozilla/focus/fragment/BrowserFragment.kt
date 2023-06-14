@@ -445,7 +445,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     BottomBarItemAdapter.TYPE_TAB_COUNTER -> {
                         chromeViewModel.showTabTray.call()
                         TelemetryWrapper.showTabTrayToolbar(Extra_Value.WEBVIEW, position, isInLandscape())
-                        BuriedPointUtil.addClick("/toolbar/page/x")
+                        BuriedPointUtil.addClick("/toolbar/pages/x")
                     }
                     BottomBarItemAdapter.TYPE_MENU -> {
                         chromeViewModel.showBrowserMenu.call()
@@ -474,6 +474,7 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
                     BottomBarItemAdapter.TYPE_REFRESH -> {
                         chromeViewModel.refreshOrStop.call()
                         TelemetryWrapper.clickToolbarReload(Extra_Value.WEBVIEW, position, isInLandscape())
+                        BuriedPointUtil.addClick("/toolbar/refresh/x")
                     }
                     BottomBarItemAdapter.TYPE_SHARE -> {
                         chromeViewModel.share.call()

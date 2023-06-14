@@ -34,12 +34,12 @@ class SetVpnActivity : VpnBaseActivity() {
     private lateinit var rvZone: RecyclerView
 
     private lateinit var rotationAnim: ObjectAnimator
-    var inpageTime = 0L
-//    private lateinit var settings: Settings
+    override lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_vpn)
+
         findViewById<ImageView>(R.id.ivVpnBack).setOnClickListener { onBackPressed() }
         ivWorldBg = findViewById(R.id.ivWorldBg)
         ivConnBg = findViewById(R.id.ivConnBg)
@@ -48,9 +48,8 @@ class SetVpnActivity : VpnBaseActivity() {
         tvConnStateHint = findViewById(R.id.tvConnStateHint)
         rvZone = findViewById(R.id.rvZone)
 
-        if (!isSettingsInit()) {
-            settings = Settings(this, "vpn_settings")
-        }
+        settings = Settings(this, "vpn_settings")
+
         val zoneList = OpenVpnApi.zoneLiveData.value
 //        val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
         var connectPos = settings.getInt("connect_pos",0)
@@ -75,6 +74,12 @@ class SetVpnActivity : VpnBaseActivity() {
                         OpenVpnApi.connectType = "2"
                         connectVpn()
                     }, 500)
+                    rvZone.postDelayed({ connectVpn() },500)
+                    when(position){
+                        0 -> BuriedPointUtil.addClick("/VPN/node_area/x","node_area","Europe")
+                        1 -> BuriedPointUtil.addClick("/VPN/node_area/x", "node_area", "Asia")
+                        2 -> BuriedPointUtil.addClick("/VPN/node_area/x", "node_area", "America")
+                    }
                 }
             }, connectPos)
         }
@@ -108,11 +113,11 @@ class SetVpnActivity : VpnBaseActivity() {
             } else {
                 // 连接中
             }
+            BuriedPointUtil.addClick("/VPN/VPN_switch/x")
         }
     }
 
     private fun setConnectState(connectState: ConnectState?) {
-        Logger.d("legend","===SetVpnActivity==setConnectState==$connectState")
         if (connectState == null || connectState == ConnectState.STATE_DISCONNECTED) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
@@ -124,16 +129,6 @@ class SetVpnActivity : VpnBaseActivity() {
             ivConnBg.isClickable = true
             rvZone.isEnabled = true
             rvZone.isClickable = true
-            if (OpenVpnApi.connectType == "2") {
-                val zoneList = OpenVpnApi.zoneLiveData.value
-                val connectPos = settings.getInt("connect_pos",0)
-                val node = zoneList?.get(connectPos)
-                Logger.d("legenddd", "===断开链接上报====SetVpnActvity==")
-                val connectStartTime = OpenVpnApi.connectStartTime
-                OpenVpnApi.disconnectStartTime- connectStartTime
-                BuriedPointUtil.resultDisconnect("1", node?.zone_name,"",connectStartTime.toString(),Utils.createUniqueId(),node?.zone_id,
-                    NetUtils.getNetworkTypeName(this))
-            }
         } else if (connectState == ConnectState.STATE_START) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_connected)
             ivConnBg.setImageResource(R.mipmap.bg_conn_connected)
@@ -145,14 +140,6 @@ class SetVpnActivity : VpnBaseActivity() {
             ivConnBg.isClickable = true
             rvZone.isEnabled = true
             rvZone.isClickable = true
-            if (OpenVpnApi.connectType == "2") {
-                val zoneList = OpenVpnApi.zoneLiveData.value
-                val connectPos = settings.getInt("connect_pos",0)
-                val node = zoneList?.get(connectPos)
-                Logger.d("legenddd", "===链接成功上报====SetVpnActvity==")
-                BuriedPointUtil.resultConnect("1", node?.zone_name,"success","",
-                    Utils.createUniqueId(),node?.zone_id)
-            }
         } else {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
@@ -191,6 +178,8 @@ class SetVpnActivity : VpnBaseActivity() {
 //            OpenVpnApi.getZoneProfile(map, zoneId)
 //        }
 //    }
+
+    private var inpageTime : Long = 0
     override fun onResume() {
         super.onResume()
         inpageTime = System.currentTimeMillis()

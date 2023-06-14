@@ -17,7 +17,7 @@ public class BuriedPointUtil {
             map.put("pve_pre", prePage);
         }
         Stats.onEvent(ObjectStore.getContext(), "in_page", map);
-        Log.i("real buried point", "in_page " + map.toString());
+        Log.i("browser buried point", "in_page " + map.toString());
     }
 
     public static void addActivityOutPage(String curPage, String prePage, long durationTime) {
@@ -28,21 +28,21 @@ public class BuriedPointUtil {
         }
         map.put("result_dur_Num", String.valueOf(durationTime));
         Stats.onEvent(ObjectStore.getContext(), "out_page", map);
-        Log.i("real buried point", "out_page" + map.toString());
+        Log.i("browser buried point", "out_page" + map.toString());
     }
 
     public static void addClick(String curPage) {
         HashMap<String, String> map = new HashMap<>();
         map.put("pve_cur", curPage);
         Stats.onEvent(ObjectStore.getContext(), "click_ve", map);
-        Log.i("real buried point", "click_ve " + map.toString());
+        Log.i("browser buried point", "click_ve " + map.toString());
     }
 
     public static void addShowVe(String curPage) {
         HashMap<String, String> map = new HashMap<>();
         map.put("pve_cur", curPage);
         Stats.onEvent(ObjectStore.getContext(), "show_ve", map);
-        Log.i("real buried point", "show_ve " + map.toString());
+        Log.i("browser buried point", "show_ve " + map.toString());
     }
 
     public static void addShowVe(String curPage, String key, String value) {
@@ -50,7 +50,7 @@ public class BuriedPointUtil {
         map.put("pve_cur", curPage);
         map.put(key, value);
         Stats.onEvent(ObjectStore.getContext(), "show_ve", map);
-        Log.i("real buried point", "show_ve " + map.toString());
+        Log.i("browser buried point", "show_ve " + map.toString());
     }
 
 
@@ -59,7 +59,7 @@ public class BuriedPointUtil {
         map.put("pve_cur", curPage);
         map.put(key1, value1);
         Stats.onEvent(ObjectStore.getContext(), "click_ve", map);
-        Log.i("real buried point", "click_ve " + map.toString());
+        Log.i("browser buried point", "click_ve " + map.toString());
     }
 
     public static void addClick(String curPage, String key1, String value1, String key2, String value2) {
@@ -68,14 +68,21 @@ public class BuriedPointUtil {
         map.put(key1, value1);
         map.put(key2, value2);
         Stats.onEvent(ObjectStore.getContext(), "click_ve", map);
-        Log.i("real buried point", "click_ve " + map.toString());
+        Log.i("browser buried point", "click_ve " + map.toString());
     }
 
     public static void addAppStar(String starType) {
         HashMap<String, String> map = new HashMap<>();
         map.put("app_portal", starType);
         Stats.onEvent(ObjectStore.getContext(), "UF_PortalInfo", map);
-        Log.i("real buried point", "UF_PortalInfo " + map.toString());
+        Log.i("browser buried point", "UF_PortalInfo " + map.toString());
+    }
+
+    public static void addSearchResult(String curPage){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("pve_cur", curPage);
+        Stats.onEvent(ObjectStore.getContext(), "search_result", map);
+        Log.i("browser buried point", "search_result " + map.toString());
     }
     public static void resultConnect(String connectType,String nodeArea,String connect_result,String error,String request_id,String node_id) {
         HashMap<String, String> map = new HashMap<>();

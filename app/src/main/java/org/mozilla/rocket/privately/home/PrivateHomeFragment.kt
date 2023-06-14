@@ -27,6 +27,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
 import org.mozilla.focus.telemetry.TelemetryWrapper
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.getActivityViewModel
@@ -190,5 +191,17 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         } else {
             return super.onCreateAnimation(transit, enter, nextAnim)
         }
+    }
+
+    private var inpageTime : Long = 0
+    override fun onResume() {
+        super.onResume()
+        BuriedPointUtil.addActivityInpage("/pages/x/x", "/home/x/x")
+        inpageTime = System.currentTimeMillis()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BuriedPointUtil.addActivityOutPage("/pages/x/x", "/home/x/x", System.currentTimeMillis() - inpageTime)
     }
 }

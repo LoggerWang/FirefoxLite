@@ -309,7 +309,6 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
         (requireActivity() as MainActivity).getVpnZoneList()
 
-//        }
 
 
 

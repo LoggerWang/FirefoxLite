@@ -153,6 +153,7 @@ class VpnHelper {
                     OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                     showToast(OpenVpnApi.mActivity.getString(R.string.file_empty))
                 } else {
+                    Log.d("legend", ("===VpnHelper==getVpnFileMsg===downloadVpnFile==" ) )
                     downloadVpnFile(it.data)
                 }
             }
@@ -161,6 +162,7 @@ class VpnHelper {
 
     fun checkDownUrl() {
 //        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_PREPARE
+        Log.d("legend", ("===VpnHelper==checkDownUrl=====" ) )
         downloadVpnFile(mSelectServerNode!!.downloadUrl)
     }
 
@@ -178,6 +180,7 @@ class VpnHelper {
 //                }
             }.collect {
                 mSelectServerNode!!.vpnFileStr = it.string()
+                Log.d("legend", ("===VpnHelper==downloadVpnFile===prepareVpn==" ) )
                 withContext(Dispatchers.Main) { prepareVpn() }
             }
         }
@@ -243,8 +246,8 @@ class VpnHelper {
         if (OpenVpnApi.serverStateLiveData.value == ConnectState.STATE_PREPARE) {
             if (netCheck(OpenVpnApi.mActivity)) {
                 // Checking permission for network monitor
-                Log.e("muccc_status", "start_vpn")
                 val intent = VpnService.prepare(OpenVpnApi.mActivity)
+                Log.e("legend", "===prepareVpn===STATE_PREPARE====$intent")
                 if (intent != null) OpenVpnApi.mActivity.startActivityForResult(intent, 998)
                 else toStartVpn()    //have already permission
             } else {
@@ -267,17 +270,20 @@ class VpnHelper {
         fileStr = VpnEncryptUtil.Decrypt(
             fileStr, mSelectServerNode!!.salt, mSelectServerNode!!.downloadUrl
         )
-         Log.d("legend", ("===VpnHelper==toStartVpn=====fileStr==$fileStr ==regionName==$regionName" ) )
+//         Log.d("legend", ("===VpnHelper==toStartVpn=====fileStr==$fileStr ==regionName==$regionName" ) )
         try {
             if (OpenVpnApi.mCurrentProxyMode == ProxyModeEnum.PROXY_SMART) {
+                Log.d("legend", ("===VpnHelper==toStartVpn=PROXY_SMART===") )
                 startVpnInternalSmart(
                     fileStr, regionName, OpenVpnApi.userId, OpenVpnApi.mSmartPkgNameList
                 )
             } else if (OpenVpnApi.mCurrentProxyMode == ProxyModeEnum.PROXY_CUSTOM) {
+                Log.d("legend", ("===VpnHelper==toStartVpn=PROXY_CUSTOM===") )
                 startVpnInternal(
                     fileStr, regionName, OpenVpnApi.userId, OpenVpnApi.mCustomPkgNameList
                 )
             } else {
+                Log.d("legend", ("===VpnHelper==startVpn====") )
                 startVpn(fileStr, regionName, OpenVpnApi.userId)
             }
             OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_CONNECTING

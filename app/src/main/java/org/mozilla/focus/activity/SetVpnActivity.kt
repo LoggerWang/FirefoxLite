@@ -20,7 +20,7 @@ import org.mozilla.focus.vpn.ServerAdapter
 import org.mozilla.rocket.util.isNetworkAvailable
 import java.util.HashMap
 
-class SetVpnActivity : AppCompatActivity() {
+class SetVpnActivity : VpnBaseActivity() {
 
     private lateinit var ivWorldBg: ImageView
     private lateinit var ivConnBg: ImageView
@@ -30,7 +30,7 @@ class SetVpnActivity : AppCompatActivity() {
     private lateinit var rvZone: RecyclerView
 
     private lateinit var rotationAnim: ObjectAnimator
-    private lateinit var settings: Settings
+//    private lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +44,9 @@ class SetVpnActivity : AppCompatActivity() {
         tvConnStateHint = findViewById(R.id.tvConnStateHint)
         rvZone = findViewById(R.id.rvZone)
 
-        settings = Settings(this, "vpn_settings")
-
+        if (!isSettingsInit()) {
+            settings = Settings(this, "vpn_settings")
+        }
         val zoneList = OpenVpnApi.zoneLiveData.value
 //        val autoPosition = zoneList!!.indexOfFirst { it.auto == 1 }
         var connectPos = settings.getInt("connect_pos",0)
@@ -93,6 +94,7 @@ class SetVpnActivity : AppCompatActivity() {
     }
 
     private fun setConnectState(connectState: ConnectState?) {
+        Logger.d("legend","===SetVpnActivity==setConnectState==$connectState")
         if (connectState == null || connectState == ConnectState.STATE_DISCONNECTED) {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
             ivConnBg.setImageResource(R.mipmap.bg_conn_unconnect)
@@ -130,28 +132,28 @@ class SetVpnActivity : AppCompatActivity() {
         }
     }
 
-    private fun connectVpn() {
-        val map = HashMap<String, String>()
-        map.put("trace_id", "muccc")
-        map.put("app_id", "com.sailfishvpn.fastly.ios")
-        map.put("app_version", "4010079")
-        map.put("os_version", "29")
-        map.put("user_id", "a.5242925349028eb5")
-//            map.put("country","")
-//            map.put("gaid","")
-        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
-//            map.put("ip","")
-//            map.put("device_id","")
-//            map.put("release_channel","")
-        var zoneId = settings.get("connectZoneId", "")
-//        if (zoneId.isNullOrEmpty()) {
-//            zoneId =
-//                OpenVpnApi.zoneLiveData.value!!.firstOrNull { zoneBean -> zoneBean.auto == 1 }!!.zone_id
+//    private fun connectVpn() {
+//        val map = HashMap<String, String>()
+//        map.put("trace_id", "muccc")
+//        map.put("app_id", "com.sailfishvpn.fastly.ios")
+//        map.put("app_version", "4010079")
+//        map.put("os_version", "29")
+//        map.put("user_id", "a.5242925349028eb5")
+////            map.put("country","")
+////            map.put("gaid","")
+//        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+////            map.put("ip","")
+////            map.put("device_id","")
+////            map.put("release_channel","")
+//        var zoneId = settings.get("connectZoneId", "")
+////        if (zoneId.isNullOrEmpty()) {
+////            zoneId =
+////                OpenVpnApi.zoneLiveData.value!!.firstOrNull { zoneBean -> zoneBean.auto == 1 }!!.zone_id
+////        }
+//        if (zoneId != null) {
+//            Logger.d("legend","===SetVanActivity==getZoneProfile==")
+//            OpenVpnApi.getZoneProfile(map, zoneId)
 //        }
-        if (zoneId != null) {
-            Logger.d("legend","===SetVanActivity==getZoneProfile==")
-            OpenVpnApi.getZoneProfile(map, zoneId)
-        }
-    }
+//    }
 
 }

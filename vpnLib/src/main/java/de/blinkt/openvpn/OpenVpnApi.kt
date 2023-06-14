@@ -100,7 +100,7 @@ object OpenVpnApi {
                 getZoneList(map)
             }.catchError {
                 mActivity.runOnUiThread {
-                    Log.d("legend", ("===Error==getZoneProfile==" + this.message) )
+                    Log.d("legend", ("===Error==getZoneList==" + this.message) )
                     serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
                     netLiveData.value = ServerState.SERVER_STATE_ERROR
                 }
@@ -135,6 +135,7 @@ object OpenVpnApi {
                     System.out.println("===getZoneProfile===${profile.toString()}")
                     withContext(Dispatchers.Main) {
                         try {
+                            Log.d("legend", ("===OpenVpnApi==getZoneProfile== collect ===" ) )
                             checkDownloadUrl(profile.server_code, profile.salt, profile.link)
                         } catch (e: Exception) {
                             Log.d("legend", ("===Error==getZoneProfile==Exception==" + e))
@@ -170,5 +171,8 @@ object OpenVpnApi {
 
     fun stopVpn() {
         VpnHelper.instance.stopVpn()
+    }
+    fun judgeActivityIninted():Boolean{
+        return ::mActivity.isInitialized
     }
 }

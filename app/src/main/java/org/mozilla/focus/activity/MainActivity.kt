@@ -14,6 +14,7 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -36,6 +37,8 @@ import com.anysitebrowser.tools.core.utils.AppStarter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.Lazy
+import de.blinkt.openvpn.OpenVpnApi
+import de.blinkt.openvpn.utils.ConnectState
 import org.mozilla.focus.R
 import org.mozilla.focus.fragment.BrowserFragment
 import org.mozilla.focus.fragment.ListPanelDialog
@@ -95,7 +98,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(),
+class MainActivity : VpnBaseActivity(),
         ThemeManager.ThemeHost,
         TabsSessionProvider.SessionHost,
         ScreenNavigator.Provider,
@@ -453,7 +456,13 @@ class MainActivity : BaseActivity(),
     public override fun onDestroy() {
         sessionManager?.destroy()
         unregisterFirebaseEventReceiver()
+        Log.d("legend", ("===MainActivity==onDestroy===serverStateLiveData.value = ConnectState.STATE_DISCONNECTED=") )
+        OpenVpnApi.stopVpn()
+        //解决Android10杀死应用再次进入时值仍为上次的值
+        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+
         super.onDestroy()
+
 
         // 任务调度器
         TaskManager.getInstance()

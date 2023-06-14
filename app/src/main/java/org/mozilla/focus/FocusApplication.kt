@@ -346,4 +346,11 @@ open class FocusApplication : LocaleAwareApplication(), LifecycleObserver {
     override fun getApplicationContext(): Context? {
         return this
     }
+//    Log.d("legend", ("===MainActivity==onDestroy===serverStateLiveData.value = ConnectState.STATE_DISCONNECTED=") )
+//    //解决Android10杀死应用再次进入时值仍为上次的值
+//    OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+
+
+
+
 }

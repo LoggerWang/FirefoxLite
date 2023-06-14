@@ -208,8 +208,8 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         themeManager = (context as ThemeManager.ThemeHost).themeManager
         initSearchToolBar()
         initBackgroundView()
@@ -227,20 +227,32 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             FirebaseHelper.retrieveTrace("coldStart")?.stopAndClose()
             false
         }
+        Logger.d("legend", "===onActivityCreated===serverStateLiveData.value()==="+OpenVpnApi.serverStateLiveData.value )
         initVpn()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-    private lateinit var zoneList: ArrayList<ZoneBean>
-    private val settings by lazy { Settings(activity as MainActivity, "vpn_settings") }
+    }
+
+
+
+
     private var mIsStateChange = false
     var vpnSwitchButtonCheckState = false
     private fun initVpn() {
-        Logger.d("legend", "===initVpn===")
-        val autoConnectVpn = settings.getBoolean("autoConnectVpn", false)
+        Logger.d("legend", "===initVpn===serverStateLiveData.value==="+OpenVpnApi.serverStateLiveData.value)
         // connectZoneId  // 上次连接的zone_id, 如果是自动的, 则为空""
-        vpnSwitchButton.isChecked=false
-        OpenVpnApi.setActivity(activity as MainActivity)
+        vpnSwitchButton.isChecked = OpenVpnApi.serverStateLiveData.value!=ConnectState.STATE_DISCONNECTED && OpenVpnApi.serverStateLiveData.value!=null
+        ivVpnProtect.setImageResource(if (OpenVpnApi.serverStateLiveData.value!=ConnectState.STATE_DISCONNECTED && OpenVpnApi.serverStateLiveData.value!=null) R.drawable.vpn_thunder_open else R.drawable.vpn_thunder_off)
+        vpnSwitchButton.isEnabled = (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_START
+                ||OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_DISCONNECTED
+                ||OpenVpnApi.serverStateLiveData.value==null
+                )
+//        if (!OpenVpnApi.judgeActivityIninted()) {
+            OpenVpnApi.setActivity(activity as MainActivity)
+//        }
 //        OpenVpnApi.setBaseUrl("http://test-api.cybervpn.pro/")
 //        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
         OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(requireContext()))
@@ -249,13 +261,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         //白名单
         OpenVpnApi.mCustomPkgNameList.add((activity as MainActivity).packageName)
         OpenVpnApi.zoneLiveData.observe(activity as MainActivity) {
-            zoneList = it
-//            if (autoConnectVpn) {
-//                vpnSwitchButton.isChecked = true
-//            }
-            if (vpnSwitchButton.isChecked) {
-                connectVpn()
-            }
+            vpnSwitchButton.postDelayed({
+                getMainActivity().zoneList = it
+                if (vpnSwitchButton.isChecked && (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_DISCONNECTED
+                            || OpenVpnApi.serverStateLiveData.value==null)) {
+                    Logger.d("legend", "===zoneLiveData.observe=====connectVpn====$it")
+                    getMainActivity().connectVpn()
+                }
+            },100)
+           Logger.d("legend","===MainActivity==zoneLiveData.observe==$it")
         }
         OpenVpnApi.serverStateLiveData.observe(requireActivity()) {
             Logger.d("legend", "===serverStateLiveData===$it")
@@ -283,34 +297,20 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             }
         }
         OpenVpnApi.netLiveData.observe(requireActivity()){
-            Logger.d("legend", "===serverStateLiveData===$it")
+            Logger.d("legend", "==netLiveData===serverStateLiveData===$it")
             when (it) {
                 ServerState.SERVER_STATE_ERROR ->{
-                    Toast.makeText(requireContext(),"something goes wrong from server",Toast.LENGTH_LONG).show()
+                    if (isAdded) {
+                        Toast.makeText(requireActivity(),"something goes wrong from server",Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
 
-        val map = HashMap<String, String>()
-//        map.put("trace_id", "muccc")
-//        map.put("app_id", "com.sailfishvpn.fastly.ios")
-//        map.put("app_version", "4010079")
-//        map.put("os_version", "29")
-//        map.put("user_id", "a.5242925349028eb5")
-//        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+        (requireActivity() as MainActivity).getVpnZoneList()
 
-        map.put("trace_id", Utils.createUniqueId())
-        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
-        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
-        map.put("os_version", Build.VERSION.SDK_INT.toString())
-        map.put("user_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
-//            map.put("country","")
-//            map.put("gaid","")
-        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
-        OpenVpnApi.getZoneList(map)
-        vpnSwitchButton.setOnClickListener {
+//        }
 
-        }
 
 
         vpnSwitchButton.setOnCheckedChangeListener { view, isChecked ->
@@ -321,66 +321,70 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             }
             BuriedPointUtil.addClick("/home/VPN_switch/x")
             Logger.d("legend","===HomeFragment==setOnCheckedChangeListener==isChecked==$isChecked")
-            if (isChecked) connectVpn() else OpenVpnApi.stopVpn()
+            if (isChecked) getMainActivity().connectVpn() else OpenVpnApi.stopVpn()
 //            settings.setBoolean("autoConnectVpn", isChecked)
             ivVpnProtect.setImageResource(if (isChecked) R.drawable.vpn_thunder_open else R.drawable.vpn_thunder_off)
         }
 
         view_vpn.setOnLongClickListener {
-            if (this::zoneList.isInitialized) {
+//            if (this::zoneList.isInitialized) {
                 val intent = Intent(appContext, SetVpnActivity::class.java)
                 startActivity(intent)
-            } else {
-                OpenVpnApi.getZoneList(map)
-            }
+//            } else {
+//                OpenVpnApi.getZoneList(map)
+//            }
             true
         }
     }
 
-    private fun connectVpn() {
-        if (!isNetworkAvailable(requireContext())) {
-            Toast.makeText(requireContext(),"please check your network",Toast.LENGTH_LONG).show()
-            return
-
-        }
-        if (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_PREPARE
-            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_CONNECTING
-            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_START) {
-            Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
-            return
-        }
-        if(!this::zoneList.isInitialized){
-//            OpenVpnApi.serverStateLiveData.value=ConnectState.STATE_DISCONNECTED
-            return
-        }
-        val map = HashMap<String, String>()
-//        map.put("trace_id", "muccc")
-//        map.put("app_id", "com.sailfishvpn.fastly.ios")
-//        map.put("app_version", "4010079")
-//        map.put("os_version", "29")
-//        map.put("user_id", "a.5242925349028eb5")
+//    private fun connectVpn() {
+//        if (!isAdded) {
+//            Logger.d("legend","===HomeFragment==connectVpn=时候，isAdded==false???===${OpenVpnApi.serverStateLiveData.value}")
+//            return
+//        }
+//        if (!isNetworkAvailable(requireActivity())) {
+//            Toast.makeText(requireActivity(),"please check your network",Toast.LENGTH_LONG).show()
+//            return
+//
+//        }
+//        if (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_PREPARE
+//            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_CONNECTING
+//            || OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_START) {
+//            Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
+//            return
+//        }
+//        if(!this::zoneList.isInitialized){
+////            OpenVpnApi.serverStateLiveData.value=ConnectState.STATE_DISCONNECTED
+//            return
+//        }
+//        val map = HashMap<String, String>()
+////        map.put("trace_id", "muccc")
+////        map.put("app_id", "com.sailfishvpn.fastly.ios")
+////        map.put("app_version", "4010079")
+////        map.put("os_version", "29")
+////        map.put("user_id", "a.5242925349028eb5")
+//////            map.put("country","")
+//////            map.put("gaid","")
+////        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
+//
+//        map.put("trace_id", Utils.createUniqueId())
+//        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
+//        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
+//        map.put("os_version", Build.VERSION.SDK_INT.toString())
+//        map.put("user_id", DeviceHelper.getOrCreateDeviceId(requireActivity()))
 ////            map.put("country","")
 ////            map.put("gaid","")
-//        map.put("beyla_id", "fa441a4acf544cf0b9179d7d898cd7b3")
-
-        map.put("trace_id", Utils.createUniqueId())
-        map.put("app_id", AppDist.getAppId(ObjectStore.getContext()))
-        map.put("app_version", Utils.getVersionCode(ObjectStore.getContext()).toString())
-        map.put("os_version", Build.VERSION.SDK_INT.toString())
-        map.put("user_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
-//            map.put("country","")
-//            map.put("gaid","")
-        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(requireContext()))
-
-
-        val bean = zoneList.firstOrNull { zoneBean ->
-            val connectZoneId = settings.get("connectZoneId", "")
-            if (connectZoneId!!.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id
-        }
-        Logger.d("legend","===HomeFragment==getZoneProfile==")
-        if (bean != null) OpenVpnApi.getZoneProfile(map, bean.zone_id)
-
-    }
+//        map.put("beyla_id", DeviceHelper.getOrCreateDeviceId(requireActivity()))
+//
+//
+//        val bean = zoneList.firstOrNull { zoneBean ->
+//            val connectZoneId = settings.get("connectZoneId", "")
+//            if (connectZoneId!!.isEmpty()) zoneBean.auto == 1 else connectZoneId == zoneBean.zone_id
+//        }
+//        Logger.d("legend","===HomeFragment==getZoneProfile==")
+//        if (bean != null) OpenVpnApi.getZoneProfile(map, bean.zone_id)
+//
+//    }
 
     private fun initSearchToolBar() {
         home_fragment_fake_input_text.setOnClickListener {
@@ -465,7 +469,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     private fun initBackgroundView() {
         themeManager.subscribeThemeChange(home_background)
         val backgroundGestureDetector =
-            GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
+            GestureDetector(requireActivity(), object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDown(e: MotionEvent?): Boolean {
                     return true
                 }
@@ -578,7 +582,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 content_hub.setItems(items)
             })
             openContentPage.observe(viewLifecycleOwner, Observer {
-                val context = requireContext()
+                val context = requireActivity()
                 when (it) {
                     is ContentHub.Item.Travel -> startActivity(TravelActivity.getStartIntent(context))
                     is ContentHub.Item.Shopping -> startActivity(
@@ -656,8 +660,12 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         themeManager.unsubscribeThemeChange(home_background)
         main_list.unregisterOnPageChangeCallback(topSitesPageChangeCallback)
         homeViewModel.showToast.removeObserver(toastObserver)
-        //解决Android10杀死应用再次进入时值仍为上次的值
-        OpenVpnApi.serverStateLiveData.value = ConnectState.STATE_DISCONNECTED
+        Logger.d("legend","===MainActivity==onDestroyView==")
+    }
+
+    override fun onDestroy() {
+        Logger.d("legend","===MainActivity==onDestroy==")
+        super.onDestroy()
     }
 
     override fun getFragment(): Fragment = this
@@ -914,7 +922,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     }
 
     private fun showMissionCompleteDialog(mission: Mission) {
-        DialogUtils.createMissionCompleteDialog(requireContext(), mission.imageUrl)
+        DialogUtils.createMissionCompleteDialog(requireActivity(), mission.imageUrl)
                 .onPositive {
                     homeViewModel.onRedeemCompletedMissionButtonClicked(mission)
                 }
@@ -942,15 +950,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
     }
 
     private fun openRewardPage() {
-        startActivity(RewardActivity.getStartIntent(requireContext()))
+        startActivity(RewardActivity.getStartIntent(requireActivity()))
     }
 
     private fun openProfilePage() {
-        startActivity(ProfileActivity.getStartIntent(requireContext()))
+        startActivity(ProfileActivity.getStartIntent(requireActivity()))
     }
 
     private fun openMissionDetailPage(mission: Mission) {
-        startActivity(RewardActivity.getStartIntent(requireContext(), RewardActivity.DeepLink.MissionDetailPage(mission)))
+        startActivity(RewardActivity.getStartIntent(requireActivity(), RewardActivity.DeepLink.MissionDetailPage(mission)))
     }
 
     companion object {
@@ -969,5 +977,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             }
         }
 
+    }
+    fun getMainActivity():MainActivity{
+        var requireActivity = requireActivity()
+        return requireActivity as MainActivity
     }
 }

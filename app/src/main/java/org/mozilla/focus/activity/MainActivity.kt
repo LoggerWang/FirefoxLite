@@ -56,6 +56,7 @@ import org.mozilla.focus.web.WebViewProvider
 import org.mozilla.focus.widget.StartView
 import org.mozilla.rocket.appupdate.InAppUpdateController
 import org.mozilla.rocket.appupdate.InAppUpdateIntro
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.buriedpoint.SDKBeylaOnDestroyAsyncTask
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.ChromeViewModel.OpenUrlAction
@@ -216,6 +217,7 @@ class MainActivity : BaseActivity(),
         TaskManager.getInstance()
             .start()
         checkVersionUpdate()
+        BuriedPointUtil.addAppStar("share_fm_launcher")
     }
 
     private fun initViews() {

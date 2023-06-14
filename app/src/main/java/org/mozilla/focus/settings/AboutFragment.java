@@ -117,10 +117,13 @@ public class AboutFragment extends Fragment {
         if (remoteVersionCode > 0 && remoteVersionCode > localVersionCode) {
             //has new version
             BuriedPointUtil.addClick("/about/update/x","has_new_version", "true");
-            AppStarter.startAppMarket(requireContext(), requireContext().getApplicationInfo().packageName, "", "update_user_check", false);
+            AppStarter.startAppMarket(requireContext(), requireContext().getApplicationInfo().packageName,
+                    "", "update_user_check", false);
+            BuriedPointUtil.addClick("settings/update/x","result","success");
         } else {
             BuriedPointUtil.addClick("/about/update/x","has_new_version", "false");
             SafeToast.showToast(getResources().getString(R.string.setting_no_new_version), Toast.LENGTH_SHORT);
+            BuriedPointUtil.addClick("settings/update/x","result","noneed");
         }
     }
 

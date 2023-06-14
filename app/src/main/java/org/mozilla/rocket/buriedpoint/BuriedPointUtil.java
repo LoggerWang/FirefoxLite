@@ -70,4 +70,11 @@ public class BuriedPointUtil {
         Stats.onEvent(ObjectStore.getContext(), "click_ve", map);
         Log.i("real buried point", "click_ve " + map.toString());
     }
+
+    public static void addAppStar(String starType) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("app_portal", starType);
+        Stats.onEvent(ObjectStore.getContext(), "UF_PortalInfo", map);
+        Log.i("real buried point", "UF_PortalInfo " + map.toString());
+    }
 }

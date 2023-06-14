@@ -386,6 +386,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         home_fragment_fake_input_text.setOnClickListener {
             chromeViewModel.showUrlInput.call()
             TelemetryWrapper.showSearchBarHome()
+            BuriedPointUtil.addClick("/search/x/x", "key1", "1")
         }
         home_fragment_menu_button.apply {
             setOnClickListener {

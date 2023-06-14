@@ -29,6 +29,7 @@ import org.mozilla.focus.utils.DialogUtils.realShare
 import org.mozilla.focus.utils.FirebaseHelper.getFirebase
 import org.mozilla.focus.utils.Settings
 import org.mozilla.focus.widget.DefaultBrowserPreference
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.debugging.DebugActivity.Companion.getStartIntent
 import org.mozilla.rocket.deeplink.DeepLinkConstants
 import org.mozilla.rocket.nightmode.AdjustBrightnessDialog.Intents.getStartIntentFromSetting
@@ -135,11 +136,14 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
         }
     }
 
+    var inpageTime : Long = 0
     override fun onResume() {
         super.onResume()
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         val preference = findPreference(getString(R.string.pref_key_default_browser)) as DefaultBrowserPreference?
         preference?.onFragmentResume()
+        BuriedPointUtil.addActivityInpage("/settings/x/x",PrePage.prePublicString)
+        inpageTime = System.currentTimeMillis()
     }
 
     override fun onPause() {
@@ -147,6 +151,7 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
         val preference = findPreference(getString(R.string.pref_key_default_browser)) as DefaultBrowserPreference?
         preference?.onFragmentPause()
         preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        BuriedPointUtil.addActivityOutPage("/settings/x/x", PrePage.prePublicString, System.currentTimeMillis() - inpageTime)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {

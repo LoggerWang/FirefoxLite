@@ -247,9 +247,9 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                 ||OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_DISCONNECTED
                 ||OpenVpnApi.serverStateLiveData.value==null
                 )
-        if (!OpenVpnApi.judgeActivityIninted()) {
+//        if (!OpenVpnApi.judgeActivityIninted()) {
             OpenVpnApi.setActivity(activity as MainActivity)
-        }
+//        }
 //        OpenVpnApi.setBaseUrl("http://test-api.cybervpn.pro/")
 //        OpenVpnApi.setAppIdUserId("com.tiktok.forbannedcountries", "a.5242925349028eb5")
         OpenVpnApi.setAppIdUserId(AppDist.getAppId(ObjectStore.getContext()), DeviceHelper.getOrCreateDeviceId(requireContext()))
@@ -258,15 +258,15 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         //白名单
         OpenVpnApi.mCustomPkgNameList.add((activity as MainActivity).packageName)
         OpenVpnApi.zoneLiveData.observe(activity as MainActivity) {
-            getMainActivity().zoneList = it
-//            if (autoConnectVpn) {
-//                vpnSwitchButton.isChecked = true
-//            }
-            if (vpnSwitchButton.isChecked && (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_DISCONNECTED
-                        || OpenVpnApi.serverStateLiveData.value==null)) {
-                Logger.d("legend", "===zoneLiveData.observe=====connectVpn====$it")
-                getMainActivity().connectVpn()
-            }
+            vpnSwitchButton.postDelayed({
+                getMainActivity().zoneList = it
+                if (vpnSwitchButton.isChecked && (OpenVpnApi.serverStateLiveData.value==ConnectState.STATE_DISCONNECTED
+                            || OpenVpnApi.serverStateLiveData.value==null)) {
+                    Logger.d("legend", "===zoneLiveData.observe=====connectVpn====$it")
+                    getMainActivity().connectVpn()
+                }
+            },100)
+           Logger.d("legend","===MainActivity==zoneLiveData.observe==$it")
         }
         OpenVpnApi.serverStateLiveData.observe(requireActivity()) {
             Logger.d("legend", "===serverStateLiveData===$it")
@@ -645,9 +645,11 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         themeManager.unsubscribeThemeChange(home_background)
         main_list.unregisterOnPageChangeCallback(topSitesPageChangeCallback)
         homeViewModel.showToast.removeObserver(toastObserver)
+        Logger.d("legend","===MainActivity==onDestroyView==")
     }
 
     override fun onDestroy() {
+        Logger.d("legend","===MainActivity==onDestroy==")
         super.onDestroy()
     }
 
@@ -960,6 +962,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
 
     }
     fun getMainActivity():MainActivity{
-        return activity as MainActivity
+        var requireActivity = requireActivity()
+        return requireActivity as MainActivity
     }
 }

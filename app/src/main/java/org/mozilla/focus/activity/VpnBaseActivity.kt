@@ -68,6 +68,8 @@ open class VpnBaseActivity : BaseActivity() {
             Logger.d("legend","===HomeFragment==connectVpn=时候，正在连接货已经连接成功===${OpenVpnApi.serverStateLiveData.value}")
             return
         }
+         zoneList = OpenVpnApi.zoneLiveData.value!!
+
         if(!this::zoneList.isInitialized || zoneList.isEmpty()){
 //            OpenVpnApi.serverStateLiveData.value=ConnectState.STATE_DISCONNECTED
             return

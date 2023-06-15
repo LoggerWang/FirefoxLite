@@ -76,12 +76,12 @@ public class ListPanelDialog extends DialogFragment {
         title = v.findViewById(R.id.title);
         View contentLayout = v.findViewById(R.id.container);
         final float cornerRadius = getResources().getDimension(R.dimen.menu_corner_radius26);
-        contentLayout.setOutlineProvider(new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), cornerRadius);
-            }
-        });
+//        contentLayout.setOutlineProvider(new ViewOutlineProvider() {
+//            @Override
+//            public void getOutline(View view, Outline outline) {
+//                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), cornerRadius);
+//            }
+//        });
         contentLayout.setClipToOutline(true);
         View bottomsheet = v.findViewById(R.id.bottom_sheet);
         scrollView = (NestedScrollView) v.findViewById(R.id.main_content);

@@ -31,6 +31,9 @@ import org.mozilla.rocket.shopping.search.ui.ShoppingSearchActivity
 import org.mozilla.rocket.widget.LifecycleBottomSheetDialog
 import javax.inject.Inject
 
+/**
+ * 首页底部弹窗
+ */
 class HomeMenuDialog : LifecycleBottomSheetDialog {
 
     @Inject
@@ -128,14 +131,14 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
         menu_setting = rootView.findViewById(R.id.menu_setting)
         menu_clean = rootView.findViewById(R.id.menu_clean)
         menu_vpn = rootView.findViewById(R.id.menu_vpn)
-        scroll_view.apply {
-            outlineProvider = object : ViewOutlineProvider() {
-                override fun getOutline(view: View, outline: Outline) {
-                    outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
-                }
-            }
-            clipToOutline = true
-        }
+//        scroll_view.apply {
+//            outlineProvider = object : ViewOutlineProvider() {
+//                override fun getOutline(view: View, outline: Outline) {
+//                    outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
+//                }
+//            }
+//            clipToOutline = true
+//        }
         initMenuTabs(rootView)
         initMenuItems(rootView)
         setContentView(rootView)

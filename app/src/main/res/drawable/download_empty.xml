@@ -1,56 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="40dp"
-    android:height="41dp"
-    android:viewportWidth="40"
-    android:viewportHeight="41">
-
-    <path
-        android:fillType="evenOdd"
-        android:pathData="M 0 0 H 40 V 40 H 0 V 0 Z" />
-    <group
-            android:translateX="8"
-            android:translateY="2">
-        <path
-            android:name="path-1"
-            android:fillType="evenOdd"
-            android:strokeColor="#FF737373"
-            android:strokeWidth="4"
-            android:strokeLineJoin="round"
-            android:strokeLineCap="round"
-            android:pathData="M12 0v25" />
-        <path
-            android:name="path-1"
-            android:fillType="evenOdd"
-            android:strokeColor="#FF737373"
-            android:strokeWidth="1"
-            android:strokeLineJoin="round"
-            android:strokeLineCap="round"
-            android:pathData="M12 0v25" />
-        <path
-            android:name="path-1"
-            android:fillType="evenOdd"
-            android:strokeColor="#FF737373"
-            android:strokeWidth="4"
-            android:strokeLineJoin="round"
-            android:strokeLineCap="round"
-            android:pathData="M12 0v25" />
-        <path
-            android:fillType="evenOdd"
-            android:strokeColor="#FF737373"
-            android:strokeWidth="4"
-            android:strokeLineJoin="round"
-            android:strokeLineCap="round"
-            android:pathData="M 0 15 L 12.5 27 L 25 15 " />
-        <path
-            android:fillType="evenOdd"
-            android:strokeColor="#FF737373"
-            android:strokeWidth="4"
-            android:strokeLineJoin="round"
-            android:strokeLineCap="round"
-            android:pathData="M0 35h25" />
-    </group>
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <path
+      android:pathData="M80.84,58.74L80.84,71.02C80.84,76.44 76.37,80.84 70.85,80.84L37.15,80.84C31.63,80.84 27.16,76.44 27.16,71.02L27.16,58.74"
+      android:strokeWidth="6.31578947"
+      android:fillColor="#00000000"
+      android:strokeColor="#999999"
+      android:fillType="evenOdd"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M54.78,64.94C53.69,65.34 52.42,65.1 51.56,64.22C51.31,63.97 51.11,63.69 50.97,63.39L37.19,49.44C35.99,48.22 35.99,46.27 37.2,45.05C38.39,43.85 40.32,43.85 41.52,45.03C41.53,45.04 41.53,45.05 41.54,45.06L50.78,54.42L50.78,27.16C50.78,25.41 52.2,24 53.94,24C55.68,24 57.1,25.41 57.1,27.16L57.1,54.21L66.07,45.12C66.08,45.12 66.09,45.11 66.09,45.1C67.29,43.91 69.23,43.92 70.41,45.12C71.62,46.33 71.62,48.29 70.42,49.51L56.73,63.37C56.33,64.13 55.62,64.71 54.78,64.94Z"
+      android:strokeWidth="1"
+      android:fillColor="#999999"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

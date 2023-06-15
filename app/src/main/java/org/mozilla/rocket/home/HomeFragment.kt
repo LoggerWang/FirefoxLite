@@ -287,6 +287,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                         requireActivity().runOnUiThread { vpnSwitchButton.isChecked = true }
                     }
                     vpnSwitchButton.isEnabled = true
+                    Logger.d("legenddd", "===链接上报====HomeFragment=OpenVpnApi.connectType=${OpenVpnApi.connectType}")
                     if (OpenVpnApi.connectType == "1") {
                         var zoneList = OpenVpnApi.zoneLiveData.value
                         var connectPos = settings.getInt("connect_pos",0)
@@ -302,7 +303,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
                         requireActivity().runOnUiThread { vpnSwitchButton.isChecked = false }
                     }
                     vpnSwitchButton.isEnabled = true
-                    Logger.d("legend", "===serverStateLiveData=66666666==$it ===ischecked==${vpnSwitchButton.isChecked}")
+                    Logger.d("legend", "===serverStateLiveData=66666666==$it ===ischecked==${vpnSwitchButton.isChecked}"+"===type==${OpenVpnApi.connectType}")
                     if (OpenVpnApi.connectType == "1") {
                         var zoneList = OpenVpnApi.zoneLiveData.value
                         var connectPos = settings.getInt("connect_pos",0)
@@ -339,13 +340,18 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
             }
             BuriedPointUtil.addClick("/home/VPN_switch/x")
             Logger.d("legend","===HomeFragment==setOnCheckedChangeListener==isChecked==$isChecked")
-            if (isChecked) {
-                OpenVpnApi.connectType = "1"
-                getMainActivity().connectVpn()
-            }else {
-                OpenVpnApi.stopVpn()
-                OpenVpnApi.showToast(OpenVpnApi.mActivity.getString(de.blinkt.openvpn.R.string.connection_disconnected))
+            try {
+                if (isChecked) {
+                    OpenVpnApi.connectType = "1"
+                    getMainActivity().connectVpn()
+                }else {
+                    OpenVpnApi.stopVpn()
+                    OpenVpnApi.showToast(OpenVpnApi.mActivity.getString(de.blinkt.openvpn.R.string.connection_disconnected))
+                }
+            }catch (e:Exception){
+                Logger.d("legend","===HomeFragment===vpnSwitchButton execption=isChecked==$isChecked")
             }
+
 //            settings.setBoolean("autoConnectVpn", isChecked)
             ivVpnProtect.setImageResource(if (isChecked) R.drawable.vpn_thunder_open else R.drawable.vpn_thunder_off)
         }

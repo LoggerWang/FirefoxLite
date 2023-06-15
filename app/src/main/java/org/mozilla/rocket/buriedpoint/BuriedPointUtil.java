@@ -98,8 +98,8 @@ public class BuriedPointUtil {
         map.put("request_id", request_id);
         map.put("node_id", node_id);
         map.put("pve_cur", connectType.equals("1")?"/home/x/x":"VPN/x/x");
+        Log.i("resultConnect", "result_connect " + map.toString());
         Stats.onEvent(ObjectStore.getContext(), "result_connect", map);
-        Log.i("real buried point", "result_connect " + map.toString());
     }
     public static void resultDisconnect(String connectType,String nodeArea,String error,String duration,String request_id,String node_id,String net_type) {
         HashMap<String, String> map = new HashMap<>();

@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -114,6 +115,7 @@ public class TabCounter extends ThemedRelativeLayout {
 
         text.setPadding(0, 0, 0, 0);
         text.setText(formatForDisplay(count));
+        text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         this.count = count;
     }
 

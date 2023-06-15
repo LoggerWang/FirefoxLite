@@ -35,6 +35,9 @@ import org.mozilla.rocket.nightmode.AdjustBrightnessDialog
 import org.mozilla.rocket.widget.LifecycleBottomSheetDialog
 import javax.inject.Inject
 
+/**
+ * 浏览器底部弹窗
+ */
 class BrowserMenuDialog : LifecycleBottomSheetDialog {
 
     @Inject
@@ -99,14 +102,14 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
 
     private fun initLayout() {
         rootView = layoutInflater.inflate(R.layout.bottom_sheet_browser_menu, null)
-        rootView.findViewById<LinearLayout>(R.id.content_layout).apply {
-            outlineProvider = object : ViewOutlineProvider() {
-                override fun getOutline(view: View, outline: Outline) {
-                    outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
-                }
-            }
-            clipToOutline = true
-        }
+//        rootView.findViewById<LinearLayout>(R.id.content_layout).apply {
+//            outlineProvider = object : ViewOutlineProvider() {
+//                override fun getOutline(view: View, outline: Outline) {
+//                    outline.setRoundRect(0, 0, view.width, view.height, resources.getDimension(R.dimen.menu_corner_radius))
+//                }
+//            }
+//            clipToOutline = true
+//        }
         img_screenshots = rootView.findViewById(R.id.img_screenshots)
         scroll_view = rootView.findViewById(R.id.scroll_view)
         menu_screenshots = rootView.findViewById(R.id.menu_screenshots)

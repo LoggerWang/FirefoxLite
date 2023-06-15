@@ -14,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:orientation="vertical"
-        android:background="@color/colorMenuBackground">
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/background_menu" >
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"

@@ -13,7 +13,7 @@
 
         <ImageView
             style="@style/PanelEmptyHolderImage"
-            android:src="@drawable/ic_illustration_no_bookmarks"
+            android:src="@drawable/ic_add_bookmark"
             tools:ignore="ContentDescription" />
 
         <TextView

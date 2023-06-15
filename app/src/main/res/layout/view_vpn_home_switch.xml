@@ -31,10 +31,13 @@
     <com.suke.widget.SwitchButton
         android:id="@+id/vpn_switch_button"
         android:layout_width="48dp"
-        android:layout_height="24dp"
+        android:layout_height="26dp"
         android:layout_marginEnd="15dp"
         app:sb_checked="false"
         android:layout_alignParentEnd="true"
+        app:sb_uncheckcircle_color="#E4E5E9"
+        app:sb_uncheck_color="#E4E5E9"
+        app:sb_background="#E4E5E9"
         app:sb_checked_color="#2e60ff"
         app:sb_show_indicator="false" />
 </org.mozilla.rocket.nightmode.themed.ThemedLinearLayout>

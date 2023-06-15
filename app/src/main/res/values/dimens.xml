@@ -20,6 +20,7 @@
 
     <dimen name="menu_elevation">8dp</dimen>
     <dimen name="menu_corner_radius">16dp</dimen>
+    <dimen name="menu_corner_radius26">26dp</dimen>
     <dimen name="menu_horizontal_margin">4dp</dimen>
     <dimen name="menu_bottom_margin">12dp</dimen>
     <dimen name="menu_item_size">48dp</dimen>

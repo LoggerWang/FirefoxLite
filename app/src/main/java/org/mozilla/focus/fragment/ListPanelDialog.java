@@ -75,7 +75,7 @@ public class ListPanelDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_listpanel_dialog, container, false);
         title = v.findViewById(R.id.title);
         View contentLayout = v.findViewById(R.id.container);
-        final float cornerRadius = getResources().getDimension(R.dimen.menu_corner_radius);
+        final float cornerRadius = getResources().getDimension(R.dimen.menu_corner_radius26);
         contentLayout.setOutlineProvider(new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {

@@ -51,7 +51,7 @@ class BottomBarItemAdapter(
             TYPE_SHARE -> ImageItem(type, R.id.bottom_bar_share, R.drawable.action_share, theme.buttonColorResId)
             TYPE_NEXT -> ImageItem(type, R.id.bottom_bar_next, R.drawable.action_next, theme.buttonColorResId)
             TYPE_PRIVATE_HOME -> PrivateHomeItem(type, R.id.bottom_bar_private_home)
-            TYPE_DELETE -> ImageItem(type, R.id.bottom_bar_delete, R.drawable.menu_delete, theme.buttonColorResId)
+            TYPE_DELETE -> ImageItem(type, R.id.bottom_bar_delete, R.drawable.menu_delete2, theme.buttonColorResId)
             TYPE_TRACKER -> TrackerItem(type, R.id.bottom_bar_tracker)
             TYPE_BACK -> ImageItem(type, R.id.bottom_bar_back, R.drawable.action_back, theme.buttonColorResId)
             TYPE_SHOPPING_SEARCH -> ShoppingSearchItem(type, R.id.bottom_bar_shopping_search, theme)

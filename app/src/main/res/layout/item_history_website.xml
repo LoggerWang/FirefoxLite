@@ -65,8 +65,8 @@
             android:background="@drawable/ripple_circle">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@drawable/action_menu" />
         </FrameLayout>

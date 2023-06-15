@@ -269,7 +269,7 @@
                             android:layout_width="52dp"
                             android:layout_height="52dp"
                             android:scaleType="centerInside"
-                            android:src="@drawable/menu_history"/>
+                            android:src="@drawable/ic_menu_find_in_page"/>
 
                         <TextView
                             android:layout_width="wrap_content"

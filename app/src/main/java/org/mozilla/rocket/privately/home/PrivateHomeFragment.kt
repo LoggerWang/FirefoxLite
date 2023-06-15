@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,7 +23,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.airbnb.lottie.LottieAnimationView
+import com.anysitebrowser.base.core.log.Logger
 import dagger.Lazy
+import de.blinkt.openvpn.OpenVpnApi
 import org.mozilla.focus.R
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
@@ -46,7 +49,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
     private lateinit var chromeViewModel: ChromeViewModel
     private lateinit var logoMan: LottieAnimationView
     private lateinit var fakeInput: View
-    private lateinit var privateModeBtn: View
+    private lateinit var privateModeBtn: TextView
     private lateinit var pm_home_brand_description : TextView
 
     @Override
@@ -73,6 +76,8 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         })
         privateModeBtn = view.findViewById(R.id.iv_home_mask)
         privateModeBtn.setOnClickListener {
+            Logger.d("legend", "===PrivateHomeFragment===点击回到正常模式===")
+
             chromeViewModel.togglePrivateMode.call()
             TelemetryWrapper.togglePrivateMode(false)
         }

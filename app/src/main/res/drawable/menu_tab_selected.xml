@@ -6,10 +6,11 @@
         android:width="38dp"
         android:height="38dp"/>
 
+
     <gradient
         android:type="linear"
-        android:startColor="#7abcff"
-        android:endColor="#0a84ff"
+        android:startColor="#2E60FF"
+        android:endColor="#2E60FF"
         android:angle="270"/>
 
 </shape>

@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.anysitebrowser.base.core.log.Logger
 import dagger.Lazy
 import mozilla.components.browser.session.SessionManager
 import org.mozilla.focus.BuildConfig
@@ -145,7 +146,10 @@ class PrivateModeActivity : BaseActivity(),
             }
         })
         chromeViewModel.togglePrivateMode.observe(this, Observer {
-            checkShortcutPromotion { pushToBack() }
+            Logger.d("legend", "===PrivateModeActivity===相应点击回到正常模式===")
+//            checkShortcutPromotion {
+                pushToBack()
+//            }
         })
         chromeViewModel.dropCurrentPage.observe(this, Observer {
             dropBrowserFragment()
@@ -215,10 +219,10 @@ class PrivateModeActivity : BaseActivity(),
         }
 
         if (!this.screenNavigator.canGoBack()) {
-            checkShortcutPromotion {
+//            checkShortcutPromotion {
                 TelemetryWrapper.exitPrivateMode(TelemetryWrapper.Extra_Value.SYSTEM_BACK)
                 finish()
-            }
+//            }
             return
         }
 

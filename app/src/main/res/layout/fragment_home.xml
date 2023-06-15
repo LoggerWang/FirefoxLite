@@ -88,7 +88,7 @@
             android:id="@+id/private_mode_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:foreground="@drawable/ripple_circle"
             android:elevation="1dp"
             android:scaleType="centerInside"
@@ -96,12 +96,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View android:layout_height="32dp"
+            android:layout_width="0.5dp"
+            android:background="#e6e6e6"/>
         <org.mozilla.rocket.nightmode.themed.ThemedView
             android:id="@+id/home_fragment_fake_input"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="4dp"
             android:background="@drawable/bg_shopping_search_btn"
             android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -110,8 +112,8 @@
             app:layout_constraintTop_toTopOf="parent" />
         <org.mozilla.rocket.nightmode.themed.ThemedImageView
             android:id="@+id/home_fragment_fake_input_icon"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
             android:elevation="1dp"
             android:src="@drawable/ic_search_home"
             android:tint="@color/home_search_bar_widget"

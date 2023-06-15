@@ -52,6 +52,7 @@
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivConnBg"
         app:layout_constraintEnd_toEndOf="@+id/ivConnBg"
+        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="@+id/ivConnBg"
         app:layout_constraintTop_toTopOf="@+id/ivConnBg" />
 

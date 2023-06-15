@@ -103,8 +103,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/bg_bottom_bar"
         android:clickable="true"
-        android:focusable="true"
-        app:dividerDrawable="@drawable/browser_menu_divider" />
+        android:focusable="true" />
 
     <FrameLayout
         android:id="@+id/video_container"

@@ -19,7 +19,7 @@
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_menu"
+            android:background="@drawable/bg_home_top_corner"
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:behavior_hideable="true"
             app:behavior_peekHeight="@dimen/menu_height">
@@ -125,11 +125,11 @@
 
             </org.mozilla.focus.widget.EqualDistributeGrid>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/paletteLightGreyA100"
-                android:layout_marginTop="53dp" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@color/paletteLightGreyA100"-->
+<!--                android:layout_marginTop="53dp" />-->
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/main_content"

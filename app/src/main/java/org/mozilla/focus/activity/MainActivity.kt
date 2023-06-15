@@ -551,19 +551,30 @@ class MainActivity : VpnBaseActivity(),
         appUpdateController.onActivityResult(requestCode, resultCode)
     }
 
+    private var preClickTime : Long = 0
     override fun onBackPressed() {
         when {
             supportFragmentManager.isStateSaved -> return
             getFirstRunScreen()?.isAnimationRunning() == true -> return
             screenNavigator.visibleBrowserScreen?.onBackPressed() == true -> return
-            !screenNavigator.canGoBack() -> {
+            /*!screenNavigator.canGoBack() -> {
                 if (consumeByExitToast().not()) {
                     exitToast?.cancel()
                     finish()
                 }
             }
-            else -> super.onBackPressed()
+            else -> super.onBackPressed()*/
+
+            else -> {
+                if(System.currentTimeMillis() - preClickTime < 2000){
+                    finish()
+                } else {
+                    Toast.makeText(this, R.string.message_exit_app, Toast.LENGTH_LONG).show()
+                }
+                preClickTime = System.currentTimeMillis()
+            }
         }
+        preClickTime = System.currentTimeMillis()
     }
 
     private fun consumeByExitToast(): Boolean {

@@ -97,7 +97,7 @@ public class BuriedPointUtil {
         map.put("error", error);
         map.put("request_id", request_id);
         map.put("node_id", node_id);
-        map.put("pve_cur", connectType.equals("1")?"/home/x/x":"VPN/x/x");
+        map.put("pve_cur", "/connect/result/x");
         Log.i("resultConnect", "result_connect " + map.toString());
         Stats.onEvent(ObjectStore.getContext(), "result_connect", map);
     }
@@ -110,7 +110,7 @@ public class BuriedPointUtil {
         map.put("request_id", request_id);
         map.put("node_id", node_id);
         map.put("net_type", net_type);
-        map.put("pve_cur", connectType.equals("1")?"/home/x/x":"VPN/x/x");
+        map.put("pve_cur", "/disconnect/result/x");
         Stats.onEvent(ObjectStore.getContext(), "result_disconnect", map);
         Log.i("real buried point", "result_disconnect " + map.toString());
     }

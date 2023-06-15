@@ -133,7 +133,7 @@ class SetVpnActivity : VpnBaseActivity() {
                 Logger.d("legenddd", "===断开成功上报====SetVpnActivity==")
                 var connectStartTime = OpenVpnApi.connectStartTime
                 OpenVpnApi.disconnectStartTime- connectStartTime
-                BuriedPointUtil.resultDisconnect("1", node?.zone_name,"",connectStartTime.toString(),Utils.createUniqueId(),node?.zone_id,
+                BuriedPointUtil.resultDisconnect("2", node?.zone_name,"",connectStartTime.toString(),Utils.createUniqueId(),node?.zone_id,
                     NetUtils.getNetworkTypeName(this))
             }
         } else if (connectState == ConnectState.STATE_START) {
@@ -153,7 +153,7 @@ class SetVpnActivity : VpnBaseActivity() {
                 var connectPos = settings.getInt("connect_pos",0)
                 var node = zoneList?.get(connectPos)
                 Logger.d("legenddd", "===链接成功上报====SetVpnActivity==")
-                BuriedPointUtil.resultConnect("1", node?.zone_name,"success","",Utils.createUniqueId(),node?.zone_id)
+                BuriedPointUtil.resultConnect("2", node?.zone_name,"success","",Utils.createUniqueId(),node?.zone_id)
             }
         } else {
             ivWorldBg.setImageResource(R.mipmap.bg_world_unconnect)
@@ -198,11 +198,11 @@ class SetVpnActivity : VpnBaseActivity() {
     override fun onResume() {
         super.onResume()
         inpageTime = System.currentTimeMillis()
-        BuriedPointUtil.addActivityInpage("/VPN/x/x","/home/x/x")
+        BuriedPointUtil.addActivityInpage("/VPN/x/x","/VPN/x/x")
     }
     override fun onPause() {
         super.onPause()
-        BuriedPointUtil.addActivityOutPage("/VPN/x/x", "/home/x/x", System.currentTimeMillis() - inpageTime)
+        BuriedPointUtil.addActivityOutPage("/VPN/x/x", "/VPN/x/x", System.currentTimeMillis() - inpageTime)
     }
 
 }

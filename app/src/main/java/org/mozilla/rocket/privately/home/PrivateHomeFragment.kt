@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +84,7 @@ class PrivateHomeFragment : LocaleAwareFragment(),
             Logger.d("legend", "===PrivateHomeFragment===点击回到正常模式===")
 
             chromeViewModel.togglePrivateMode.call()
+            StaticVar.currentSearchMode = "1"
             TelemetryWrapper.togglePrivateMode(false)
         }
         observeViewModel()
@@ -202,15 +204,12 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         }
     }
 
-    private var inpageTime : Long = 0
+
     override fun onResume() {
         super.onResume()
-        BuriedPointUtil.addActivityInpage("/pages/x/x", "/home/x/x")
-        inpageTime = System.currentTimeMillis()
     }
 
     override fun onPause() {
         super.onPause()
-        BuriedPointUtil.addActivityOutPage("/pages/x/x", "/home/x/x", System.currentTimeMillis() - inpageTime)
     }
 }

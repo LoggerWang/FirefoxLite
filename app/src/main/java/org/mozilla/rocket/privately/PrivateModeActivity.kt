@@ -10,6 +10,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -26,12 +28,14 @@ import org.mozilla.focus.navigation.ScreenNavigator
 import org.mozilla.focus.navigation.ScreenNavigator.BrowserScreen
 import org.mozilla.focus.navigation.ScreenNavigator.HomeScreen
 import org.mozilla.focus.navigation.ScreenNavigator.UrlInputScreen
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.urlinput.UrlInputFragment
 import org.mozilla.focus.utils.AppConstants
 import org.mozilla.focus.utils.SafeIntent
 import org.mozilla.focus.utils.ShortcutUtils
 import org.mozilla.focus.utils.SupportUtils
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
 import org.mozilla.rocket.chrome.ChromeViewModel.OpenUrlAction
 import org.mozilla.rocket.component.LaunchIntentDispatcher
@@ -47,6 +51,7 @@ import org.mozilla.rocket.privately.browse.BrowserFragment
 import org.mozilla.rocket.privately.browse.BrowserFragmentLegacy
 import org.mozilla.rocket.privately.home.PrivateHomeFragment
 import org.mozilla.rocket.tabs.TabsSessionProvider
+import java.net.URLDecoder
 import javax.inject.Inject
 
 class PrivateModeActivity : BaseActivity(),
@@ -126,6 +131,19 @@ class PrivateModeActivity : BaseActivity(),
                 dismissUrlInput()
                 startPrivateMode()
                 screenNavigator.showBrowserScreen(url, false, isFromExternal)
+
+                if(!TextUtils.isEmpty(url) && url.startsWith("http")){
+                    val index3 = url.indexOf("/")
+                    val index4 = url.indexOf("?")
+                    val host = if (index3 != -1 && index4 != -1) url.substring(0, index4) else url
+                    val regex = Regex("q=(.*?)&")
+                    val matchResult = regex.find(url)
+                    var searchKey = matchResult?.groupValues?.get(1)
+                    if(!TextUtils.isEmpty(searchKey)){
+                        searchKey = URLDecoder.decode(searchKey, "UTF-8")
+                        BuriedPointUtil.addSearchResult("/search/x/x", "success", searchKey, "2", host, url)
+                    }
+                }
             }
         })
         chromeViewModel.showUrlInput.observe(this, Observer { url ->

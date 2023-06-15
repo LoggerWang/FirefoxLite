@@ -160,11 +160,18 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
             }
         })
     }
-
+    private var inpageTime : Long = 0
     override fun onResume() {
         super.onResume()
         tabTrayViewModel.hasPrivateTab().value = getInstance(requireContext()).hasPrivateSession()
         tabTrayViewModel.checkShoppingSearchMode(requireContext())
+        BuriedPointUtil.addActivityInpage("/pages/x/x", "/home/x/x")
+        inpageTime = System.currentTimeMillis()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BuriedPointUtil.addActivityOutPage("/pages/x/x", "/home/x/x", System.currentTimeMillis() - inpageTime)
     }
 
     override fun onStart() {

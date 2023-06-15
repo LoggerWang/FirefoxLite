@@ -97,10 +97,10 @@ public class AboutFragment extends Fragment {
                 updateApk();
                 break;
             case 1:
-                BrowserActivity.launch(getActivity(), "https://web.freeproxy.network.com/privacy/index.html");
+                BrowserActivity.launch(getActivity(), "https://web.freeproxy.network/privacy/index.html");
                 break;
             case 2:
-                BrowserActivity.launch(getActivity(), "https://web.freeproxy.network.com/term/index.html");
+                BrowserActivity.launch(getActivity(), "https://web.freeproxy.network/term/index.html");
                 break;
         }
     }

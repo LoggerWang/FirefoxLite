@@ -201,7 +201,8 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                 //bottomBarItemAdapter.setBookmark(it == true)
                 Log.i("cecece", it.toString())
                 //添加到书签
-                DrawableCompat.setTint(iv_add_to_mark.drawable, context.resources.getColor(if (it)R.color.paletteDarkBlueC100 else R.color.paletteBlack100))
+//                DrawableCompat.setTint(iv_add_to_mark.drawable, context.resources.getColor(if (it)R.color.paletteDarkBlueC100 else R.color.paletteBlack100))
+                iv_add_to_mark.setImageResource(if (it) R.drawable.ic_add_bookmark_added else R.drawable.ic_add_bookmark)
             })
     }
 

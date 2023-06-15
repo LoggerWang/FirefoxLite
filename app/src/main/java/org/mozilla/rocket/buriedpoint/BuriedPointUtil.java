@@ -78,9 +78,14 @@ public class BuriedPointUtil {
         Log.i("browser buried point", "UF_PortalInfo " + map.toString());
     }
 
-    public static void addSearchResult(String curPage){
+    public static void addSearchResult(String curPage, String result, String searchKey, String searchMode, String host, String url){
         HashMap<String, String> map = new HashMap<>();
         map.put("pve_cur", curPage);
+        map.put("key1", result);
+        map.put("key2", searchKey);
+        map.put("key3", searchMode);
+        map.put("key4", host);
+        map.put("key5", url);
         Stats.onEvent(ObjectStore.getContext(), "search_result", map);
         Log.i("browser buried point", "search_result " + map.toString());
     }

@@ -45,6 +45,7 @@ import org.mozilla.focus.activity.MainActivity
 import org.mozilla.focus.activity.SetVpnActivity
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.tabs.TabCounter
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.DialogUtils
@@ -413,6 +414,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         home_fragment_fake_input_text.setOnClickListener {
             chromeViewModel.showUrlInput.call()
             TelemetryWrapper.showSearchBarHome()
+            StaticVar.currentSearchMode = "1"
             BuriedPointUtil.addClick("/search/x/x", "key1", "1")
         }
         home_fragment_menu_button.apply {

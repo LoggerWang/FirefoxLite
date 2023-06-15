@@ -29,6 +29,7 @@ import de.blinkt.openvpn.OpenVpnApi
 import org.mozilla.focus.R
 import org.mozilla.focus.locale.LocaleAwareFragment
 import org.mozilla.focus.navigation.ScreenNavigator
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.chrome.ChromeViewModel
@@ -70,7 +71,10 @@ class PrivateHomeFragment : LocaleAwareFragment(),
         fakeInput = view.findViewById(R.id.pm_home_fake_input)
         initDescription()
 
-        fakeInput.setOnClickListener { chromeViewModel.showUrlInput.call() }
+        fakeInput.setOnClickListener {
+            chromeViewModel.showUrlInput.call()
+            StaticVar.currentSearchMode = "2"
+        }
         chromeViewModel.isHomePageUrlInputShowing.observe(viewLifecycleOwner, Observer { isShowing ->
             if (isShowing == true) hideFakeInput() else showFakeInput()
         })

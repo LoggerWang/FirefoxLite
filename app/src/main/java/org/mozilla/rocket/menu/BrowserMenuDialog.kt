@@ -19,7 +19,7 @@ import dagger.Lazy
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.SetVpnActivity
-import org.mozilla.focus.settings.PrePage
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
 import org.mozilla.rocket.buriedpoint.BuriedPointUtil
@@ -243,7 +243,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
                 postDelayClickEvent {
                     cancel()
                     chromeViewModel.checkToDriveDefaultBrowser()
-                    PrePage.prePublicString = "/browser/x/x"
+                    StaticVar.prePublicString = "/browser/x/x"
                     chromeViewModel.openPreference.call()
                     TelemetryWrapper.clickMenuSettings()
                     BuriedPointUtil.addClick("/toolbar/more/settings")

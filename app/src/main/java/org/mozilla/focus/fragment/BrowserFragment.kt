@@ -58,6 +58,7 @@ import org.mozilla.focus.navigation.ScreenNavigator
 import org.mozilla.focus.navigation.ScreenNavigator.BrowserScreen
 import org.mozilla.focus.screenshot.CaptureRunnable
 import org.mozilla.focus.screenshot.CaptureRunnable.CaptureStateListener
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.tabs.tabtray.TabTray
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.telemetry.TelemetryWrapper.Extra_Value
@@ -111,6 +112,7 @@ import org.mozilla.rocket.tabs.web.Download
 import org.mozilla.threadutils.ThreadUtils
 import org.mozilla.urlutils.UrlUtils
 import java.lang.ref.WeakReference
+import java.net.URLDecoder
 import java.util.WeakHashMap
 import javax.inject.Inject
 
@@ -972,6 +974,17 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
         isFromExternal: Boolean,
         onViewReadyCallback: Runnable?
     ) {
+        if(!TextUtils.isEmpty(url) && url.startsWith("http")){
+            val index3 = url.indexOf("/")
+            val index4 = url.indexOf("?")
+            val host = if (index3 != -1 && index4 != -1) url.substring(0, index4) else url
+            val regex = Regex("q=(.*?)&")
+            val matchResult = regex.find(url)
+            var searchKey = matchResult?.groupValues?.get(1)
+            searchKey = URLDecoder.decode(searchKey, "UTF-8")
+            BuriedPointUtil.addSearchResult("/search/x/x", "success", searchKey, StaticVar.currentSearchMode, host, url)
+        }
+
         updateURL(url)
         if (SupportUtils.isUrl(url)) {
             if (openNewTab) {

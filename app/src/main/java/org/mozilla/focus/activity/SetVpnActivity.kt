@@ -99,7 +99,6 @@ class SetVpnActivity : VpnBaseActivity() {
                 OpenVpnApi.serverStateLiveData.value= ConnectState.STATE_DISCONNECTED
                 Toast.makeText(this@SetVpnActivity,"please check your network", Toast.LENGTH_LONG).show()
             }
-            BuriedPointUtil.addClick("/VPN/VPN_switch/x")
             val state = OpenVpnApi.serverStateLiveData.value
             if (state == null || state == ConnectState.STATE_DISCONNECTED) {
                 OpenVpnApi.connectType = "2"

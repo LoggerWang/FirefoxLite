@@ -6,23 +6,18 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anysitebrowser.base.core.log.Logger
-import com.anysitebrowser.base.core.net.NetUtils
-import com.anysitebrowser.tools.core.utils.Utils
 import de.blinkt.openvpn.OpenVpnApi
 import de.blinkt.openvpn.model.ZoneBean
 import de.blinkt.openvpn.utils.ConnectState
 import de.blinkt.openvpn.utils.Settings
 import org.mozilla.focus.R
-import org.mozilla.focus.settings.PrePage
 import org.mozilla.focus.vpn.IOnItemClick
 import org.mozilla.focus.vpn.ServerAdapter
 import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.util.isNetworkAvailable
-import java.util.HashMap
 
 class SetVpnActivity : VpnBaseActivity() {
 

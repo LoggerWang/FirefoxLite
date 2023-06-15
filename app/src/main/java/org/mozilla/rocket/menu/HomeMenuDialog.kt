@@ -11,14 +11,13 @@ import android.view.ViewOutlineProvider
 import android.widget.*
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import dagger.Lazy
 import org.mozilla.fileutils.FileUtils
 import org.mozilla.focus.R
 import org.mozilla.focus.activity.SetVpnActivity
-import org.mozilla.focus.settings.PrePage
+import org.mozilla.focus.settings.StaticVar
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.FormatUtils
 import org.mozilla.rocket.buriedpoint.BuriedPointUtil
@@ -182,7 +181,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                 postDelayClickEvent {
                     cancel()
                     chromeViewModel.checkToDriveDefaultBrowser()
-                    PrePage.prePublicString = "/home/x/x"
+                    StaticVar.prePublicString = "/home/x/x"
                     chromeViewModel.openPreference.call()
                     TelemetryWrapper.clickMenuSettings()
                     BuriedPointUtil.addClick("/toolbar/more/settings")
@@ -279,7 +278,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                 postDelayClickEvent {
                     cancel()
                     chromeViewModel.checkToDriveDefaultBrowser()
-                    PrePage.prePublicString = "/home/x/x"
+                    StaticVar.prePublicString = "/home/x/x"
                     chromeViewModel.openPreference.call()
                     TelemetryWrapper.clickMenuSettings()
                 }

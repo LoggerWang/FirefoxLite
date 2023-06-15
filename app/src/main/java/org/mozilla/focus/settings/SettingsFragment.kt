@@ -17,14 +17,12 @@ import android.preference.PreferenceFragment
 import android.preference.PreferenceScreen
 import android.text.TextUtils
 import org.mozilla.focus.R
-import org.mozilla.focus.activity.InfoActivity
 import org.mozilla.focus.activity.SettingsActivity
 import org.mozilla.focus.locale.LocaleManager
 import org.mozilla.focus.locale.Locales
 import org.mozilla.focus.telemetry.TelemetryWrapper
 import org.mozilla.focus.utils.AppConstants
 import org.mozilla.focus.utils.DialogUtils.createRateAppDialog
-import org.mozilla.focus.utils.DialogUtils.createShareAppDialog
 import org.mozilla.focus.utils.DialogUtils.realShare
 import org.mozilla.focus.utils.FirebaseHelper.getFirebase
 import org.mozilla.focus.utils.Settings
@@ -142,7 +140,8 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         val preference = findPreference(getString(R.string.pref_key_default_browser)) as DefaultBrowserPreference?
         preference?.onFragmentResume()
-        BuriedPointUtil.addActivityInpage("/settings/x/x",PrePage.prePublicString)
+        BuriedPointUtil.addActivityInpage("/settings/x/x",
+            StaticVar.prePublicString)
         inpageTime = System.currentTimeMillis()
     }
 
@@ -151,7 +150,7 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
         val preference = findPreference(getString(R.string.pref_key_default_browser)) as DefaultBrowserPreference?
         preference?.onFragmentPause()
         preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-        BuriedPointUtil.addActivityOutPage("/settings/x/x", PrePage.prePublicString, System.currentTimeMillis() - inpageTime)
+        BuriedPointUtil.addActivityOutPage("/settings/x/x", StaticVar.prePublicString, System.currentTimeMillis() - inpageTime)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {

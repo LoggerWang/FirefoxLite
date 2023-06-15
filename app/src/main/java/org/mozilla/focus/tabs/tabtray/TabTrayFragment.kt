@@ -58,6 +58,7 @@ import org.mozilla.focus.telemetry.TelemetryWrapper.privateModeTray
 import org.mozilla.focus.telemetry.TelemetryWrapper.swipeTabFromTabTray
 import org.mozilla.focus.utils.Settings
 import org.mozilla.focus.utils.ViewUtils
+import org.mozilla.rocket.buriedpoint.BuriedPointUtil
 import org.mozilla.rocket.content.appComponent
 import org.mozilla.rocket.content.getActivityViewModel
 import org.mozilla.rocket.home.HomeViewModel
@@ -214,12 +215,19 @@ class TabTrayFragment : DialogFragment(), TabTrayContract.View, View.OnClickList
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.new_tab_button -> onNewTabClicked()
-            R.id.close_all_tabs_btn -> onCloseAllTabsClicked()
+            R.id.new_tab_button -> {
+                onNewTabClicked()
+                BuriedPointUtil.addClick("/pages/add/x")
+            }
+            R.id.close_all_tabs_btn -> {
+                onCloseAllTabsClicked()
+                BuriedPointUtil.addClick("/pages/clean_all/x")
+            }
             R.id.private_browsing_btn -> {
                 privateModeTray(isInLandscape)
                 startActivity(PrivateModeActivity.getStartIntent(requireContext()))
                 activity?.overridePendingTransition(R.anim.pb_enter, R.anim.pb_exit)
+                BuriedPointUtil.addClick("/pages/privacy_mode/x")
             }
             else -> {
             }

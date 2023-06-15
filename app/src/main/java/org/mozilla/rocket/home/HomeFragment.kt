@@ -440,7 +440,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         home_fragment_tab_counter.setOnClickListener {
             chromeViewModel.showTabTray.call()
             TelemetryWrapper.showTabTrayHome()
-            BuriedPointUtil.addClick("/toolbar/page/x")
+            BuriedPointUtil.addClick("/toolbar/pages/x")
         }
         chromeViewModel.tabCount.observe(viewLifecycleOwner, Observer {
             setTabCount(it ?: 0)
@@ -458,6 +458,7 @@ class HomeFragment : LocaleAwareFragment(), ScreenNavigator.HomeScreen {
         })
         private_mode_button.setOnClickListener {
             homeViewModel.onPrivateModeButtonClicked()
+            BuriedPointUtil.addClick("/search/privacy_mode/x")
         }
         homeViewModel.openPrivateMode.observe(viewLifecycleOwner, Observer {
             chromeViewModel.togglePrivateMode.call()

@@ -90,14 +90,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground" />
+
             <org.mozilla.rocket.nightmode.themed.ThemedImageView
                 android:id="@+id/plus_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:scaleType="center"
-                app:srcCompat="@drawable/action_add"
                 android:tint="@color/tab_tray_private_btn"
+                app:srcCompat="@drawable/action_add"
                 tools:ignore="contentDescription" />
 
 

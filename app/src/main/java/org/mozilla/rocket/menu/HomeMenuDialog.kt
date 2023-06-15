@@ -200,6 +200,7 @@ class HomeMenuDialog : LifecycleBottomSheetDialog {
                 postDelayClickEvent {
                     cancel()
                     val intent = Intent(context, SetVpnActivity::class.java)
+                    intent.putExtra("pre_page","/home/x/x")
                     context.startActivity(intent)
                     BuriedPointUtil.addClick("/toolbar/more/vpn")
                 }

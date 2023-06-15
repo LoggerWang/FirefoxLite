@@ -6,6 +6,7 @@ import android.graphics.Outline
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.*
@@ -193,6 +194,17 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
         }
     }
 
+    override fun show() {
+        super.show()
+        chromeViewModel.isCurrentUrlBookmarked.switchFrom(menuViewModel.bottomItems)
+            .observe(this@BrowserMenuDialog, Observer {
+                //bottomBarItemAdapter.setBookmark(it == true)
+                Log.i("cecece", it.toString())
+                //添加到书签
+                DrawableCompat.setTint(iv_add_to_mark.drawable, context.resources.getColor(if (it)R.color.paletteDarkBlueC100 else R.color.paletteBlack100))
+            })
+    }
+
     private fun initMenuItems(contentLayout: View) {
         contentLayout.apply {
             chromeViewModel.isTurboModeEnabled.observe(this@BrowserMenuDialog, Observer {
@@ -355,6 +367,7 @@ class BrowserMenuDialog : LifecycleBottomSheetDialog {
         chromeViewModel.isCurrentUrlBookmarked.switchFrom(menuViewModel.bottomItems)
                 .observe(this, Observer {
                     bottomBarItemAdapter.setBookmark(it == true)
+                    Log.i("cecece", it.toString())
                     //添加到书签
                     DrawableCompat.setTint(iv_add_to_mark.drawable, context.resources.getColor(if (it)R.color.paletteDarkBlueC100 else R.color.paletteBlack100))
                 })

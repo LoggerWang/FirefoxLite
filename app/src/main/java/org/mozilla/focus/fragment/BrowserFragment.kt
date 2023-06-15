@@ -981,8 +981,10 @@ class BrowserFragment : LocaleAwareFragment(), BrowserScreen, LifecycleOwner, Ba
             val regex = Regex("q=(.*?)&")
             val matchResult = regex.find(url)
             var searchKey = matchResult?.groupValues?.get(1)
-            searchKey = URLDecoder.decode(searchKey, "UTF-8")
-            BuriedPointUtil.addSearchResult("/search/x/x", "success", searchKey, StaticVar.currentSearchMode, host, url)
+            if(!TextUtils.isEmpty(searchKey)){
+                searchKey = URLDecoder.decode(searchKey, "UTF-8")
+                BuriedPointUtil.addSearchResult("/search/x/x", "success", searchKey, StaticVar.currentSearchMode, host, url)
+            }
         }
 
         updateURL(url)
